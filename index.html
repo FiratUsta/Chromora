@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Color Thing</title>
+</head>
+<body>
+    <main>
+        <div id="input">
+            <div class="section">
+                <div class="header">
+                    <h1>STEP 1</h1>
+                    <i>Choose a base color</i>
+                    <div class="helpButton">
+                        <p>?</p>
+                        <div class="helpPanel">
+                            <p>The color you choose on this panel will be used as a reference to generate the palette.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="colorPicker">
+                    <div id="colorWheel">
+                        <div id="picker"></div>
+                    </div>
+                    <div class="label">
+                        <p>V:</p>
+                        <input type="range" name="value" id="value" value="100">
+                    </div>
+                </div>
+
+                <div class="label">
+                    <p>HEX:</p>
+                    <input type="text" name="hex" id="hex" value="#FFFFFF">
+                </div>
+
+                <div class="label">
+                    <p>RGB:</p>
+                    <div class="horizontal">
+                        <input type="number" name="r" id="r" min="0" max="255" value="255">
+                        <input type="number" name="g" id="g" min="0" max="255" value="255">
+                        <input type="number" name="b" id="b" min="0" max="255" value="255">
+                    </div>
+                </div>
+
+                <div class="label">
+                    <p>HSV:</p>
+                    <div class="horizontal">
+                        <input type="number" name="h" id="h" min="0" max="359" value="0">
+                        <input type="number" name="s" id="s" min="0" max="100" value="100">
+                        <input type="number" name="v" id="v" min="0" max="100" value="100">
+                    </div>
+                </div>
+                
+                <input type="button" value="Random" id="randomButton" class="colorButton">
+            </div>
+            
+            <div class="section">
+                <div class="header">
+                    <h1>STEP 2</h1>
+                    <i>Adjust your parameters</i>
+                    <div class="helpButton">
+                        <p>?</p>
+                        <div class="helpPanel">
+                            <p>The parameters on this panel help you adjust the color combinations on the palette, as well as your export options.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="section">
+                <div class="header">
+                    <h1>STEP 3</h1>
+                    <i>See your palette</i>
+                    <div class="helpButton">
+                        <p>?</p>
+                        <div class="helpPanel">
+                            <p>Hover over swatches to see color information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </main>
+</body>
+</html>

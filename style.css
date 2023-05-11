@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+/* CSS RESET */
+* {margin: 0;}
+input, textarea, select {font: inherit;}
+*, *::before, *::after{box-sizing: border-box;}
+html, body, main {margin: 0;padding: 0;height: 100%;width: 100%;}
+/* RESET END */
+html{
+    scroll-behavior: smooth;
+}
+/* ROOT */
+:root{
+    --background: white;
+    --foreground: #363636;
+    --accent-one: #868686;
+    --accent-two: #FFFFFF;
+    --accent-three: #363636;
+}
+/* MAIN */
+main{
+    font-family: 'Roboto', sans-serif;
+    accent-color: var(--accent-two);
+}
+/* INPUT */
+#input{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5%;
+}
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+    height: 95%;
+    min-height: 400px;
+    color: var(--foreground);
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+.section .header{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    border-bottom: 1px solid var(--foreground);
+    padding-bottom: 10px;
+}
+.section .header i{
+    color: var(--accent-one);
+}
+.helpButton{
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-one);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.section .helpButton{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    height: 20px;
+    width: 20px;
+}
+.helpPanel{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    color: var(--foreground);
+    width: 300px;
+    top: 100%;
+    right: 50%;
+    border-radius: 10px;
+    z-index: 2;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.35s;
+}
+.helpButton:hover .helpPanel{
+    opacity: 1;
+}
+/* COLOR PICKER */
+#colorPicker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    min-height: 150px;
+    gap: 10px;
+}
+#colorWheel{
+    position: relative;
+    flex-grow: 1;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    background-image: url("/assets/wheel.png");
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+    /* overflow: hidden; */
+}
+#colorWheel #picker{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 3px solid var(--foreground);
+    top: calc(50% - 10px);
+    left: calc(50% - 10px);
+    position: absolute;
+    pointer-events: none;
+}
+.label{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 10px;
+    user-select: none;
+}
+input[type=range]{
+    width: 100%;
+}
+input[type=text]{
+    border: none;
+    border-bottom: 1px solid var(--accent-one);
+    width: 100%;
+}
+input[type=text]:focus,
+input[type=number]:focus{
+    outline: none;
+}
+.label .horizontal{
+    display: flex;
+    gap: 5%;
+    width: 10px;
+    width: 100%;
+}
+input[type=number]{
+    border: none;
+    border-bottom: 1px solid var(--accent-one);
+    width: 30%;
+}
+.noCursor{
+    cursor: none !important;
+}
+.colorButton{
+    width: 90%;
+    height: 50px;
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+    border-radius: 10px;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.45s;
+    font-weight: bold;
+}
+.colorButton:hover{
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.5);
+}
+.colorButton:active{
+    transition: all 0s;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
+/* OUTPUT */
+#output{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#display{
+    display: flex;
+    width: 50%;
+    height: 50%;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.55);
+}
+
+.swatch{
+    flex-grow: 1;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.swatch:hover{
+    flex-grow: 3;
+}

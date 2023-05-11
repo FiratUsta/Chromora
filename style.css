@@ -38,7 +38,8 @@ main{
     justify-content: space-between;
     width: 30%;
     height: 95%;
-    min-height: 400px;
+    min-height: 550px;
+    min-width: 255px;
     color: var(--foreground);
     box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -76,9 +77,6 @@ main{
 }
 .helpPanel{
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: var(--background);
     color: var(--foreground);
     width: 300px;
@@ -128,6 +126,7 @@ main{
     pointer-events: none;
 }
 .label{
+    position: relative;
     width: 80%;
     display: grid;
     grid-template-columns: 50px 1fr;
@@ -161,7 +160,7 @@ input[type=number]{
     cursor: none !important;
 }
 .colorButton{
-    width: 90%;
+    width: 100%;
     height: 50px;
     background-color: var(--accent-two);
     color: var(--accent-three);
@@ -171,6 +170,7 @@ input[type=number]{
     cursor: pointer;
     transition: box-shadow 0.45s;
     font-weight: bold;
+    margin-top: 10px;
 }
 .colorButton:hover{
     box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.5);
@@ -179,23 +179,47 @@ input[type=number]{
     transition: all 0s;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
-/* OUTPUT */
-#output{
+/* OPTIONS */
+.fullWidth{
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 10px;
 }
-
+.fullWidth .label{
+    width: 100%;
+    justify-items: start;
+    grid-template-columns: 100px 1fr;
+}
+.fullWidth hr{
+    border: none;
+    border-bottom: 1px solid var(--accent-one);
+}
+.fullWidth .helpPanel{
+    width: 300px;
+    top: 0;
+    right: 150%;
+    transform: translateY(-50%);
+}
+.fullWidth .horizontal{
+    display: flex;
+    gap: 20px;
+}
+.filler{
+    flex-grow: 1;
+}
+/* OUTPUT */
 #display{
     display: flex;
-    width: 50%;
-    height: 50%;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
     border: none;
-    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.55);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.55); */
 }
 
 .swatch{
@@ -206,3 +230,47 @@ input[type=number]{
 .swatch:hover{
     flex-grow: 3;
 }
+
+/* Print */
+#print{
+    display: none;
+    aspect-ratio: 1/1.4;
+    height: 100%;
+}
+#printDisplay{
+    display: flex;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+#printColors{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+}
+.printColor{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.printSwatch{
+    aspect-ratio: 1/1;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+@media print{
+    html{
+        print-color-adjust: exact;
+    }
+    #input {
+      visibility: hidden;
+    }
+    #print{
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }

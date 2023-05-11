@@ -15,11 +15,14 @@ const Tools = (() => {
 
         for(let i = 0; i < hex.length; i++){
             const char = hex.charAt(i).toUpperCase();
+            let base;
+            const power =  hex.length - 1 - i;
             if(char in letters){
-                num += letters[char] * 16;
+                base = letters[char];
             }else{
-                num += parseInt(char) * 16;
+                base = parseInt(char);
             }
+            num += base * (16 ** power);
         }
 
         return num;
@@ -35,7 +38,7 @@ const Tools = (() => {
 
     function wrap(left, right, min, max){
         let result = left + right;
-        if(result > max || result < min){result += -max * Math.sign(left, right)};
+        if(result > max || result < min){result += -max * Math.sign(left + right)};
         return result;
     }
 
@@ -98,9 +101,9 @@ class Color{
     }
 
     fromHEX(hex){
-        const hexRed = hex.substring(1, 2);
-        const hexGreen = hex.substring(3, 4);
-        const hexBlue = hex.substring(5, 6);
+        const hexRed = hex.substring(1, 3);
+        const hexGreen = hex.substring(3, 5);
+        const hexBlue = hex.substring(5, 7);
 
         this.red = Tools.hexToNum(hexRed);
         this.green = Tools.hexToNum(hexGreen);
@@ -166,7 +169,7 @@ class Swatch{
 
         this.color = color;
         this.update(this.color);
-    }
+    }2
 
     update(color){
         this.color = color;
@@ -274,6 +277,7 @@ const ColorWheel = (() => {
         const posY = radius + (rotY * radius);
 
         _movePicker(posX, posY);
+        valueInput.value = hsv.value * 100;
     }
 
     function init(){
@@ -318,6 +322,8 @@ const ColorWheel = (() => {
 
 const ColorGenerator = (() => {
 
+    let palette = [];
+
     function _calculateValues(value, amount){
         let values = [];
 
@@ -331,27 +337,37 @@ const ColorGenerator = (() => {
         return values;
     }
 
-    function generateColors(base, points, amount){
+    function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
+        palette = [];
         const display = document.getElementById("display");
         display.innerHTML = "";
         const hsv = base.hsv();
         const values = _calculateValues(hsv.value, amount);
-        const shift = 360 / points;
-
-        const colors = [];
-
+        
+        let shift;
+        let mod = 1;
+        if(!analogous){
+            shift = 360 / points;
+        }else{
+            shift = analogousAngle;
+        }
+        
         for(let i = 0; i < points; i++){
             for(let j = 0; j < amount; j++){
-                const color = new Color().fromHSV(Tools.wrapAngle(hsv.hue, shift * i), hsv.saturation, values[j]);
-                colors.push(color);
+                if(analogous){
+                    mod = (i % 2 === 0 ? -1 : 1);
+                }
+                const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
+                const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
+                palette.push(color);
             }
         }
 
-        colors.forEach(color => {
-            new Swatch(display, color);
-        });
+        return palette;
+    }
 
-        // return colors;
+    function getPalette(){
+        return palette;
     }
 
     function random(_color, amount){
@@ -372,6 +388,7 @@ const ColorGenerator = (() => {
     return{
         init,
         generateColors,
+        getPalette,
         random
     }
 
@@ -380,9 +397,13 @@ const ColorGenerator = (() => {
 const DOMHandler = (() => {
 
     const swatchDisplay = document.getElementById("display");
-    const base = document.getElementById("hexval");
-    const points = document.getElementById("points");
-    const amount = document.getElementById("amount");
+    // Generator Parameters
+    const base = document.getElementById("hex");
+    const points = document.getElementById("hues");
+    const amount = document.getElementById("tones");
+    const random = document.getElementById("randomHues");
+    const analogous = document.getElementById("analogous");
+    const angle = document.getElementById("analogousAngle")
     // HEX input
     const hexInput = document.getElementById("hex");
     // RGB input
@@ -393,12 +414,23 @@ const DOMHandler = (() => {
     const hInput = document.getElementById("h");
     const sInput = document.getElementById("s");
     const vInput = document.getElementById("v");
+    // Export types
+    const exImage = document.getElementById("exportImage");
+    const exPrint = document.getElementById("exportPrint");
+    // Print area
+    const printDisplay = document.getElementById("printDisplay");
+    const printColors = document.getElementById("printColors");
 
     function _generate(){
         swatchDisplay.innerHTML = "";
 
         const baseColor = new Color().fromHEX(base.value);
-        const colors = ColorGenerator.generateColors(baseColor, points.value, amount.value);
+        let colors;
+        if(random.checked){
+            colors = ColorGenerator.random(baseColor, points.value);
+        }else{
+            colors = ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value);
+        };
 
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(swatchDisplay, colors[i]);
@@ -409,6 +441,84 @@ const DOMHandler = (() => {
         const color = new Color().random();
         ColorWheel.positionFromHSV(color);
         updateColors(color);
+        _generate();
+    }
+
+    function _colorInput(mode){
+        let color;
+        switch(mode){
+            case "hsv":
+                color = new Color().fromHSV(hInput.value, sInput.value / 100, vInput.value / 100);
+                break;
+            
+            case "rgb":
+                color = new Color(rInput.value, gInput.value, bInput.value);
+                break;
+
+            case "hex":
+                color = new Color().fromHEX(hexInput.value);
+                break
+
+            default:
+                break;
+        }
+        ColorWheel.positionFromHSV(color);
+        updateColors(color);
+    }
+
+    function _createPrintSwatches(color, index){
+        // For color list
+        const container = document.createElement("div");
+        container.classList.add("printColor");
+
+        const swatch = document.createElement("div");
+        swatch.classList.add("printSwatch");
+        swatch.style.backgroundColor = color.hex();
+        container.appendChild(swatch);
+
+        const infoContainer = document.createElement("div");
+        infoContainer.classList.add("printInfo");
+        container.appendChild(infoContainer);
+
+        const title = document.createElement("h4");
+        title.innerHTML = "<b>Color " + index + "</b>";
+        infoContainer.appendChild(title);
+
+        const hex = document.createElement("p");
+        hex.innerHTML = "<b>HEX:</b> " + color.hex();
+        infoContainer.appendChild(hex);
+
+        const rgb = document.createElement("p");
+        rgb.innerHTML = "<b>RGB:</b> " + color.red + ", " + color.green + ", " + color.blue;
+        infoContainer.appendChild(rgb);
+
+        const HSV = color.hsv();
+        const hsv = document.createElement("p");
+        hsv.innerHTML = "<b>HSV:</b> " + Math.round(HSV.hue) + "°, " + Math.round(HSV.saturation * 100) + "%, " + (HSV.value * 100) + "%";
+        infoContainer.appendChild(hsv);
+        
+        // For the display
+        const displaySwatch = document.createElement("div");
+        displaySwatch.classList.add("swatch");
+        displaySwatch.style.backgroundColor = color.hex();
+        
+        return {displaySwatch, container};
+    }
+
+    function _export(){
+        if(exPrint.checked){
+            printDisplay.innerHTML = "";
+            printColors.innerHTML = "";
+
+            const palette = ColorGenerator.getPalette();
+            for(let i = 0; i < palette.length; i++){
+                const elems= _createPrintSwatches(palette[i], i + 1);
+                printDisplay.appendChild(elems.displaySwatch);
+                printColors.appendChild(elems.container);
+            };
+
+            window.print();
+        };
     }
 
     function updateColors(color){
@@ -439,30 +549,7 @@ const DOMHandler = (() => {
         }
     }
 
-    function _colorInput(mode){
-        let color;
-        switch(mode){
-            case "hsv":
-                color = new Color().fromHSV(hInput.value, sInput.value / 100, vInput.value / 100);
-                break;
-            
-            case "rgb":
-                color = new Color(rInput.value, gInput.value, bInput.value);
-                break;
-
-            case "hex":
-                color = new Color().fromHEX(hexInput.value);
-                break
-
-            default:
-                break;
-        }
-        ColorWheel.positionFromHSV(color);
-        updateColors(color);
-    }
-
     function init(){
-        // document.getElementById("generate").onclick = _generate;
         rInput.onchange = () => _colorInput("rgb");
         gInput.onchange = () => _colorInput("rgb");
         bInput.onchange = () => _colorInput("rgb");
@@ -470,7 +557,9 @@ const DOMHandler = (() => {
         sInput.onchange = () => _colorInput("hsv");
         vInput.onchange = () => _colorInput("hsv");
         hexInput.onchange = () => _colorInput("hex");
-        document.getElementById("randomButton").onclick = () => _randomColor();
+        document.getElementById("randomButton").onclick = () => {_randomColor()};
+        document.getElementById("generateButton").onclick = _generate;
+        document.getElementById("exportButton").onclick = _export;
     }
 
     return{

@@ -150,7 +150,7 @@ main{
     aspect-ratio: 1/1;
     border-radius: 50%;
     box-shadow: 0 10px 15px 0 var(--shadow-light);
-    background-image: url("/assets/wheel.png");
+    background-image: url("./assets/wheel.png");
     background-position: center;
     background-size: cover;
     cursor: pointer;

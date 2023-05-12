@@ -199,6 +199,15 @@ input[type=number]{
     border: none;
     border-bottom: 1px solid var(--accent-one);
     width: 30%;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+/* Webkit spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 input{
     background-color: var(--background);

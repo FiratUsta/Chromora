@@ -11,16 +11,57 @@ html{
 }
 /* ROOT */
 :root{
-    --background: white;
+    --background: #F5F5F5;
     --foreground: #363636;
     --accent-one: #868686;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-dark: rgba(0, 0, 0, 0.5);
     --accent-two: #FFFFFF;
     --accent-three: #363636;
 }
+@media (prefers-color-scheme: dark){
+    :root{
+        --background: #363636;
+        --foreground: #F5F5F5;
+        --accent-one: #AFAFAF;
+        --shadow-light: rgba(0, 0, 0, 0.5);
+        --shadow-dark: rgba(0, 0, 0, 0.8)
+    }   
+}
 /* MAIN */
+html,body,main{
+    background-color: var(--background);
+}
 main{
     font-family: 'Roboto', sans-serif;
     accent-color: var(--accent-two);
+}
+/* THEMER */
+.themer{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--foreground);
+    user-select: none;
+}
+.themer p{
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: transform 0.5s, opacity 0.5s;
+}
+.themer:hover p{
+    opacity: 1;
+    transform: translateX(0);
+}
+#themeToggle{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: var(--background);
+    z-index: 2;
 }
 /* INPUT */
 #input{
@@ -41,7 +82,7 @@ main{
     min-height: 550px;
     min-width: 255px;
     color: var(--foreground);
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 15px 0 var(--shadow-light);
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
@@ -65,7 +106,7 @@ main{
     justify-content: center;
     align-items: center;
     color: var(--accent-one);
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px 0 var(--shadow-dark);
     cursor: pointer;
 }
 .section .helpButton{
@@ -84,13 +125,13 @@ main{
     right: 50%;
     border-radius: 10px;
     z-index: 2;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px 0 var(--shadow-dark);
     pointer-events: none;
     padding: 10px;
     opacity: 0;
     transition: opacity 0.35s;
 }
-.helpButton:hover .helpPanel{
+.helpButton:hover .helpPanel, .helpButton.hover .helpPanel{
     opacity: 1;
 }
 /* COLOR PICKER */
@@ -108,7 +149,7 @@ main{
     flex-grow: 1;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 15px 0 var(--shadow-light);
     background-image: url("/assets/wheel.png");
     background-position: center;
     background-size: cover;
@@ -119,7 +160,7 @@ main{
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    border: 3px solid var(--foreground);
+    border: 3px solid var(--accent-three);
     top: calc(50% - 10px);
     left: calc(50% - 10px);
     position: absolute;
@@ -156,6 +197,10 @@ input[type=number]{
     border-bottom: 1px solid var(--accent-one);
     width: 30%;
 }
+input{
+    background-color: var(--background);
+    color: var(--foreground);
+}
 .noCursor{
     cursor: none !important;
 }
@@ -165,7 +210,7 @@ input[type=number]{
     background-color: var(--accent-two);
     color: var(--accent-three);
     border-radius: 10px;
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 15px 0 var(--shadow-light);
     border: none;
     cursor: pointer;
     transition: box-shadow 0.45s;
@@ -173,11 +218,11 @@ input[type=number]{
     margin-top: 10px;
 }
 .colorButton:hover{
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 15px 0 var(--shadow-dark);
 }
 .colorButton:active{
     transition: all 0s;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px 0 var(--shadow-dark);
 }
 /* OPTIONS */
 .fullWidth{
@@ -219,18 +264,14 @@ input[type=number]{
     overflow: hidden;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    /* box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.55); */
 }
-
 .swatch{
     flex-grow: 1;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
 .swatch:hover{
     flex-grow: 3;
 }
-
 /* Print */
 #print{
     display: none;
@@ -264,7 +305,10 @@ input[type=number]{
     html{
         print-color-adjust: exact;
     }
-    #input {
+    html,body,main{
+        background-color: white;
+    }
+    #input, #themeToggle{
       visibility: hidden;
     }
     #print{
@@ -273,4 +317,55 @@ input[type=number]{
       top: 0;
       left: 0;
     }
-  }
+}
+/* RESPONSIVE DESIGN */
+@media only screen and (max-width: 850px) {
+    #input{
+        width: 100%;
+        height: 300%;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        padding: 0;
+        justify-content:normal;
+    }
+    .themer{
+        position: fixed;
+    }
+    .themer p{
+        display: none;
+    }
+    #themeToggle{
+        background-color: transparent;
+    }
+    .section{
+        width: 100%;
+        min-width: none;
+        height: 100%;
+        min-height: none;
+        border-radius: 0;
+        padding: 10px;
+        gap: 10px;
+    }
+    #colorPicker{
+        max-width: 100%;
+        height: 40%;
+        min-height: none;
+        gap: 10px;
+    }
+    #display{
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .helpButton .helpPanel{
+        position: absolute;
+        width: 100vw;
+        top: 0;
+        right: -100%;
+        border-radius: 0;
+        border-top: 2px solid var(--foreground);
+        border-bottom: 2px solid var(--foreground);
+        box-shadow: 0 0 15px 0 black;
+    }
+}

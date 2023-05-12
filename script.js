@@ -420,6 +420,9 @@ const DOMHandler = (() => {
     // Print area
     const printDisplay = document.getElementById("printDisplay");
     const printColors = document.getElementById("printColors");
+    // Color scheme
+    const themeToggle = document.getElementById("themeToggle");
+    let theme;
 
     function _generate(){
         swatchDisplay.innerHTML = "";
@@ -494,7 +497,7 @@ const DOMHandler = (() => {
 
         const HSV = color.hsv();
         const hsv = document.createElement("p");
-        hsv.innerHTML = "<b>HSV:</b> " + Math.round(HSV.hue) + "°, " + Math.round(HSV.saturation * 100) + "%, " + (HSV.value * 100) + "%";
+        hsv.innerHTML = "<b>HSV:</b> " + Math.round(HSV.hue) + "°, " + Math.round(HSV.saturation * 100) + "%, " + Math.round(HSV.value * 100) + "%";
         infoContainer.appendChild(hsv);
         
         // For the display
@@ -521,6 +524,42 @@ const DOMHandler = (() => {
         };
     }
 
+    function _checkColorPreference(){
+        if (window.matchMedia) {
+            if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+                return "dark";
+            } else {
+                return "light";
+            }
+        } else {
+            return "light";
+        };
+    }
+
+    function _toggleTheme(){
+        switch(theme){
+            case "dark":
+                theme = "light";
+                document.documentElement.style.setProperty('--background', "#F5F5F5");
+                document.documentElement.style.setProperty('--foreground', "#363636");
+                document.documentElement.style.setProperty('--shadow-light', "rgba(0, 0, 0, 0.2)");
+                document.documentElement.style.setProperty('--shadow-dark', "rgba(0, 0, 0, 0.5)");
+                document.documentElement.style.setProperty('--accent-one', "#868686");
+                break;
+            case "light":
+                theme = "dark";
+                document.documentElement.style.setProperty('--background', "#363636");
+                document.documentElement.style.setProperty('--foreground', "#F5F5F5");
+                document.documentElement.style.setProperty('--shadow-light', "rgba(0, 0, 0, 0.5)");
+                document.documentElement.style.setProperty('--shadow-dark', "rgba(0, 0, 0, 0.8)");
+                document.documentElement.style.setProperty('--accent-one', "#AFAFAF");
+                break;
+            case _:
+                break;
+        }
+        themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
+    }
+
     function updateColors(color){
         const hexCode = color.hex();
         hexInput.value = hexCode;
@@ -534,8 +573,8 @@ const DOMHandler = (() => {
         sInput.value = hsv.saturation * 100;
         vInput.value = hsv.value * 100;
         document.documentElement.style.setProperty('--accent-two', hexCode);
-        if(Tools.isBetween(hsv.hue, 50, 200)){
-            if(hsv.value < 0.7){
+        if(Tools.isBetween(hsv.hue, 30, 200)){
+            if(hsv.value < 0.7 && hsv.saturation > 0.25){
                 document.documentElement.style.setProperty('--accent-three', "#FEFEFE");
             }else{
                 document.documentElement.style.setProperty('--accent-three', "#363636");
@@ -557,9 +596,33 @@ const DOMHandler = (() => {
         sInput.onchange = () => _colorInput("hsv");
         vInput.onchange = () => _colorInput("hsv");
         hexInput.onchange = () => _colorInput("hex");
-        document.getElementById("randomButton").onclick = () => {_randomColor()};
+        document.getElementById("randomButton").onclick = _randomColor;
         document.getElementById("generateButton").onclick = _generate;
         document.getElementById("exportButton").onclick = _export;
+        themeToggle.onclick = _toggleTheme;
+
+        const helpers = [...document.getElementsByClassName("helpButton")];
+        helpers.forEach(button => {
+            button.addEventListener("touchstart", () => {
+                button.classList.add("hover");
+            })
+            button.addEventListener("touchend", () => {
+                button.classList.remove("hover");
+            })
+        });
+        
+        theme = _checkColorPreference();
+        themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
+        
+        let initColor;
+        if(theme === "dark"){
+            initColor = new Color().fromHEX("#E7B03A");
+        }else{
+            initColor = new Color().fromHEX("#2265A4");
+        }
+        updateColors(initColor);
+        ColorWheel.positionFromHSV(initColor);
+        _generate();
     }
 
     return{

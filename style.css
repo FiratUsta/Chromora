@@ -203,6 +203,11 @@ input[type=number]{
     appearance: textfield;
     -moz-appearance: textfield;
 }
+input[type=number]:invalid{
+    border-color: rgb(216, 24, 24);
+    border-width: 2px;
+    margin-bottom: -1px;
+}
 /* Webkit spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

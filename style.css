@@ -192,6 +192,9 @@ input[type=number]:focus{
     width: 10px;
     width: 100%;
 }
+.horizontal.justified{
+    justify-content: space-between;
+}
 input[type=number]{
     border: none;
     border-bottom: 1px solid var(--accent-one);

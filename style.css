@@ -293,11 +293,37 @@ input{
     overflow: hidden;
 }
 .swatch{
+    position: relative;
     flex-grow: 1;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .swatch:hover{
     flex-grow: 3;
+}
+.swatchLabel{
+    font-size: 0.9em;
+    font-weight: bold;
+    user-select: none;
+}
+.swatch .hexLabel{
+    position: absolute;
+    top: 5%;
+    left: 2%;
+}
+.swatch .rgbLabel{
+    position: absolute;
+    bottom: 5%;
+    left: 2%;
+    opacity: 0;
+}
+.swatch .hsvLabel{
+    position: absolute;
+    bottom: 5%;
+    right: 2%;
+    opacity: 0;
+}
+.swatch:hover .hsvLabel, .swatch:hover .rgbLabel{
+    opacity: 1;
 }
 /* Print */
 #print{

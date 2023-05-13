@@ -179,7 +179,30 @@ class Swatch{
 
         this.color = color;
         this.update(this.color);
-    }2
+    }
+
+    createLabels(){
+        const textColor = DOMHandler.textColorFromColor(this.color);
+
+        const hexLabel = document.createElement("p");
+        hexLabel.classList.add("hexLabel");
+        hexLabel.innerText = this.color.hex();
+
+        const rgbLabel = document.createElement("p");
+        rgbLabel.classList.add("rgbLabel");
+        rgbLabel.innerText = `rgb(${this.color.red}, ${this.color.green}, ${this.color.blue})`;
+
+        const hsvLabel = document.createElement("p");
+        const hsv = this.color.hsv();
+        hsvLabel.classList.add("hsvLabel");
+        hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.saturation * 100)}%)`;
+
+        [hexLabel, rgbLabel, hsvLabel].forEach(label => {
+            label.classList.add("swatchLabel");
+            label.style.color = textColor;
+            this.element.appendChild(label);
+        })
+    }
 
     update(color){
         this.color = color;
@@ -298,6 +321,12 @@ const ColorWheel = (() => {
     }
 
     function init(){
+        wheel.addEventListener("mouseleave", (event) => {
+            if(tracking){
+                tracking = false;
+                wheel.classList.remove("noCursor");
+            };
+        });
         wheel.addEventListener("mousedown", (event) => {
             if(!tracking){
                 tracking = true;
@@ -478,6 +507,7 @@ const DOMHandler = (() => {
 
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(swatchDisplay, colors[i]);
+            swatch.createLabels();
         };
     }
 
@@ -628,6 +658,23 @@ const DOMHandler = (() => {
         _updateDisplay(colors);
     }
 
+    function textColorFromColor(color){
+        const hsv = color.hsv();
+        if(Tools.isBetween(hsv.hue, 30, 200)){
+            if(hsv.value < 0.7 && hsv.saturation > 0.25){
+                return "#FEFEFE";
+            }else{
+                return "#363636";
+            };
+        }else{
+            if(hsv.saturation > 0.6 || hsv.value < 0.7){
+                return "#FEFEFE";
+            }else{
+                return "#363636";
+            };
+        }
+    }
+
     function updateColors(color){
         const hexCode = color.hex();
         hexInput.value = hexCode;
@@ -641,19 +688,7 @@ const DOMHandler = (() => {
         sInput.value = parseInt(hsv.saturation * 100);
         vInput.value = parseInt(hsv.value * 100);
         document.documentElement.style.setProperty('--accent-two', hexCode);
-        if(Tools.isBetween(hsv.hue, 30, 200)){
-            if(hsv.value < 0.7 && hsv.saturation > 0.25){
-                document.documentElement.style.setProperty('--accent-three', "#FEFEFE");
-            }else{
-                document.documentElement.style.setProperty('--accent-three', "#363636");
-            };
-        }else{
-            if(hsv.saturation > 0.6 || hsv.value < 0.7){
-                document.documentElement.style.setProperty('--accent-three', "#FEFEFE");
-            }else{
-                document.documentElement.style.setProperty('--accent-three', "#363636");
-            };
-        }
+        document.documentElement.style.setProperty('--accent-three', textColorFromColor(color));
     }
 
     function init(){
@@ -697,7 +732,8 @@ const DOMHandler = (() => {
 
     return{
         init,
-        updateColors
+        updateColors,
+        textColorFromColor
     }
 })();
 

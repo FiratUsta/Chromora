@@ -264,9 +264,16 @@ const ColorWheel = (() => {
         const hs = _calculateHS(offsets.center, positions);
         const value = valueInput.value / 100;
 
-        _movePicker(offsets.rect.x, offsets.rect.y);
+        const color = new Color().fromHSV(hs.hue, hs.saturation, value);
 
-        return new Color().fromHSV(hs.hue, hs.saturation, value);
+        const radius = (positions.rect.right - positions.rect.left) / 2;
+        if(Math.sqrt((offsets.center.x * offsets.center.x) + (offsets.center.y * offsets.center.y)) > radius){
+            positionFromHSV(color);
+        }else{
+            _movePicker(offsets.rect.x, offsets.rect.y);
+        }
+
+        return color;
     };
 
     function positionFromHSV(color){
@@ -291,12 +298,6 @@ const ColorWheel = (() => {
     }
 
     function init(){
-        wheel.addEventListener("mouseleave", (event) => {
-            if(tracking){
-                tracking = false;
-                wheel.classList.remove("noCursor");
-            };
-        });
         wheel.addEventListener("mousedown", (event) => {
             if(!tracking){
                 tracking = true;
@@ -305,7 +306,21 @@ const ColorWheel = (() => {
                 DOMHandler.updateColors(color);
             }
         });
+        wheel.addEventListener("touchstart", (event) => {
+            if(!tracking){
+                tracking = true;
+                wheel.classList.add("noCursor");
+                const color = _track(event.touches[0].pageX, event.touches[0].pageY);
+                DOMHandler.updateColors(color);
+            };
+        });
         wheel.addEventListener("mouseup", (event) => {
+            if(tracking){
+                tracking = false;
+                wheel.classList.remove("noCursor");
+            };
+        });
+        wheel.addEventListener("touchend", (event) => {
             if(tracking){
                 tracking = false;
                 wheel.classList.remove("noCursor");
@@ -314,6 +329,12 @@ const ColorWheel = (() => {
         wheel.addEventListener("mousemove", (event) => {
             if(tracking){
                 const color = _track(event.pageX, event.pageY);
+                DOMHandler.updateColors(color);
+            };
+        });
+        wheel.addEventListener("touchmove", (event) => {
+            if(tracking){
+                const color = _track(event.touches[0].pageX, event.touches[0].pageY);
                 DOMHandler.updateColors(color);
             };
         });

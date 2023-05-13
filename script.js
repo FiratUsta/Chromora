@@ -122,7 +122,7 @@ class Color{
 
     hsv(){
         const ranges = [Tools.round(this.red/255), Tools.round(this.green/255), Tools.round(this.blue/255)];
-        const sorted = [...ranges].sort((a, b) => {return a < b});
+        const sorted = [...ranges].sort().reverse();
         const cMax = sorted[0];
         const cMin = sorted[2];
         const delta = cMax - cMin;

@@ -159,6 +159,16 @@ class Color{
     hex(){
         return "#" + Tools.numToHex(this.red) + Tools.numToHex(this.green) + Tools.numToHex(this.blue);
     }
+
+    tint(color){
+        this.red = Tools.clamp(this.red + color.red, 0, 255);
+        this.green = Tools.clamp(this.green + color.green, 0, 255);
+        this.blue = Tools.clamp(this.blue + color.blue, 0, 255);
+    }
+
+    clone(){
+        return new Color(this.red, this.green, this.blue);
+    }
 }
 
 class Swatch{
@@ -323,6 +333,7 @@ const ColorWheel = (() => {
 const ColorGenerator = (() => {
 
     let palette = [];
+    let modifiedPalette = [];
 
     function _calculateValues(value, amount){
         let values = [];
@@ -366,30 +377,44 @@ const ColorGenerator = (() => {
         return palette;
     }
 
-    function getPalette(){
-        return palette;
+    function getPalette(modified){
+        if(modified){
+            return modifiedPalette;
+        }else{
+            return palette;
+        };
     }
 
     function random(_color, amount){
-        const colors = []
+        palette = [];
 
         for(let i = 0; i < amount; i++){
             const color = new Color().random();
-            colors.push(color);
+            palette.push(color);
         }
 
-        return colors;
+        return palette;
     }
 
-    function init(){
+    function tint(color){
+        modifiedPalette = [];
 
+        palette.forEach(swatch => {
+            modifiedPalette.push(swatch.clone());
+        });
+
+        modifiedPalette.forEach(swatch => {
+            swatch.tint(color);
+        });
+
+        return modifiedPalette;
     }
 
     return{
-        init,
         generateColors,
         getPalette,
-        random
+        random,
+        tint
     }
 
 })();
@@ -404,6 +429,9 @@ const DOMHandler = (() => {
     const random = document.getElementById("randomHues");
     const analogous = document.getElementById("analogous");
     const angle = document.getElementById("analogousAngle")
+    // Tint options
+    const tintAlpha = document.getElementById("tintAmount");
+    const tintColor = document.getElementById("tintColor");
     // HEX input
     const hexInput = document.getElementById("hex");
     // RGB input
@@ -424,9 +452,15 @@ const DOMHandler = (() => {
     const themeToggle = document.getElementById("themeToggle");
     let theme;
 
-    function _generate(){
+    function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
 
+        for(let i = 0; i < colors.length; i++){
+            const swatch = new Swatch(swatchDisplay, colors[i]);
+        };
+    }
+
+    function _generate(){
         const baseColor = new Color().fromHEX(base.value);
         let colors;
         if(random.checked){
@@ -435,9 +469,8 @@ const DOMHandler = (() => {
             colors = ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value);
         };
 
-        for(let i = 0; i < colors.length; i++){
-            const swatch = new Swatch(swatchDisplay, colors[i]);
-        };
+        _updateDisplay(colors);
+        _applyTint();
     }
 
     function _randomColor(){
@@ -513,7 +546,7 @@ const DOMHandler = (() => {
             printDisplay.innerHTML = "";
             printColors.innerHTML = "";
 
-            const palette = ColorGenerator.getPalette();
+            const palette = ColorGenerator.getPalette(true);
             for(let i = 0; i < palette.length; i++){
                 const elems= _createPrintSwatches(palette[i], i + 1);
                 printDisplay.appendChild(elems.displaySwatch);
@@ -560,6 +593,20 @@ const DOMHandler = (() => {
         themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
     }
 
+    function _applyTint(){
+        const tintBase = new Color().fromHSV(tintColor.value, 1, 1);
+        const tintAmount = tintAlpha.value / 100;
+
+        tintColor.style.accentColor = tintBase.hex();
+        
+        tintBase.red = parseInt(tintBase.red * tintAmount);
+        tintBase.green = parseInt(tintBase.green * tintAmount);
+        tintBase.blue = parseInt(tintBase.blue * tintAmount);
+        const colors = ColorGenerator.tint(tintBase);
+
+        _updateDisplay(colors);
+    }
+
     function updateColors(color){
         const hexCode = color.hex();
         hexInput.value = hexCode;
@@ -570,8 +617,8 @@ const DOMHandler = (() => {
 
         const hsv = color.hsv();
         hInput.value = Math.round(hsv.hue);
-        sInput.value = hsv.saturation * 100;
-        vInput.value = hsv.value * 100;
+        sInput.value = parseInt(hsv.saturation * 100);
+        vInput.value = parseInt(hsv.value * 100);
         document.documentElement.style.setProperty('--accent-two', hexCode);
         if(Tools.isBetween(hsv.hue, 30, 200)){
             if(hsv.value < 0.7 && hsv.saturation > 0.25){
@@ -596,6 +643,8 @@ const DOMHandler = (() => {
         sInput.onchange = () => _colorInput("hsv");
         vInput.onchange = () => _colorInput("hsv");
         hexInput.onchange = () => _colorInput("hex");
+        tintColor.oninput = _applyTint;
+        tintAlpha.onchange = _applyTint;
         document.getElementById("randomButton").onclick = _randomColor;
         document.getElementById("generateButton").onclick = _generate;
         document.getElementById("exportButton").onclick = _export;

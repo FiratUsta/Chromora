@@ -154,7 +154,7 @@ main{
     background-position: center;
     background-size: cover;
     cursor: pointer;
-    /* overflow: hidden; */
+    touch-action: none;
 }
 #colorWheel #picker{
     width: 20px;
@@ -207,6 +207,9 @@ input[type=number]:invalid{
     border-color: rgb(216, 24, 24);
     border-width: 2px;
     margin-bottom: -1px;
+}
+input[type=range]{
+    touch-action: none;
 }
 /* Webkit spinners */
 input::-webkit-outer-spin-button,
@@ -270,6 +273,15 @@ input{
 }
 .filler{
     flex-grow: 1;
+}
+#tintContainer{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 30% 1fr 40px;
+    gap: 10px;
+}
+#tintContainer input[type=number]{
+    width: 100%;
 }
 /* OUTPUT */
 #display{

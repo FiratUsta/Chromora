@@ -92,12 +92,15 @@
                         </div>
                     </div>
                     <div class="label">
-                        <p>Random:</p>
-                        <input type="checkbox" name="randomHues" id="randomHues">
+                        <p>Tint:</p>
+                        <div id="tintContainer">
+                            <input type="number" name="tintAmount" id="tintAmount" min="0" max="100" value="0">
+                            <input type="range" name="tintColor" id="tintColor" min="0" max="359" value="0">
+                        </div>
                         <div class="helpButton">
                             <p>?</p>
                             <div class="helpPanel">
-                                <p>If this box is checked, the base color selection is overriden and instead each hue in the palette will be randomly chosen.</p>
+                                <p>By selecting a color with the slider, you can tint the entire palette by the amount inputted in percentage.</p>
                             </div>
                         </div>
                     </div>
@@ -111,6 +114,16 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>This checkbox enables analogous color palettes, the seperation of hues will be by the inputted amount in degrees on the color wheel.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">
+                        <p>Random:</p>
+                        <input type="checkbox" name="randomHues" id="randomHues">
+                        <div class="helpButton">
+                            <p>?</p>
+                            <div class="helpPanel">
+                                <p>If this box is checked, the base color selection is overriden and instead each hue in the palette will be randomly chosen.</p>
                             </div>
                         </div>
                     </div>

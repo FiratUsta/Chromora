@@ -215,6 +215,9 @@ input[type=range]{
 .half{
     width: 50% !important;
 }
+.full{
+    width: 100% !important;
+}
 /* Webkit spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

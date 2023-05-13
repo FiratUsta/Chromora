@@ -180,7 +180,8 @@ input[type=range]{
 input[type=text]{
     border: none;
     border-bottom: 1px solid var(--accent-one);
-    width: 100%;
+    width: 30%;
+    text-align: center;
 }
 input[type=text]:focus,
 input[type=number]:focus{
@@ -210,6 +211,9 @@ input[type=number]:invalid{
 }
 input[type=range]{
     touch-action: none;
+}
+.half{
+    width: 50% !important;
 }
 /* Webkit spinners */
 input::-webkit-outer-spin-button,

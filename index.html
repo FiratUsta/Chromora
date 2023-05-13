@@ -128,6 +128,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="fullWidth">
+                    <h3>Import Palette</h3>
+                    <hr>
+                    <div class="label">
+                        <p>From code:</p>
+                        <div class="horizontal">
+                            <input type="text" name="inputCode" id="inputCodeText" class="half" disabled>
+                            <input type="checkbox" name="inputType" id="inputCodeCheck" disabled>
+                        </div>
+                        <div class="helpButton">
+                            <p>?</p>
+                            <div class="helpPanel">
+                                <p>Put the code in the text field, make sure the checkbox is checked and click generate.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">
+                        <p>From file:</p>
+                        <div class="horizontal">
+                            <input type="file" name="inputFile" id="inputFile" class="half" disabled>
+                            <input type="checkbox" name="inputType" id="inputCodeCheck" disabled>
+                        </div>
+                        <div class="helpButton">
+                            <p>?</p>
+                            <div class="helpPanel">
+                                <p>Select your .ctp file, make sure the checkbox is checked and click generate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="filler"></div>
                 <input type="button" value="Generate" id="generateButton" class="colorButton">
             </div>
@@ -152,16 +182,16 @@
                             <label for="print">Print</label><br>
                         </div>
                         <div>
-                            <input type="radio" id="exportImage" name="exportType" value="image">
+                            <input type="radio" id="exportImage" name="exportType" value="image" disabled>
                             <label for="image">Image</label><br>
                         </div>
                         <div>
-                            <input type="radio" id="exportCode" name="exportType" value="code">
+                            <input type="radio" id="exportCode" name="exportType" value="code" disabled>
                             <label for="code">Code</label><br>
                         </div>
                         <div>
-                            <input type="radio" id="exportLink" name="exportType" value="link">
-                            <label for="link">Link</label><br>
+                            <input type="radio" id="exportFile" name="exportType" value="file" disabled>
+                            <label for="file">File</label><br>
                         </div>
                     </div>
                     <input type="button" value="Export" id="exportButton" class="colorButton">

@@ -195,7 +195,7 @@ class Swatch{
         const hsvLabel = document.createElement("p");
         const hsv = this.color.hsv();
         hsvLabel.classList.add("hsvLabel");
-        hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.saturation * 100)}%)`;
+        hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.value * 100)}%)`;
 
         [hexLabel, rgbLabel, hsvLabel].forEach(label => {
             label.classList.add("swatchLabel");

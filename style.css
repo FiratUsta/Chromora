@@ -291,8 +291,6 @@ input{
     height: 100%;
     border: none;
     overflow: hidden;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 .swatch{
     flex-grow: 1;
@@ -380,10 +378,6 @@ input{
         height: 40%;
         min-height: none;
         gap: 10px;
-    }
-    #display{
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
     }
 }
 @media only screen and (max-width: 350px) {

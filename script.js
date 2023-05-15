@@ -496,12 +496,9 @@ const DOMHandler = (() => {
     const exImage = document.getElementById("exportImage");
     const exPrint = document.getElementById("exportPrint");
     const exCode = document.getElementById("exportCode");
-    const exFile = document.getElementById("exportFile");
-    // Import types
+    // Import
     const codeCheck = document.getElementById("inputCodeCheck");
     const codeInput = document.getElementById("inputCodeText");
-    const fileCheck = document.getElementById("inputFileCheck");
-    const fileInput = document.getElementById("inputFile");
     // Print area
     const printDisplay = document.getElementById("printDisplay");
     const printColors = document.getElementById("printColors");
@@ -777,18 +774,6 @@ const DOMHandler = (() => {
                 button.classList.remove("hover");
             })
         });
-
-        codeCheck.onclick = () => {
-            if(codeCheck.checked && fileCheck.checked){
-                fileCheck.checked = false;
-            };
-        };
-
-        fileCheck.onclick = () => {
-            if(codeCheck.checked && fileCheck.checked){
-                codeCheck.checked = false;
-            };
-        };
 
         notificationButton.onclick = () => {
             notificationContainer.classList.remove("show");

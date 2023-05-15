@@ -508,6 +508,10 @@ const DOMHandler = (() => {
     // Color scheme
     const themeToggle = document.getElementById("themeToggle");
     let theme;
+    // Notification
+    const notificationContainer = document.getElementById("notification");
+    const notificationButton = document.getElementById("notifClose");
+    const notificationText = document.getElementById("notifText");
 
     function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
@@ -617,6 +621,9 @@ const DOMHandler = (() => {
             window.print();
         }else if(exCode.checked){
             const code = _createCode();
+            
+            notificationText.innerHTML = "<b>Your code is: </b>" + code;
+            notificationContainer.classList.add("show")
         };
     }
 
@@ -673,19 +680,22 @@ const DOMHandler = (() => {
     function _createCode(){
         let code = "";
         const params = [hexInput.value, points.value, amount.value];
+
         if(tintAlpha.value !== "0"){
             params.push(tintAlpha.value + ";" + tintColor.value);
         };
+
         if(analogous.checked){
             params.push(angle.value);
         };
+
         for(let i = 0; i < params.length; i++){
             code += params[i];
             if(i !== params.length - 1){
                 code += "-";
             };
         };
-        console.log(code);
+
         return code;
     }
 
@@ -779,6 +789,10 @@ const DOMHandler = (() => {
                 codeCheck.checked = false;
             };
         };
+
+        notificationButton.onclick = () => {
+            notificationContainer.classList.remove("show");
+        }
 
         theme = _checkColorPreference();
         themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");

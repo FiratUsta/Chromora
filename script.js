@@ -495,6 +495,13 @@ const DOMHandler = (() => {
     // Export types
     const exImage = document.getElementById("exportImage");
     const exPrint = document.getElementById("exportPrint");
+    const exCode = document.getElementById("exportCode");
+    const exFile = document.getElementById("exportFile");
+    // Import types
+    const codeCheck = document.getElementById("inputCodeCheck");
+    const codeInput = document.getElementById("inputCodeText");
+    const fileCheck = document.getElementById("inputFileCheck");
+    const fileInput = document.getElementById("inputFile");
     // Print area
     const printDisplay = document.getElementById("printDisplay");
     const printColors = document.getElementById("printColors");
@@ -512,6 +519,9 @@ const DOMHandler = (() => {
     }
 
     function _generate(){
+        if(codeCheck.checked && codeInput.value != ""){
+            _parseCode(codeInput.value);
+        }
         const baseColor = new Color().fromHEX(base.value);
         let colors;
         if(random.checked){
@@ -605,6 +615,8 @@ const DOMHandler = (() => {
             };
 
             window.print();
+        }else if(exCode.checked){
+            const code = _createCode();
         };
     }
 
@@ -656,6 +668,46 @@ const DOMHandler = (() => {
         const colors = ColorGenerator.tint(tintBase);
 
         _updateDisplay(colors);
+    }
+
+    function _createCode(){
+        let code = "";
+        const params = [hexInput.value, points.value, amount.value];
+        if(tintAlpha.value !== "0"){
+            params.push(tintAlpha.value + ";" + tintColor.value);
+        };
+        if(analogous.checked){
+            params.push(angle.value);
+        };
+        for(let i = 0; i < params.length; i++){
+            code += params[i];
+            if(i !== params.length - 1){
+                code += "-";
+            };
+        };
+        console.log(code);
+        return code;
+    }
+
+    function _parseCode(code){
+        const params = code.split("-");
+
+        updateColors(new Color().fromHEX(params[0]));
+        points.value = parseInt(params[1]);
+        amount.value = parseInt(params[2]);
+
+        if (params.length > 3){
+            for(let i = 3; i < params.length; i++){
+                const param = params[i].split(";");
+                if(param.length > 1){
+                    tintAlpha.value = parseInt(param[0]);
+                    tintColor.value = parseInt(param[1]);
+                }else{
+                    analogous.checked = true;
+                    angle.value = parseInt(param[0]);
+                };
+            }
+        }
     }
 
     function textColorFromColor(color){
@@ -715,7 +767,19 @@ const DOMHandler = (() => {
                 button.classList.remove("hover");
             })
         });
-        
+
+        codeCheck.onclick = () => {
+            if(codeCheck.checked && fileCheck.checked){
+                fileCheck.checked = false;
+            };
+        };
+
+        fileCheck.onclick = () => {
+            if(codeCheck.checked && fileCheck.checked){
+                codeCheck.checked = false;
+            };
+        };
+
         theme = _checkColorPreference();
         themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
         

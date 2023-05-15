@@ -369,6 +369,10 @@ input{
 #notifText b{
     user-select: none;
 }
+/* Image */
+#saveCanvas{
+    display: none;
+}
 /* Print */
 #print{
     display: none;

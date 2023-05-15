@@ -172,6 +172,7 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>Choose your export option below.</p>
+                                <p><b>Note: </b>Code exports don't work with randomized palettes!</p>
                             </div>
                         </div>
                     </div>
@@ -181,7 +182,7 @@
                             <label for="print">Print</label><br>
                         </div>
                         <div>
-                            <input type="radio" id="exportImage" name="exportType" value="image" disabled>
+                            <input type="radio" id="exportImage" name="exportType" value="image">
                             <label for="image">Image</label><br>
                         </div>
                         <div>
@@ -205,6 +206,7 @@
             <p id="notifText"></p>
             <p id="notifClose">❌</p>
         </div>
+        <canvas id="saveCanvas"></canvas>
         <script src="script.js"></script>
     </main>
 </body>

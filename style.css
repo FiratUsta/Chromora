@@ -158,6 +158,8 @@ main{
     background-size: cover;
     cursor: pointer;
     touch-action: none;
+    outline: 3px solid var(--foreground);
+    outline-offset: -3px;
 }
 #colorWheel #picker{
     width: 20px;

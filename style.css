@@ -369,6 +369,9 @@ input{
 #notifText b{
     user-select: none;
 }
+#codeDisplay{
+    cursor: pointer;
+}
 /* Image */
 #saveCanvas{
     display: none;

@@ -662,7 +662,12 @@ const DOMHandler = (() => {
         }else if(exCode.checked){
             const code = _createCode();
             
-            notificationText.innerHTML = "<b>Your code is: </b>" + code;
+            notificationText.innerHTML = '<b>Your code is: </b><span id="codeDisplay">' + code + '</span>';
+            const codeDisplay = document.getElementById("codeDisplay");
+            codeDisplay.onclick = () => {
+                navigator.clipboard.writeText(codeDisplay.innerText);
+                notificationText.innerHTML = "<b>Your code has been copied to your clipboard!</b>";
+            };
             notificationContainer.classList.add("show")
         }else if(exImage.checked){
             ImageGenerator.generate();

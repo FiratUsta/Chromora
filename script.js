@@ -1,3 +1,5 @@
+const DEBUG = true;
+
 const Tools = (() => {
 
     function numToHex(num){
@@ -402,21 +404,26 @@ const Indexer = (() => {
         const b = rgb[2] - color.blue;
 
         return (0.3 * (r * r)) + (0.59 * (g * g)) + (0.11 * (b *b));
-    };
+    }
 
-    async function findSimilar(color){
+    async function findMultiple(colors){
         return new Promise(function(resolve){
-            nameArray.sort((a, b) => {
-                const aColor = a["rgb"];
-                const bColor = b["rgb"];
-    
-                const aMod = _calculateSimilarity(aColor, color);
-                const bMod = _calculateSimilarity(bColor, color);
-    
-                return aMod - bMod;
-            })
-    
-            resolve(nameArray[0]);
+            let similars = [];
+
+            colors.forEach(color => {
+              similars.push([null, 999]);      
+            });
+
+            nameArray.forEach(name => {
+                for(let i = 0; i < colors.length; i++){
+                    const simIndex = _calculateSimilarity(name["rgb"], colors[i]);
+                    if(simIndex < similars[i][1]){
+                        similars[i] = [name, simIndex]
+                    };
+                };
+            });
+
+            resolve(similars);
         });
     }
 
@@ -432,9 +439,9 @@ const Indexer = (() => {
     }
 
     return{
-        findSimilar,
+        findMultiple,
         init
-    }
+    };
 })();
 
 
@@ -448,43 +455,40 @@ const ColorGenerator = (() => {
         const increment = 1 / amount;
         for(let i = 0; i < amount; i++){
             values.push(Tools.wrap(value, increment * i, 0, 1));
-        }
+        };
 
         values.sort();
 
         return values;
     }
 
-    async function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
-        return new Promise(async function(resolve){
-            palette = [];
-            const display = document.getElementById("display");
-            display.innerHTML = "";
-            const hsv = base.hsv();
-            const values = _calculateValues(hsv.value, amount);
-            
-            let shift;
-            let mod = 1;
-            if(!analogous){
-                shift = 360 / points;
-            }else{
-                shift = analogousAngle;
-            }
-            
-            for(let i = 0; i < points; i++){
-                for(let j = 0; j < amount; j++){
-                    if(analogous){
-                        mod = (i % 2 === 0 ? -1 : 1);
-                    }
-                    const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
-                    const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
-                    await color.init();
-                    palette.push(color);
+    function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
+        palette = [];
+        const display = document.getElementById("display");
+        display.innerHTML = "";
+        const hsv = base.hsv();
+        const values = _calculateValues(hsv.value, amount);
+        
+        let shift;
+        let mod = 1;
+        if(!analogous){
+            shift = 360 / points;
+        }else{
+            shift = analogousAngle;
+        };
+        
+        for(let i = 0; i < points; i++){
+            for(let j = 0; j < amount; j++){
+                if(analogous){
+                    mod = (i % 2 === 0 ? -1 : 1);
                 }
+                const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
+                const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
+                palette.push(color);
             }
-    
-            resolve(palette);
-        });
+        };
+
+        return palette;
     }
 
     function getPalette(modified){
@@ -495,35 +499,42 @@ const ColorGenerator = (() => {
         };
     }
 
-    async function random(_color, amount){
-        return new Promise(async function(resolve){
+    function random(_color, amount){
             palette = [];
 
             for(let i = 0; i < amount; i++){
                 const color = new Color().random();
-                await color.init();
                 palette.push(color);
-            }
+            };
     
-            resolve(palette);
-        });
+            return palette;
     }
 
-    async function tint(color){
-        return new Promise(async function(resolve){
-            modifiedPalette = [];
+    function tint(color){
+        modifiedPalette = [];
 
-            palette.forEach(swatch => {
-                modifiedPalette.push(swatch.clone());
-            });
-    
-            modifiedPalette.forEach(async function(swatch){
-                swatch.tint(color);
-                await swatch.init();
-            });
-    
-            resolve(modifiedPalette);
-        })
+        palette.forEach(swatch => {
+            modifiedPalette.push(swatch.clone());
+        });
+
+        modifiedPalette.forEach(async function(swatch){
+            swatch.tint(color);
+        });
+
+        return modifiedPalette;
+    }
+
+    async function namePalette(){
+        return new Promise(async function(resolve){
+            
+            const names = await(Indexer.findMultiple(modifiedPalette));
+
+            for(let i = 0; i < modifiedPalette.length; i++){
+                modifiedPalette[i].name = names[i][0]["name"];
+            };
+            
+            resolve();
+        });
     }
 
     return{
@@ -531,6 +542,7 @@ const ColorGenerator = (() => {
         getPalette,
         random,
         tint,
+        namePalette
     }
 
 })();
@@ -629,20 +641,23 @@ const DOMHandler = (() => {
     }
 
     async function _generate(){
+        const start = Date.now();
+
         if(codeCheck.checked && codeInput.value != ""){
             _parseCode(codeInput.value);
         }
         const baseColor = new Color().fromHEX(base.value);
         
-        let colors;
         if(random.checked){
-            colors = await(ColorGenerator.random(baseColor, points.value));
+            ColorGenerator.random(baseColor, points.value);
         }else{
-            colors = await(ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value));
+            ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value);
         };
-        
-        _updateDisplay(colors);
-        _applyTint();
+
+        _applyTint();      
+
+        const end = Date.now();
+        console.log(end - start + "ms");
     }
 
     function _randomColor(){
@@ -786,9 +801,11 @@ const DOMHandler = (() => {
         tintBase.red = parseInt(tintBase.red * tintAmount);
         tintBase.green = parseInt(tintBase.green * tintAmount);
         tintBase.blue = parseInt(tintBase.blue * tintAmount);
-        const colors = await ColorGenerator.tint(tintBase);
+        
+        ColorGenerator.tint(tintBase);
+        await ColorGenerator.namePalette();
 
-        _updateDisplay(colors);
+        _updateDisplay(ColorGenerator.getPalette(true));
     }
 
     function _createCode(){

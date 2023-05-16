@@ -307,10 +307,12 @@ input{
 .swatch{
     position: relative;
     flex-grow: 1;
+    min-height: 0;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .swatch:hover{
     flex-grow: 3;
+    min-height: 20%;
 }
 .swatchLabel{
     font-size: 0.9em;

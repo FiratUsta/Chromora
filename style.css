@@ -405,6 +405,7 @@ input{
 @media print{
     html{
         print-color-adjust: exact;
+        -webkit-print-color-adjust:exact;
     }
     html,body,main{
         background-color: white;

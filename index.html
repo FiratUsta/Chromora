@@ -84,6 +84,7 @@
                     </div>
                 </div>
                 <div id="advancedOptions" class="fullWidth hidden">
+                    <p class="warning"><b>Warning: </b>Higher values become very demanding quickly!</p>
                     <div class="label">
                         <p>Hues:</p>
                         <input type="number" name="hues" id="hues" min="1" max="360" value="2" autocomplete="off">
@@ -95,6 +96,7 @@
                                 <p><b>2 Hues</b> Complementary</p>
                                 <p><b>3 Hues</b> Triadic</p>
                                 <p><b>4 Hues</b> Tetradic</p>
+                                <p><b>Maximum value:</b> 360</p>
                             </div>
                         </div>
                     </div>
@@ -105,6 +107,7 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>The number of tones determine the amount of variations you'll see for each hue on the palette.</p>
+                                <p><b>Maximum value:</b> 100</p>
                             </div>
                         </div>
                     </div>
@@ -118,6 +121,7 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>By selecting a color with the slider, you can tint the entire palette by the amount inputted in percentage.</p>
+                                <p><b>Maximum value:</b> 100</p>
                             </div>
                         </div>
                     </div>
@@ -131,6 +135,7 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>This checkbox enables analogous color palettes, the seperation of hues will be by the inputted amount in degrees on the color wheel.</p>
+                                <p><b>Maximum value:</b> 90</p>
                             </div>
                         </div>
                     </div>
@@ -144,20 +149,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="fullWidth">
-                    <h3>Import Palette</h3>
-                    <hr>
-                    <div class="label">
-                        <p>From code:</p>
-                        <div class="horizontal">
-                            <input type="text" name="inputCode" id="inputCodeText" class="half" autocomplete="off">
-                            <input type="checkbox" name="inputType" id="inputCodeCheck" autocomplete="off">
-                        </div>
-                        <div class="helpButton">
-                            <p>?</p>
-                            <div class="helpPanel">
-                                <p>Put the code in the text field, make sure the checkbox is checked and click generate.</p>
+                    <div class="fullWidth" id="import">
+                        <h3>Import Palette</h3>
+                        <hr>
+                        <div class="label">
+                            <p>From code:</p>
+                            <div class="horizontal">
+                                <input type="text" name="inputCode" id="inputCodeText" class="half" autocomplete="off">
+                                <input type="checkbox" name="inputType" id="inputCodeCheck" autocomplete="off">
+                            </div>
+                            <div class="helpButton">
+                                <p>?</p>
+                                <div class="helpPanel">
+                                    <p>Put the code in the text field, make sure the checkbox is checked and click generate.</p>
+                                </div>
                             </div>
                         </div>
                     </div>

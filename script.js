@@ -630,6 +630,12 @@ const DOMHandler = (() => {
     const notificationContainer = document.getElementById("notification");
     const notificationButton = document.getElementById("notifClose");
     const notificationText = document.getElementById("notifText");
+    // Settings
+    const quickTab = document.getElementById("quickTab");
+    const advancedTab = document.getElementById("advancedTab");
+    const quickOptions = document.getElementById("quickOptions");
+    const advancedOptions = document.getElementById("advancedOptions");
+    const quickButtons = [...document.querySelectorAll(".quickButton")];
 
     function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
@@ -664,7 +670,6 @@ const DOMHandler = (() => {
         const color = new Color().random();
         ColorWheel.positionFromHSV(color);
         updateColors(color);
-        _generate();
     }
 
     function _colorInput(mode){
@@ -851,6 +856,68 @@ const DOMHandler = (() => {
         }
     }
 
+    function _changeQuickSettings(mode){
+        quickButtons.forEach(button => {
+            button.classList.remove("selected");
+        });
+
+        document.getElementById(mode).classList.add("selected");
+
+        let hue = -1;
+        let tone = -1;
+        let quickAngle = -1;
+        let randomBool = -1;
+
+        switch(mode){
+            case "complementary":
+                hue = 2;
+                tone = 3;
+                break;
+            case "triadic":
+                hue = 3;
+                tone = 2;
+                break;
+            case "tetradic":
+                hue = 4;
+                tone = 2;
+                break;
+            case "monochrome":
+                hue = 1;
+                tone = 6;
+                break;
+            case "randomQuick":
+                hue = 6;
+                tone = 1;
+                randomBool = 1;
+                break;
+            case "analogousQuick":
+                hue = 3;
+                tone = 2;
+                quickAngle = 30;
+                break;
+            case _:
+                break;
+        };
+
+        if(hue != -1){
+            points.value = hue;
+        };
+        if(tone != -1){
+            amount.value = tone;
+        };
+        if(quickAngle != -1){
+            analogous.checked = true;
+            analogousAngle.value = quickAngle;
+        }else{
+            analogous.checked = false;
+        };
+        if(randomBool != -1){
+            random.checked = true;
+        }else{
+            random.checked = false;
+        };
+    }
+
     function textColorFromColor(color){
         const hsv = color.hsv();
         if(Tools.isBetween(hsv.hue, 30, 200)){
@@ -912,6 +979,24 @@ const DOMHandler = (() => {
         notificationButton.onclick = () => {
             notificationContainer.classList.remove("show");
         }
+
+        quickTab.onclick = () => {
+            quickTab.classList.add("selected");
+            advancedTab.classList.remove("selected");
+            quickOptions.classList.remove("hidden");
+            advancedOptions.classList.add("hidden");
+        }
+        
+        advancedTab.onclick = () => {
+            quickTab.classList.remove("selected");
+            advancedTab.classList.add("selected");
+            quickOptions.classList.add("hidden");
+            advancedOptions.classList.remove("hidden");
+        }
+
+        quickButtons.forEach(button => {
+            button.onclick = () => {_changeQuickSettings(button.id)};
+        });
 
         theme = _checkColorPreference();
         themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");

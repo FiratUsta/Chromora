@@ -69,9 +69,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="fullWidth">
-                    <h3>Palette Options</h3>
-                    <hr>
+                <div class="tabContainer">
+                    <input type="button" value="Quick Settings" class="tab selected" id="quickTab">
+                    <input type="button" value="Advanced Settings" class="tab" id="advancedTab">
+                </div>
+                <div id="quickOptions" class="fullWidth">
+                    <div class="quickButtons">
+                        <div class="quickButton selected" id="complementary">Complementary</div>
+                        <div class="quickButton" id="triadic">Triadic</div>
+                        <div class="quickButton" id="tetradic">Tetradic</div>
+                        <div class="quickButton" id="monochrome">Monochrome</div>
+                        <div class="quickButton" id="analogousQuick">Analogous</div>
+                        <div class="quickButton" id="randomQuick">Random</div>
+                    </div>
+                </div>
+                <div id="advancedOptions" class="fullWidth hidden">
                     <div class="label">
                         <p>Hues:</p>
                         <input type="number" name="hues" id="hues" min="1" max="360" value="2" autocomplete="off">

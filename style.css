@@ -137,6 +137,71 @@ main{
 .helpButton:hover .helpPanel, .helpButton.hover .helpPanel{
     opacity: 1;
 }
+/* SETTINGS PANEL */
+.tabContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: auto;
+    gap: 2%;
+    border-bottom: 5px solid var(--accent-two);
+    margin-bottom: -10px;
+    transition: border-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.tab{
+    border: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px 5px 5px;
+    width: 49%;
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tab:hover{
+    opacity: 0.85;
+}
+.tab.selected, .tab.selected:hover{
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+    font-weight: bold;
+    opacity: 1;
+}
+.quickButtons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
+}
+.quickButton{
+    width: 100;
+    border-radius: 10px;
+    background-color: var(--background);
+    color: var(--foreground);
+    padding: 10px 2px 10px 2px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 5px 0 var(--shadow-dark);
+    opacity: 0.7;
+    user-select: none;
+}
+.quickButton:hover{
+    opacity: 1;
+}
+.quickButton.selected{
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+    opacity: 1;
+}
+.hidden{
+    display: none !important;
+}
 /* COLOR PICKER */
 #colorPicker{
     display: flex;

@@ -181,12 +181,17 @@ class Swatch{
         this.update(this.color);
     }
 
-    createLabels(){
+    async createLabels(){
         const textColor = DOMHandler.textColorFromColor(this.color);
 
         const hexLabel = document.createElement("p");
         hexLabel.classList.add("hexLabel");
         hexLabel.innerText = this.color.hex();
+
+        const name = await(Indexer.findSimilar(this.color));
+        const nameLabel = document.createElement("p");
+        nameLabel.classList.add("nameLabel");
+        nameLabel.innerText = name["name"];
 
         const rgbLabel = document.createElement("p");
         rgbLabel.classList.add("rgbLabel");
@@ -197,7 +202,7 @@ class Swatch{
         hsvLabel.classList.add("hsvLabel");
         hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.value * 100)}%)`;
 
-        [hexLabel, rgbLabel, hsvLabel].forEach(label => {
+        [hexLabel, nameLabel, rgbLabel, hsvLabel].forEach(label => {
             label.classList.add("swatchLabel");
             label.style.color = textColor;
             this.element.appendChild(label);
@@ -380,8 +385,52 @@ const ColorWheel = (() => {
     }
 })();
 
-const ColorGenerator = (() => {
+const Indexer = (() => {
+    let nameArray;
 
+    function _calculateSimilarity(rgb, color){
+        const r = rgb[0] - color.red;
+        const g = rgb[1] - color.green;
+        const b = rgb[2] - color.blue;
+
+        return (0.3 * (r * r)) + (0.59 * (g * g)) + (0.11 * (b *b));
+    };
+
+    async function findSimilar(color){
+        return new Promise(function(resolve){
+            nameArray.sort((a, b) => {
+                const aColor = a["rgb"];
+                const bColor = b["rgb"];
+    
+                const aMod = _calculateSimilarity(aColor, color);
+                const bMod = _calculateSimilarity(bColor, color);
+    
+                return aMod - bMod;
+            })
+    
+            resolve(nameArray[0]);
+        });
+    }
+
+    async function init(){
+        return new Promise(function(resolve){
+            fetch('./assets/names.json')
+            .then((response) => response.json())
+            .then((json) => {
+                nameArray = json["colors"];
+                resolve();
+            });
+        })
+    }
+
+    return{
+        findSimilar,
+        init
+    }
+})();
+
+
+const ColorGenerator = (() => {
     let palette = [];
     let modifiedPalette = [];
 
@@ -464,7 +513,7 @@ const ColorGenerator = (() => {
         generateColors,
         getPalette,
         random,
-        tint
+        tint,
     }
 
 })();
@@ -553,7 +602,7 @@ const DOMHandler = (() => {
     const notificationButton = document.getElementById("notifClose");
     const notificationText = document.getElementById("notifText");
 
-    function _updateDisplay(colors){
+    async function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
 
         for(let i = 0; i < colors.length; i++){
@@ -850,7 +899,12 @@ const DOMHandler = (() => {
     }
 })();
 
-addEventListener("DOMContentLoaded", () => {
+async function init(){
+    await Indexer.init();
     DOMHandler.init();
     ColorWheel.init();
+}
+
+addEventListener("DOMContentLoaded", () => {
+    init();
 })

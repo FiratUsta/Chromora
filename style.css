@@ -322,6 +322,11 @@ input{
     top: 5%;
     left: 2%;
 }
+.swatch .nameLabel{
+    position: absolute;
+    top: 5%;
+    right: 2%;
+}
 .swatch .rgbLabel{
     position: absolute;
     bottom: 5%;

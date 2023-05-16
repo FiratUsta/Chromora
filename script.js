@@ -921,6 +921,7 @@ async function init(){
     await Indexer.init();
     DOMHandler.init();
     ColorWheel.init();
+    document.getElementById("loader").classList.add("hide");
 }
 
 addEventListener("DOMContentLoaded", () => {

@@ -169,6 +169,15 @@ class Color{
     clone(){
         return new Color(this.red, this.green, this.blue);
     }
+
+    async init(){
+        const color = this;
+        return new Promise(async function(resolve){
+            const similar = await(Indexer.findSimilar(color));
+            color.name = similar["name"];
+            resolve();
+        })
+    };
 }
 
 class Swatch{
@@ -181,17 +190,16 @@ class Swatch{
         this.update(this.color);
     }
 
-    async createLabels(){
+    createLabels(){
         const textColor = DOMHandler.textColorFromColor(this.color);
 
         const hexLabel = document.createElement("p");
         hexLabel.classList.add("hexLabel");
         hexLabel.innerText = this.color.hex();
 
-        const name = await(Indexer.findSimilar(this.color));
         const nameLabel = document.createElement("p");
         nameLabel.classList.add("nameLabel");
-        nameLabel.innerText = name["name"];
+        nameLabel.innerText = this.color.name;
 
         const rgbLabel = document.createElement("p");
         rgbLabel.classList.add("rgbLabel");
@@ -447,33 +455,36 @@ const ColorGenerator = (() => {
         return values;
     }
 
-    function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
-        palette = [];
-        const display = document.getElementById("display");
-        display.innerHTML = "";
-        const hsv = base.hsv();
-        const values = _calculateValues(hsv.value, amount);
-        
-        let shift;
-        let mod = 1;
-        if(!analogous){
-            shift = 360 / points;
-        }else{
-            shift = analogousAngle;
-        }
-        
-        for(let i = 0; i < points; i++){
-            for(let j = 0; j < amount; j++){
-                if(analogous){
-                    mod = (i % 2 === 0 ? -1 : 1);
-                }
-                const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
-                const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
-                palette.push(color);
+    async function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
+        return new Promise(async function(resolve){
+            palette = [];
+            const display = document.getElementById("display");
+            display.innerHTML = "";
+            const hsv = base.hsv();
+            const values = _calculateValues(hsv.value, amount);
+            
+            let shift;
+            let mod = 1;
+            if(!analogous){
+                shift = 360 / points;
+            }else{
+                shift = analogousAngle;
             }
-        }
-
-        return palette;
+            
+            for(let i = 0; i < points; i++){
+                for(let j = 0; j < amount; j++){
+                    if(analogous){
+                        mod = (i % 2 === 0 ? -1 : 1);
+                    }
+                    const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
+                    const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
+                    await color.init();
+                    palette.push(color);
+                }
+            }
+    
+            resolve(palette);
+        });
     }
 
     function getPalette(modified){
@@ -484,29 +495,35 @@ const ColorGenerator = (() => {
         };
     }
 
-    function random(_color, amount){
-        palette = [];
+    async function random(_color, amount){
+        return new Promise(async function(resolve){
+            palette = [];
 
-        for(let i = 0; i < amount; i++){
-            const color = new Color().random();
-            palette.push(color);
-        }
-
-        return palette;
+            for(let i = 0; i < amount; i++){
+                const color = new Color().random();
+                await color.init();
+                palette.push(color);
+            }
+    
+            resolve(palette);
+        });
     }
 
-    function tint(color){
-        modifiedPalette = [];
+    async function tint(color){
+        return new Promise(async function(resolve){
+            modifiedPalette = [];
 
-        palette.forEach(swatch => {
-            modifiedPalette.push(swatch.clone());
-        });
-
-        modifiedPalette.forEach(swatch => {
-            swatch.tint(color);
-        });
-
-        return modifiedPalette;
+            palette.forEach(swatch => {
+                modifiedPalette.push(swatch.clone());
+            });
+    
+            modifiedPalette.forEach(async function(swatch){
+                swatch.tint(color);
+                await swatch.init();
+            });
+    
+            resolve(modifiedPalette);
+        })
     }
 
     return{
@@ -602,7 +619,7 @@ const DOMHandler = (() => {
     const notificationButton = document.getElementById("notifClose");
     const notificationText = document.getElementById("notifText");
 
-    async function _updateDisplay(colors){
+    function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
 
         for(let i = 0; i < colors.length; i++){
@@ -611,18 +628,19 @@ const DOMHandler = (() => {
         };
     }
 
-    function _generate(){
+    async function _generate(){
         if(codeCheck.checked && codeInput.value != ""){
             _parseCode(codeInput.value);
         }
         const baseColor = new Color().fromHEX(base.value);
+        
         let colors;
         if(random.checked){
-            colors = ColorGenerator.random(baseColor, points.value);
+            colors = await(ColorGenerator.random(baseColor, points.value));
         }else{
-            colors = ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value);
+            colors = await(ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value));
         };
-
+        
         _updateDisplay(colors);
         _applyTint();
     }
@@ -671,7 +689,7 @@ const DOMHandler = (() => {
         container.appendChild(infoContainer);
 
         const title = document.createElement("h4");
-        title.innerHTML = "<b>Color " + index + "</b>";
+        title.innerHTML = color.name;
         infoContainer.appendChild(title);
 
         const hex = document.createElement("p");
@@ -759,7 +777,7 @@ const DOMHandler = (() => {
         themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
     }
 
-    function _applyTint(){
+    async function _applyTint(){
         const tintBase = new Color().fromHSV(tintColor.value, 1, 1);
         const tintAmount = tintAlpha.value / 100;
 
@@ -768,7 +786,7 @@ const DOMHandler = (() => {
         tintBase.red = parseInt(tintBase.red * tintAmount);
         tintBase.green = parseInt(tintBase.green * tintAmount);
         tintBase.blue = parseInt(tintBase.blue * tintAmount);
-        const colors = ColorGenerator.tint(tintBase);
+        const colors = await ColorGenerator.tint(tintBase);
 
         _updateDisplay(colors);
     }

@@ -74,7 +74,7 @@
                     <hr>
                     <div class="label">
                         <p>Hues:</p>
-                        <input type="number" name="hues" id="hues" min="1" max="360" value="2">
+                        <input type="number" name="hues" id="hues" min="1" max="360" value="2" autocomplete="off">
                         <div class="helpButton">
                             <p>?</p>
                             <div class="helpPanel">
@@ -88,7 +88,7 @@
                     </div>
                     <div class="label">
                         <p>Tones:</p>
-                        <input type="number" name="tones" id="tones" min="1" max="100" value="3">
+                        <input type="number" name="tones" id="tones" min="1" max="100" value="3" autocomplete="off">
                         <div class="helpButton">
                             <p>?</p>
                             <div class="helpPanel">
@@ -99,8 +99,8 @@
                     <div class="label">
                         <p>Tint:</p>
                         <div id="tintContainer">
-                            <input type="number" name="tintAmount" id="tintAmount" min="0" max="100" value="0">
-                            <input type="range" name="tintColor" id="tintColor" min="0" max="359" value="0">
+                            <input type="number" name="tintAmount" id="tintAmount" min="0" max="100" value="0" autocomplete="off">
+                            <input type="range" name="tintColor" id="tintColor" min="0" max="359" value="0" autocomplete="off">
                         </div>
                         <div class="helpButton">
                             <p>?</p>
@@ -112,8 +112,8 @@
                     <div class="label">
                         <p>Analogous:</p>
                         <div class="horizontal">
-                            <input type="number" name="analogousAngle" id="analogousAngle" min="1" max="90" value="20">
-                            <input type="checkbox" name="analogous" id="analogous">
+                            <input type="number" name="analogousAngle" id="analogousAngle" min="1" max="90" value="20" autocomplete="off">
+                            <input type="checkbox" name="analogous" id="analogous" autocomplete="off">
                         </div>
                         <div class="helpButton">
                             <p>?</p>
@@ -124,7 +124,7 @@
                     </div>
                     <div class="label">
                         <p>Random:</p>
-                        <input type="checkbox" name="randomHues" id="randomHues">
+                        <input type="checkbox" name="randomHues" id="randomHues" autocomplete="off">
                         <div class="helpButton">
                             <p>?</p>
                             <div class="helpPanel">
@@ -139,8 +139,8 @@
                     <div class="label">
                         <p>From code:</p>
                         <div class="horizontal">
-                            <input type="text" name="inputCode" id="inputCodeText" class="half">
-                            <input type="checkbox" name="inputType" id="inputCodeCheck">
+                            <input type="text" name="inputCode" id="inputCodeText" class="half" autocomplete="off">
+                            <input type="checkbox" name="inputType" id="inputCodeCheck" autocomplete="off">
                         </div>
                         <div class="helpButton">
                             <p>?</p>
@@ -207,6 +207,9 @@
             <p id="notifClose">❌</p>
         </div>
         <canvas id="saveCanvas"></canvas>
+        <div id="loader">
+            <img src="/assets/logo.svg" id="spinner">
+        </div>
         <script src="script.js"></script>
     </main>
 </body>

@@ -331,6 +331,9 @@ input{
     font-weight: bold;
     opacity: 1;
 }
+#advancedOptions{
+    gap: 2%;
+}
 .quickButtons{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -486,6 +489,10 @@ input{
 @keyframes hide {
     from    {opacity: 1;}
     to      {opacity: 0;}
+}
+/* Chrome Compat */
+#colorWheel, .colorButton, .tab, .quickButton{
+    -webkit-tap-highlight-color: transparent;
 }
 /* Image */
 #saveCanvas{

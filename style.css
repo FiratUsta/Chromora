@@ -332,7 +332,10 @@ input{
     opacity: 1;
 }
 #advancedOptions{
-    gap: 2%;
+    gap: 1vh;
+}
+#advancedOptions .fullWidth{
+    margin: 0;
 }
 .quickButtons{
     display: grid;

@@ -199,10 +199,6 @@ class Swatch{
         hexLabel.classList.add("hexLabel");
         hexLabel.innerText = this.color.hex();
 
-        const nameLabel = document.createElement("p");
-        nameLabel.classList.add("nameLabel");
-        nameLabel.innerText = this.color.name;
-
         const rgbLabel = document.createElement("p");
         rgbLabel.classList.add("rgbLabel");
         rgbLabel.innerText = `rgb(${this.color.red}, ${this.color.green}, ${this.color.blue})`;
@@ -212,7 +208,16 @@ class Swatch{
         hsvLabel.classList.add("hsvLabel");
         hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.value * 100)}%)`;
 
-        [hexLabel, nameLabel, rgbLabel, hsvLabel].forEach(label => {
+        const labels = [hexLabel, rgbLabel, hsvLabel];
+
+        if(this.color.name !== undefined){
+            const nameLabel = document.createElement("p");
+            nameLabel.classList.add("nameLabel");
+            nameLabel.innerText = this.color.name;
+            labels.push(nameLabel);
+        };
+
+        labels.forEach(label => {
             label.classList.add("swatchLabel");
             label.style.color = textColor;
             this.element.appendChild(label);
@@ -709,7 +714,11 @@ const DOMHandler = (() => {
         container.appendChild(infoContainer);
 
         const title = document.createElement("h4");
-        title.innerHTML = color.name;
+        if(color.name !== undefined){
+            title.innerText = color.name;
+        }else{
+            title.innerText = "Color " + index;
+        };
         infoContainer.appendChild(title);
 
         const hex = document.createElement("p");
@@ -808,7 +817,10 @@ const DOMHandler = (() => {
         tintBase.blue = parseInt(tintBase.blue * tintAmount);
         
         ColorGenerator.tint(tintBase);
-        await ColorGenerator.namePalette();
+
+        if(document.getElementById("nameColors").checked){
+            await ColorGenerator.namePalette();
+        }
 
         _updateDisplay(ColorGenerator.getPalette(true));
     }

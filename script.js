@@ -928,11 +928,15 @@ const DOMHandler = (() => {
         }else{
             random.checked = false;
         };
+
+        _generate();
     }
 
     function textColorFromColor(color){
         const hsv = color.hsv();
-        if(Tools.isBetween(hsv.hue, 30, 200)){
+        if(hsv.value < 0.4){
+            return "#FEFEFE";
+        }else if(Tools.isBetween(hsv.hue, 30, 200)){
             if(hsv.value < 0.7 && hsv.saturation > 0.25){
                 return "#FEFEFE";
             }else{

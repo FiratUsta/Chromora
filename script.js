@@ -1,3 +1,7 @@
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./serviceWorker.js");
+};
+
 const DEBUG = true;
 
 const Tools = (() => {

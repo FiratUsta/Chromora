@@ -1,4 +1,4 @@
 {
-    "version": "1.1",
-    "changelog": ["Fix chrome highlight issue on help buttons.", "Add versioning and changelog functions."]
+    "version": "1.1.1",
+    "changelog": ["Update service worker to make updating PWA easier."]
 }

@@ -1,4 +1,6 @@
-const cacheName = "colorThing-v1.1";
+const version = "1.1.1";
+
+const cacheName = "colorThing-v" + version;
 const shellFiles = [
     "ctlogo.svg",
     "index.html",
@@ -10,10 +12,17 @@ const shellFiles = [
     "assets/logo.svg",
     "assets/names.json",
     "assets/wheel.png",
-]
+];
 
 self.addEventListener('install', (e) => {
-    console.log('Service Worker installed.');
+    console.log('Service worker installed. Version: ' + version);
+    console.log('Service worker clearing old caches...');
+    caches.keys().then(function(names) {
+        for (let name of names)
+            if(name != cacheName){
+                caches.delete(name);
+        };
+    });
     e.waitUntil((async () => {
       const cache = await caches.open(cacheName);
       console.log('Service worker caching all: app shell and content.');
@@ -32,7 +41,6 @@ self.addEventListener('fetch', (e) => {
 
     e.respondWith((async () => {
         const r = await caches.match(e.request);
-        console.log(`Service worker fetching resource: ${e.request.url}`);
         if (r) return r;
 
         const response = await fetch(e.request);

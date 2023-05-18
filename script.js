@@ -2,7 +2,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./serviceWorker.js");
 };
 
-const DEBUG = true;
+const DEBUG = false;
 
 const Tools = (() => {
 
@@ -692,7 +692,7 @@ const DOMHandler = (() => {
 
         const end = Date.now();
         if(DEBUG){
-            console.log(end - start + "ms");
+            console.log("Palette generated in " + (end - start) + "ms");
         };
     }
 

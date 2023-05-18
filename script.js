@@ -2,7 +2,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./serviceWorker.js");
 };
 
-const DEBUG = true;
+const DEBUG = false;
 
 const Tools = (() => {
 
@@ -672,7 +672,9 @@ const DOMHandler = (() => {
         _applyTint();      
 
         const end = Date.now();
-        console.log(end - start + "ms");
+        if(DEBUG){
+            console.log(end - start + "ms");
+        };
     }
 
     function _randomColor(){

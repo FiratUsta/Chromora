@@ -1,14 +1,15 @@
-const cacheName = "colorThing-v1";
+const cacheName = "colorThing-v1.1";
 const shellFiles = [
     "ctlogo.svg",
     "index.html",
     "style.css",
     "script.js",
+    "version.json",
     "assets/darkMode.png",
     "assets/lightMode.png",
     "assets/logo.svg",
     "assets/names.json",
-    "assets/wheel.png"
+    "assets/wheel.png",
 ]
 
 self.addEventListener('install', (e) => {
@@ -19,7 +20,7 @@ self.addEventListener('install', (e) => {
       await cache.addAll(shellFiles);
       console.log("Service worker cached all: app shell and content.")
     })());
-  });
+});
 
 self.addEventListener('fetch', (e) => {
     // Cache http and https only, skip unsupported chrome-extension:// and file://...

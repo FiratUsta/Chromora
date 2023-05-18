@@ -1,0 +1,4 @@
+{
+    "version": "1.1",
+    "changelog": ["Fix chrome highlight issue on help buttons.", "Add versioning and changelog functions."]
+}

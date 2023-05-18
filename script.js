@@ -60,6 +60,20 @@ const Tools = (() => {
         return (min <= value && value <= max);
     };
 
+    function changelog(){
+        fetch('./version.json')
+        .then((response) => response.json())
+        .then((json) => {
+            const version = json["version"];
+            const changes = json["changelog"];
+            let msg = "Color Thing by Fırat Usta v" + version + "\nChangelog:";
+            changes.forEach(change => {
+                msg += "\n    -" + change;
+            })
+            console.log(msg);
+        });
+    };
+
     return{
         numToHex,
         hexToNum,
@@ -68,7 +82,8 @@ const Tools = (() => {
         wrap,
         wrapAngle,
         clamp,
-        isBetween
+        isBetween,
+        changelog
     }
 })();
 
@@ -452,7 +467,6 @@ const Indexer = (() => {
         init
     };
 })();
-
 
 const ColorGenerator = (() => {
     let palette = [];
@@ -1050,4 +1064,5 @@ async function init(){
 
 addEventListener("DOMContentLoaded", () => {
     init();
+    Tools.changelog();
 })

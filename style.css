@@ -494,7 +494,7 @@ input{
     to      {opacity: 0;}
 }
 /* Chrome Compat */
-#colorWheel, .colorButton, .tab, .quickButton{
+#colorWheel, .colorButton, .tab, .quickButton, .helpButton{
     -webkit-tap-highlight-color: transparent;
 }
 /* Image */

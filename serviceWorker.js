@@ -1,4 +1,4 @@
-const version = "1.1.1";
+const version = "1.2";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
@@ -13,6 +13,12 @@ const shellFiles = [
     "assets/names.json",
     "assets/wheel.png",
 ];
+
+self.addEventListener("message", (event) => {
+    if(event.data === "version"){
+        event.source.postMessage(version);
+    };
+});
 
 self.addEventListener('install', (e) => {
     console.log('Service worker installed. Version: ' + version);

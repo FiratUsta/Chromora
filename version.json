@@ -1,4 +1,4 @@
 {
-    "version": "1.1.1",
-    "changelog": ["Update service worker to make updating PWA easier."]
+    "version": "1.2",
+    "changelog": ["Add webkit support."]
 }

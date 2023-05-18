@@ -2,7 +2,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./serviceWorker.js");
 };
 
-const DEBUG = false;
+const DEBUG = true;
 
 const Tools = (() => {
 
@@ -71,6 +71,11 @@ const Tools = (() => {
                 msg += "\n    -" + change;
             })
             console.log(msg);
+
+            const debugText = document.createElement("p");
+            debugText.classList.add("debugLabel");
+            debugText.innerText = "DEBUG BUILD VERSION v" + version;
+            document.body.appendChild(debugText);
         });
     };
 
@@ -1064,5 +1069,7 @@ async function init(){
 
 addEventListener("DOMContentLoaded", () => {
     init();
-    Tools.changelog();
+    if(DEBUG){
+        Tools.changelog();
+    };
 })

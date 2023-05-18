@@ -152,14 +152,29 @@ main{
     flex-grow: 1;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    max-height: 100%;
     box-shadow: 0 10px 15px 0 var(--shadow-light);
     background-image: url("./assets/wheel.png");
     background-position: center;
     background-size: cover;
     cursor: pointer;
     touch-action: none;
+    /*
+    Actually can't do outline because of course Safari implemention fucks it up.
+    The ::before declaration below is a workaround for that.
     outline: 3px solid var(--foreground);
     outline-offset: -3px;
+    */
+}
+#colorWheel::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 3px solid var(--foreground);
+    border-radius: calc(50% - 3px);
 }
 #colorWheel #picker{
     width: 20px;
@@ -529,6 +544,17 @@ input{
     width: 100px;
     border: 2px solid black;
     border-radius: 10px;
+}
+/* OTHER */
+.debugLabel{
+    position: fixed;
+    top: 20px;
+    font-weight: bold;
+    color: red;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    user-select: none;
 }
 @media print{
     html{

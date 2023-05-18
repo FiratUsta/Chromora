@@ -36,7 +36,7 @@ main{
     font-family: 'Roboto', sans-serif;
     accent-color: var(--accent-two);
 }
-/* THEMER */
+/* THEMER & VERSION*/
 .themer{
     position: absolute;
     top: 10px;
@@ -45,6 +45,15 @@ main{
     align-items: center;
     gap: 10px;
     color: var(--foreground);
+    user-select: none;
+    -webkit-user-select: none;
+}
+#versionText{
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    color: var(--foreground);
+    opacity: 0.25;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -594,6 +603,9 @@ input{
         justify-content:normal;
     }
     .themer{
+        position: fixed;
+    }
+    #versionText{
         position: fixed;
     }
     .themer p{

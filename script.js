@@ -1065,7 +1065,10 @@ async function init(){
     DOMHandler.init();
     ColorWheel.init();
     document.getElementById("loader").classList.add("hide");
-}
+    fetch('./version.json')
+    .then((response) => response.json())
+    .then((json) => {document.getElementById("versionText").innerText = "v" + json["version"];});
+};
 
 addEventListener("DOMContentLoaded", () => {
     init();

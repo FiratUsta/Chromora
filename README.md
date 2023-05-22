@@ -33,3 +33,7 @@ If you want to host an instance for yourself, just clone the repo and host it, n
 ## What's not next?
 
 Most likely full Webkit support unless someone makes a PR. I have no way of testing for iPhones or Macs. The only way I can test for Webkit is with Epiphany, on which everything seems to be fine (In reality, it's a mess on iPhones, a little better now on desktop Safari).
+
+## "Your code sucks and is inefficient"
+
+I know, it's a mess.

@@ -20,4 +20,16 @@ Why should you use Color-Thing for your color palette generator needs? Because:
 
 ## Want to give it a shot?
 
-Clone the repo and host it on a local server, no special setup is needed. If you don't want to do that, check out the live instance over at [my website](https://ahmetfiratusta.com/stuff/color-thing)!
+Check out the live instance over at [my website](https://ahmetfiratusta.com/stuff/color-thing)!
+
+If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed.
+
+## What's next?
+
+* Directory restructure. Right now everything is a bit cluttered.
+
+* Making the PWA/Offline support optional for those who want an even more lightweight version to host.
+
+## What's not next?
+
+Most likely full Webkit support unless someone makes a PR. I have no way of testing for iPhones or Macs. The only way I can test for Webkit is with Epiphany, on which everything seems to be fine (In reality, it's a mess on iPhones, a little better now on desktop Safari).

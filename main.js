@@ -1,5 +1,5 @@
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("serviceWorker.js");
+    navigator.serviceWorker.register("./app/serviceWorker.js");
 };
 
 const DEBUG = true;
@@ -61,7 +61,7 @@ const Tools = (() => {
     };
 
     function changelog(){
-        fetch('../data/version.json')
+        fetch('./data/version.json')
         .then((response) => response.json())
         .then((json) => {
             const version = json["version"];
@@ -1065,7 +1065,7 @@ async function init(){
     DOMHandler.init();
     ColorWheel.init();
     document.getElementById("loader").classList.add("hide");
-    fetch('../data/version.json')
+    fetch('./data/version.json')
     .then((response) => response.json())
     .then((json) => {document.getElementById("versionText").innerText = "v" + json["version"];});
 };

@@ -5,8 +5,7 @@ const shellFiles = [
     // Enter point files
     "../index.html",
     "../style.css",
-    // Scripts
-    "../scripts/main.js",
+    "../main.js",
     // Data
     "../data/colors.json",
     "../data/version.json",

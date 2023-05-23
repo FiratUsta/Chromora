@@ -2,16 +2,19 @@ const version = "1.3.1";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
-    "ctlogo.svg",
-    "index.html",
-    "style.css",
-    "script.js",
-    "version.json",
-    "assets/darkMode.png",
-    "assets/lightMode.png",
-    "assets/logo.svg",
-    "assets/names.json",
-    "assets/wheel.png",
+    // Enter point files
+    "../index.html",
+    "../style.css",
+    // Scripts
+    "../scripts/main.js",
+    // Data
+    "../data/colors.json",
+    "../data/version.json",
+    // Assets
+    "../assets/darkMode.png",
+    "../assets/lightMode.png",
+    "../assets/logo.svg",
+    "../assets/wheel.png",
 ];
 
 self.addEventListener("message", (event) => {

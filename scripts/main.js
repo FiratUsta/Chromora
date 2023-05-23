@@ -1,8 +1,8 @@
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./serviceWorker.js");
+    navigator.serviceWorker.register("serviceWorker.js");
 };
 
-const DEBUG = false;
+const DEBUG = true;
 
 const Tools = (() => {
 
@@ -61,7 +61,7 @@ const Tools = (() => {
     };
 
     function changelog(){
-        fetch('./version.json')
+        fetch('../data/version.json')
         .then((response) => response.json())
         .then((json) => {
             const version = json["version"];
@@ -458,7 +458,7 @@ const Indexer = (() => {
 
     async function init(){
         return new Promise(function(resolve){
-            fetch('./assets/names.json')
+            fetch('./data/colors.json')
             .then((response) => response.json())
             .then((json) => {
                 nameArray = json["colors"];
@@ -1065,7 +1065,7 @@ async function init(){
     DOMHandler.init();
     ColorWheel.init();
     document.getElementById("loader").classList.add("hide");
-    fetch('./version.json')
+    fetch('../data/version.json')
     .then((response) => response.json())
     .then((json) => {document.getElementById("versionText").innerText = "v" + json["version"];});
 };

@@ -16,19 +16,21 @@ Why should you use Color-Thing for your color palette generator needs? Because:
 
 * It can work offline without any limitations, all of its functions including exporting and importing work offline. You can even install it on your device as a PWA.
 
+* No watermarks anywhere in the exports, 
+
 * It's 100% FOSS, no log-ins, no pro subscriptions, no data collection, only colors!
 
 ## Want to give it a shot?
 
 Check out the live instance over at [my website](https://ahmetfiratusta.com/stuff/color-thing)!
 
-If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed.
+If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed. 
+
+You can also grab one of the zips from the releases for self hosting. These files are cleaned of any unnecessary files like this `README.md` file, or the `git-assets` directory. Additionally, the 'light' version leaves out the `app` directory as well, however this version will only work online as it lacks PWA capabilities.
 
 ## What's next?
 
-* Directory restructure. Right now everything is a bit cluttered.
-
-* Making the PWA/Offline support optional for those who want an even more lightweight version to host.
+I honestly don't know, the app is pretty much complete in my eyes. Of course, if I discover any bugs or get any PRs, those will be handled on a case by case basis. Otherwise, maybe native desktop programs or a mobile app? I understand if people don't want to use it as a PWA, especially since Firefox doesn't officially support them.
 
 ## What's not next?
 

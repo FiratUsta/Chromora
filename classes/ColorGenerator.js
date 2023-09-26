@@ -1,8 +1,14 @@
-const ColorGenerator = (() => {
-    let palette = [];
-    let modifiedPalette = [];
+import { Color } from "./Color.js";
 
-    function _calculateValues(value, amount){
+class ColorGenerator{
+    constructor(indexer){
+        this.indexer = indexer;
+
+        this.palette = [];
+        this.modifiedPalette = [];
+    }
+
+    _calculateValues(value, amount){
         let values = [];
 
         const increment = 1 / amount;
@@ -15,7 +21,7 @@ const ColorGenerator = (() => {
         return values;
     }
 
-    function generateColors(base, points, amount, analogous = false, analogousAngle = 0){
+    generateColors(base, points, amount, analogous = false, analogousAngle = 0){
         palette = [];
         const display = document.getElementById("display");
         display.innerHTML = "";
@@ -44,7 +50,7 @@ const ColorGenerator = (() => {
         return palette;
     }
 
-    function getPalette(modified){
+    getPalette(modified){
         if(modified){
             return modifiedPalette;
         }else{
@@ -52,7 +58,7 @@ const ColorGenerator = (() => {
         };
     }
 
-    function random(_color, amount){
+    random(_color, amount){
             palette = [];
 
             for(let i = 0; i < amount; i++){
@@ -63,7 +69,7 @@ const ColorGenerator = (() => {
             return palette;
     }
 
-    function tint(color){
+    tint(color){
         modifiedPalette = [];
 
         palette.forEach(swatch => {
@@ -77,10 +83,10 @@ const ColorGenerator = (() => {
         return modifiedPalette;
     }
 
-    async function namePalette(){
+    async namePalette(){
         return new Promise(async function(resolve){
             
-            const names = await(Indexer.findMultiple(modifiedPalette));
+            const names = await(this.indexer.findMultiple(modifiedPalette));
 
             for(let i = 0; i < modifiedPalette.length; i++){
                 modifiedPalette[i].name = names[i][0]["name"];
@@ -89,13 +95,6 @@ const ColorGenerator = (() => {
             resolve();
         });
     }
+}
 
-    return{
-        generateColors,
-        getPalette,
-        random,
-        tint,
-        namePalette
-    }
-
-})();
+export{ColorGenerator}

@@ -1,11 +1,14 @@
 import { Color } from "./Color.js";
+import { Indexer } from "./Indexer.js";
+import * as Elements from "../modules/Elements.js";
+import { wrapAngle, wrap } from "../modules/Tools.js";
 
 class ColorGenerator{
     constructor(){
         this.palette = [];
         this.modifiedPalette = [];
 
-        this.indexer;
+        this.indexer = new Indexer;
     }
 
     _calculateValues(value, amount){
@@ -13,7 +16,7 @@ class ColorGenerator{
 
         const increment = 1 / amount;
         for(let i = 0; i < amount; i++){
-            values.push(Tools.wrap(value, increment * i, 0, 1));
+            values.push(wrap(value, increment * i, 0, 1));
         };
 
         values.sort();
@@ -21,32 +24,38 @@ class ColorGenerator{
         return values;
     }
 
-    generateColors(base, points, amount, analogous = false, analogousAngle = 0){
-        palette = [];
-        const display = document.getElementById("display");
-        display.innerHTML = "";
-        const hsv = base.hsv();
-        const values = _calculateValues(hsv.value, amount);
-        
-        let shift;
-        let mod = 1;
-        if(!analogous){
-            shift = 360 / points;
-        }else{
-            shift = analogousAngle;
-        };
-        
-        for(let i = 0; i < points; i++){
-            for(let j = 0; j < amount; j++){
-                if(analogous){
-                    mod = (i % 2 === 0 ? -1 : 1);
-                }
-                const angle = Tools.wrapAngle(hsv.hue, shift * i * mod);
-                const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
+    generateColors(){
+        const palette = [];
+        if(Elements.CHECK_RANDOM.checked){
+            for(let i = 0; i < amount; i++){
+                const color = new Color().random();
                 palette.push(color);
-            }
-        };
+            };
+        }else{
+            const base = new Color(Elements.R_INPUT.value, Elements.G_INPUT.value, Elements.B_INPUT.value);
 
+            const hsv = base.hsv();
+            const values = this._calculateValues(hsv.value, Elements.TONES.value);
+            
+            let shift;
+            let mod = 1;
+            if(!Elements.CHECK_ANALOGOUS.checked){
+                shift = 360 / Elements.HUES.value;
+            }else{
+                shift = Elements.ANALOGOUS_ANGLE.value;
+            };
+            
+            for(let i = 0; i < Elements.HUES.value; i++){
+                for(let j = 0; j < Elements.TONES.value; j++){
+                    if(Elements.CHECK_ANALOGOUS.checked){
+                        mod = (i % 2 === 0 ? -1 : 1);
+                    }
+                    const angle = wrapAngle(hsv.hue, shift * i * mod);
+                    const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
+                    palette.push(color);
+                }
+            };
+        };
         return palette;
     }
 
@@ -56,17 +65,6 @@ class ColorGenerator{
         }else{
             return palette;
         };
-    }
-
-    random(_color, amount){
-            palette = [];
-
-            for(let i = 0; i < amount; i++){
-                const color = new Color().random();
-                palette.push(color);
-            };
-    
-            return palette;
     }
 
     tint(color){
@@ -96,8 +94,8 @@ class ColorGenerator{
         });
     }
 
-    bindIndexer(indexer){
-        this.indexer = indexer;
+    async init(){
+        await this.indexer.init();
     }
 }
 

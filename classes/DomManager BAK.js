@@ -1,16 +1,6 @@
 const DOMHandler = (() => {
 
     const swatchDisplay = document.getElementById("display");
-    // Generator Parameters
-    const base = document.getElementById("hex");
-    const points = document.getElementById("hues");
-    const amount = document.getElementById("tones");
-    const random = document.getElementById("randomHues");
-    const analogous = document.getElementById("analogous");
-    const angle = document.getElementById("analogousAngle")
-    // Tint options
-    const tintAlpha = document.getElementById("tintAmount");
-    const tintColor = document.getElementById("tintColor");
     // Export types
     const exImage = document.getElementById("exportImage");
     const exPrint = document.getElementById("exportPrint");
@@ -261,19 +251,10 @@ const DOMHandler = (() => {
     }
 
     function init(){
-        rInput.onchange = () => _colorInput("rgb");
-        gInput.onchange = () => _colorInput("rgb");
-        bInput.onchange = () => _colorInput("rgb");
-        hInput.onchange = () => _colorInput("hsv");
-        sInput.onchange = () => _colorInput("hsv");
-        vInput.onchange = () => _colorInput("hsv");
-        hexInput.onchange = () => _colorInput("hex");
         tintColor.oninput = _applyTint;
         tintAlpha.onchange = _applyTint;
-        document.getElementById("randomButton").onclick = _randomColor;
         document.getElementById("generateButton").onclick = _generate;
         document.getElementById("exportButton").onclick = _export;
-        themeToggle.onclick = _toggleTheme;
 
         const helpers = [...document.getElementsByClassName("helpButton")];
         helpers.forEach(button => {
@@ -303,21 +284,7 @@ const DOMHandler = (() => {
             advancedOptions.classList.remove("hidden");
         }
 
-        quickButtons.forEach(button => {
-            button.onclick = () => {_changeQuickSettings(button.id)};
-        });
 
-        theme = _checkColorPreference();
-        themeToggle.setAttribute("src", "assets/" + theme + "Mode.png");
-        
-        let initColor;
-        if(theme === "dark"){
-            initColor = new Color().fromHEX("#E7B03A");
-        }else{
-            initColor = new Color().fromHEX("#2265A4");
-        }
-        updateColors(initColor);
-        ColorWheel.positionFromHSV(initColor);
         _generate();
     }
 

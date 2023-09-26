@@ -1,6 +1,5 @@
 import { ColorGenerator } from "./classes/ColorGenerator.js";
 import { DomManager } from "./classes/DomManager.js";
-import { Indexer } from "./classes/Indexer.js";
 
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./app/serviceWorker.js");
@@ -11,15 +10,14 @@ const DEBUG = true;
 const app = (() => {
     const colorGenerator    = new ColorGenerator();
     const domManager        = new DomManager();
-    const indexer           = new Indexer();
 
     async function init(){
         // Initialize the modules
-        await indexer.init();
-        
-        colorGenerator.bindIndexer(indexer);
+        await colorGenerator.init();
 
         domManager.init();
+
+        console.log(colorGenerator.generateColors())
 
         // Hide loading screen
         document.getElementById("loader").classList.add("hide");
@@ -37,7 +35,7 @@ const app = (() => {
 
 addEventListener("DOMContentLoaded", () => {
     app.init();
-
+    
     if(DEBUG){
         fetch('./data/version.json')
         .then((response) => response.json())

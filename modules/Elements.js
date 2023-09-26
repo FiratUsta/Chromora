@@ -14,9 +14,17 @@ const THEME_TOGGLE  = document.getElementById("themeToggle");
 const WHEEL         = document.getElementById("colorWheel");
 const PICKER        = document.getElementById("picker");
 const VALUE_SLIDER  = document.getElementById("value");
+// Generator Parameters
+const HUES = document.getElementById("hues");
+const TONES = document.getElementById("tones");
+const CHECK_RANDOM = document.getElementById("randomHues");
+const CHECK_ANALOGOUS = document.getElementById("analogous");
+const ANALOGOUS_ANGLE = document.getElementById("analogousAngle")
+const TINT_AMOUNT = document.getElementById("tintAmount");
+const TINT_COLOR = document.getElementById("tintColor");
+
 // Buttons
 const BUTTON_RANDOM = document.getElementById("randomButton");
-
 export{
     // HEX
     HEX_INPUT,
@@ -34,6 +42,14 @@ export{
     WHEEL,
     PICKER,
     VALUE_SLIDER,
+    // PARAMETERS
+    HUES,
+    TONES,
+    CHECK_RANDOM,
+    CHECK_ANALOGOUS,
+    ANALOGOUS_ANGLE,
+    TINT_AMOUNT,
+    TINT_COLOR,
     // BUTTONS
     BUTTON_RANDOM
 }

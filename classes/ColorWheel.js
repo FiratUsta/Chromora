@@ -1,12 +1,19 @@
-const ColorWheel = (() => {
-    const wheel = document.getElementById("colorWheel");
-    const picker = document.getElementById("picker");
-    const valueInput = document.getElementById("value");
+import { clamp } from "../modules/Tools.js"
+import { Color } from "./Color.js";
 
-    let tracking = false;
+class ColorWheel{
+    constructor(domManager){
+        this.wheel = document.getElementById("colorWheel");
+        this.picker = document.getElementById("picker");
+        this.valueInput = document.getElementById("value");
 
-    function _calculatePositions(){
-        const rect = wheel.getBoundingClientRect();
+        this.tracking = false;
+        
+        this.domManager = domManager;
+    }
+
+    _calculatePositions(){
+        const rect = this.wheel.getBoundingClientRect();
         const center = {
             "x": rect.left + ((rect.right - rect.left) / 2),
             "y": rect.top + ((rect.bottom - rect.top) / 2)
@@ -18,15 +25,15 @@ const ColorWheel = (() => {
         };
     }
 
-    function _getPickerPosition(){
-        const rect = picker.getBoundingClientRect();
+    _getPickerPosition(){
+        const rect = this.picker.getBoundingClientRect();
         const x = rect.left + 10;
         const y = rect.top + 10;
 
         return {x, y};   
     }
 
-    function _calculateMouseOffset(x, y, positions){
+    _calculateMouseOffset(x, y, positions){
         const el = positions;
 
         return{
@@ -41,17 +48,17 @@ const ColorWheel = (() => {
         }
     }
 
-    function _movePicker(x, y){
+    _movePicker(x, y){
         const positions = _calculatePositions();
         const diameter = (positions.rect.right - positions.rect.left);
         const posX = ((x - 10) / diameter) * 100;
         const posY = ((y - 10) / diameter) * 100;
 
-        picker.style.top = posY + "%";
-        picker.style.left = posX + "%";
+        this.picker.style.top = posY + "%";
+        this.picker.style.left = posX + "%";
     }
     
-    function _calculateHS(centerOffset, positions){
+    _calculateHS(centerOffset, positions){
         const x = centerOffset.x;
         const y = centerOffset.y;
         
@@ -63,17 +70,17 @@ const ColorWheel = (() => {
         // Saturation calculation
         const magnitude = Math.sqrt((x * x) + (y * y));
         const radius = (positions.rect.right - positions.rect.left) / 2;
-        const saturation = Tools.clamp(magnitude / radius, 0, 1);
+        const saturation = clamp(magnitude / radius, 0, 1);
 
         return{hue, saturation}
     }
 
-    function _track(x, y){
+    _track(x, y){
         const positions = _calculatePositions();
         const offsets = _calculateMouseOffset(x, y, positions);
 
         const hs = _calculateHS(offsets.center, positions);
-        const value = valueInput.value / 100;
+        const value = this.valueInput.value / 100;
 
         const color = new Color().fromHSV(hs.hue, hs.saturation, value);
 
@@ -87,7 +94,7 @@ const ColorWheel = (() => {
         return color;
     };
 
-    function positionFromHSV(color){
+    positionFromHSV(color){
         const hsv = color.hsv();
         // Calculate radius, (radius, radius) is the (0,0) point on the circle offsetted from the top-left.
         const positions = _calculatePositions();
@@ -105,65 +112,62 @@ const ColorWheel = (() => {
         const posY = radius + (rotY * radius);
 
         _movePicker(posX, posY);
-        valueInput.value = hsv.value * 100;
+        this.valueInput.value = hsv.value * 100;
     }
 
-    function init(){
-        wheel.addEventListener("mouseleave", (event) => {
-            if(tracking){
-                tracking = false;
-                wheel.classList.remove("noCursor");
+    init(){
+        this.wheel.addEventListener("mouseleave", (event) => {
+            if(this.tracking){
+                this.tracking = false;
+                this.wheel.classList.remove("noCursor");
             };
         });
-        wheel.addEventListener("mousedown", (event) => {
-            if(!tracking){
-                tracking = true;
-                wheel.classList.add("noCursor");
+        this.wheel.addEventListener("mousedown", (event) => {
+            if(!this.tracking){
+                this.tracking = true;
+                this.wheel.classList.add("noCursor");
                 const color = _track(event.pageX, event.pageY);
                 DOMHandler.updateColors(color);
             }
         });
-        wheel.addEventListener("touchstart", (event) => {
-            if(!tracking){
-                tracking = true;
-                wheel.classList.add("noCursor");
+        this.wheel.addEventListener("touchstart", (event) => {
+            if(!this.tracking){
+                this.tracking = true;
+                this.wheel.classList.add("noCursor");
                 const color = _track(event.touches[0].pageX, event.touches[0].pageY);
                 DOMHandler.updateColors(color);
             };
         });
-        wheel.addEventListener("mouseup", (event) => {
-            if(tracking){
-                tracking = false;
+        this.wheel.addEventListener("mouseup", (event) => {
+            if(this.tracking){
+                this.tracking = false;
                 wheel.classList.remove("noCursor");
             };
         });
-        wheel.addEventListener("touchend", (event) => {
-            if(tracking){
-                tracking = false;
+        this.wheel.addEventListener("touchend", (event) => {
+            if(this.tracking){
+                this.tracking = false;
                 wheel.classList.remove("noCursor");
             };
         });
-        wheel.addEventListener("mousemove", (event) => {
-            if(tracking){
+        this.wheel.addEventListener("mousemove", (event) => {
+            if(this.tracking){
                 const color = _track(event.pageX, event.pageY);
                 DOMHandler.updateColors(color);
             };
         });
-        wheel.addEventListener("touchmove", (event) => {
-            if(tracking){
+        this.wheel.addEventListener("touchmove", (event) => {
+            if(this.tracking){
                 const color = _track(event.touches[0].pageX, event.touches[0].pageY);
                 DOMHandler.updateColors(color);
             };
         });
-        valueInput.oninput = () => {
+        this.valueInput.oninput = () => {
             const pos = _getPickerPosition();
             const color = _track(pos.x, pos.y);
             DOMHandler.updateColors(color);
         }
     }
+}
 
-    return{
-        init,
-        positionFromHSV
-    }
-})();
+export{ColorWheel}

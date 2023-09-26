@@ -1,4 +1,4 @@
-import {hexToNum, randomBetween, round, wrapAngle, numToHex, clamp} from "./Tools.js"
+import { hexToNum, randomBetween, round, wrapAngle, numToHex, clamp } from "../modules/Tools.js"
 
 class Color{
     constructor(r = 0, g = 0, b = 0){

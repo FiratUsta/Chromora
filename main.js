@@ -2,7 +2,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./app/serviceWorker.js");
 };
 
-const DEBUG = false;
+const DEBUG = true;
 
 const Tools = (() => {
 

@@ -2,14 +2,12 @@ import { clamp } from "../modules/Tools.js"
 import { Color } from "./Color.js";
 
 class ColorWheel{
-    constructor(domManager){
+    constructor(){
         this.wheel = document.getElementById("colorWheel");
         this.picker = document.getElementById("picker");
         this.valueInput = document.getElementById("value");
 
         this.tracking = false;
-        
-        this.domManager = domManager;
     }
 
     _calculatePositions(){
@@ -115,57 +113,64 @@ class ColorWheel{
         this.valueInput.value = hsv.value * 100;
     }
 
-    init(){
+    init(domManager){
         this.wheel.addEventListener("mouseleave", (event) => {
             if(this.tracking){
                 this.tracking = false;
                 this.wheel.classList.remove("noCursor");
             };
         });
+
         this.wheel.addEventListener("mousedown", (event) => {
             if(!this.tracking){
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
                 const color = _track(event.pageX, event.pageY);
-                DOMHandler.updateColors(color);
+                domManager.updateColors(color);
             }
         });
+
         this.wheel.addEventListener("touchstart", (event) => {
             if(!this.tracking){
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
                 const color = _track(event.touches[0].pageX, event.touches[0].pageY);
-                DOMHandler.updateColors(color);
+                domManager.updateColors(color);
             };
         });
+
         this.wheel.addEventListener("mouseup", (event) => {
             if(this.tracking){
                 this.tracking = false;
                 wheel.classList.remove("noCursor");
             };
         });
+
         this.wheel.addEventListener("touchend", (event) => {
             if(this.tracking){
                 this.tracking = false;
                 wheel.classList.remove("noCursor");
             };
         });
+
         this.wheel.addEventListener("mousemove", (event) => {
             if(this.tracking){
                 const color = _track(event.pageX, event.pageY);
-                DOMHandler.updateColors(color);
+                domManager.updateColors(color);
             };
         });
+
         this.wheel.addEventListener("touchmove", (event) => {
             if(this.tracking){
                 const color = _track(event.touches[0].pageX, event.touches[0].pageY);
-                DOMHandler.updateColors(color);
+                domManager.updateColors(color);
             };
         });
+        
         this.valueInput.oninput = () => {
             const pos = _getPickerPosition();
             const color = _track(pos.x, pos.y);
-            DOMHandler.updateColors(color);
+            domManager.updateColors(color);
         }
     }
 }

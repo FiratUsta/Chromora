@@ -1,3 +1,5 @@
+import { ColorWheel } from "./classes/ColorWheel.js";
+import { DomManager } from "./classes/DomManager.js";
 import { Indexer } from "./classes/Indexer.js"
 
 if ("serviceWorker" in navigator) {
@@ -7,10 +9,14 @@ if ("serviceWorker" in navigator) {
 const DEBUG = true;
 
 const app = (() => {
-    const indexer = new Indexer();
+    const colorWheel    = new ColorWheel();
+    const domManager    = new DomManager();
+    const indexer       = new Indexer();
 
     async function init(){
         await indexer.init();
+        domManager.init();
+        colorWheel.init(domManager);
 
         // Hide loading screen
         document.getElementById("loader").classList.add("hide");

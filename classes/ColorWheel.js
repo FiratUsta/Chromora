@@ -1,11 +1,14 @@
 import { clamp } from "../modules/Tools.js"
 import { Color } from "./Color.js";
+import * as Elements from "../modules/Elements.js"
 
 class ColorWheel{
-    constructor(){
-        this.wheel = document.getElementById("colorWheel");
-        this.picker = document.getElementById("picker");
-        this.valueInput = document.getElementById("value");
+    constructor(manager){
+        this.manager = manager;
+
+        this.wheel = Elements.WHEEL;
+        this.picker = Elements.PICKER;
+        this.valueInput = Elements.VALUE_SLIDER;
 
         this.tracking = false;
     }
@@ -47,7 +50,7 @@ class ColorWheel{
     }
 
     _movePicker(x, y){
-        const positions = _calculatePositions();
+        const positions = this._calculatePositions();
         const diameter = (positions.rect.right - positions.rect.left);
         const posX = ((x - 10) / diameter) * 100;
         const posY = ((y - 10) / diameter) * 100;
@@ -74,19 +77,19 @@ class ColorWheel{
     }
 
     _track(x, y){
-        const positions = _calculatePositions();
-        const offsets = _calculateMouseOffset(x, y, positions);
+        const positions = this._calculatePositions();
+        const offsets = this._calculateMouseOffset(x, y, positions);
 
-        const hs = _calculateHS(offsets.center, positions);
+        const hs = this._calculateHS(offsets.center, positions);
         const value = this.valueInput.value / 100;
 
         const color = new Color().fromHSV(hs.hue, hs.saturation, value);
 
         const radius = (positions.rect.right - positions.rect.left) / 2;
         if(Math.sqrt((offsets.center.x * offsets.center.x) + (offsets.center.y * offsets.center.y)) > radius){
-            positionFromHSV(color);
+            this.positionFromHSV(color);
         }else{
-            _movePicker(offsets.rect.x, offsets.rect.y);
+            this._movePicker(offsets.rect.x, offsets.rect.y);
         }
 
         return color;
@@ -95,7 +98,7 @@ class ColorWheel{
     positionFromHSV(color){
         const hsv = color.hsv();
         // Calculate radius, (radius, radius) is the (0,0) point on the circle offsetted from the top-left.
-        const positions = _calculatePositions();
+        const positions = this._calculatePositions();
         const radius = (positions.rect.right - positions.rect.left) / 2;
         // Initiate the coordinates at (1,0) unit vector, scaled by the saturation.
         let x = hsv.saturation;
@@ -109,11 +112,11 @@ class ColorWheel{
         const posX = radius + (rotX * radius);
         const posY = radius + (rotY * radius);
 
-        _movePicker(posX, posY);
+        this._movePicker(posX, posY);
         this.valueInput.value = hsv.value * 100;
     }
 
-    init(domManager){
+    init(){
         this.wheel.addEventListener("mouseleave", (event) => {
             if(this.tracking){
                 this.tracking = false;
@@ -125,8 +128,8 @@ class ColorWheel{
             if(!this.tracking){
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
-                const color = _track(event.pageX, event.pageY);
-                domManager.updateColors(color);
+                const color = this._track(event.pageX, event.pageY);
+                this.manager.themer.updateColors(color);
             }
         });
 
@@ -134,43 +137,43 @@ class ColorWheel{
             if(!this.tracking){
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
-                const color = _track(event.touches[0].pageX, event.touches[0].pageY);
-                domManager.updateColors(color);
+                const color = this._track(event.touches[0].pageX, event.touches[0].pageY);
+                this.manager.themer.updateColors(color);
             };
         });
 
         this.wheel.addEventListener("mouseup", (event) => {
             if(this.tracking){
                 this.tracking = false;
-                wheel.classList.remove("noCursor");
+                this.wheel.classList.remove("noCursor");
             };
         });
 
         this.wheel.addEventListener("touchend", (event) => {
             if(this.tracking){
                 this.tracking = false;
-                wheel.classList.remove("noCursor");
+                this.wheel.classList.remove("noCursor");
             };
         });
 
         this.wheel.addEventListener("mousemove", (event) => {
             if(this.tracking){
-                const color = _track(event.pageX, event.pageY);
-                domManager.updateColors(color);
+                const color = this._track(event.pageX, event.pageY);
+                this.manager.themer.updateColors(color);
             };
         });
 
         this.wheel.addEventListener("touchmove", (event) => {
             if(this.tracking){
-                const color = _track(event.touches[0].pageX, event.touches[0].pageY);
-                domManager.updateColors(color);
+                const color = this._track(event.touches[0].pageX, event.touches[0].pageY);
+                this.manager.themer.updateColors(color);
             };
         });
         
         this.valueInput.oninput = () => {
-            const pos = _getPickerPosition();
-            const color = _track(pos.x, pos.y);
-            domManager.updateColors(color);
+            const pos = this._getPickerPosition();
+            const color = this._track(pos.x, pos.y);
+            this.manager.themer.updateColors(color);
         }
     }
 }

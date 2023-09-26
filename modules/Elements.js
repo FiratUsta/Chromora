@@ -8,13 +8,14 @@ const B_INPUT       = document.getElementById("b");
 const H_INPUT       = document.getElementById("h");
 const S_INPUT       = document.getElementById("s");
 const V_INPUT       = document.getElementById("v");
-
 // Theme
 const THEME_TOGGLE  = document.getElementById("themeToggle");
 // Color wheel
 const WHEEL         = document.getElementById("colorWheel");
 const PICKER        = document.getElementById("picker");
 const VALUE_SLIDER  = document.getElementById("value");
+// Buttons
+const BUTTON_RANDOM = document.getElementById("randomButton");
 
 export{
     // HEX
@@ -29,8 +30,10 @@ export{
     V_INPUT,
     // THEME
     THEME_TOGGLE,
-    // Color Wheel
+    // COLOR WHEEL
     WHEEL,
     PICKER,
-    VALUE_SLIDER
+    VALUE_SLIDER,
+    // BUTTONS
+    BUTTON_RANDOM
 }

@@ -1,3 +1,4 @@
+import { ColorGenerator } from "./classes/ColorGenerator.js";
 import { DomManager } from "./classes/DomManager.js";
 import { Indexer } from "./classes/Indexer.js";
 
@@ -8,12 +9,15 @@ if ("serviceWorker" in navigator) {
 const DEBUG = true;
 
 const app = (() => {
-    const domManager    = new DomManager();
-    const indexer       = new Indexer();
+    const colorGenerator    = new ColorGenerator();
+    const domManager        = new DomManager();
+    const indexer           = new Indexer();
 
     async function init(){
         // Initialize the modules
         await indexer.init();
+        
+        colorGenerator.bindIndexer(indexer);
 
         domManager.init();
 

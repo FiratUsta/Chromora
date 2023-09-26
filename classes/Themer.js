@@ -1,11 +1,10 @@
 import * as Elements from "../modules/Elements.js"
 import { isBetween } from "../modules/Tools.js";
+import { Color } from "./Color.js";
 
 class Themer{
     constructor(){
         this.theme = this._checkColorPreference();
-
-        this._setDocumentTheme(this.theme);
     }
 
     _checkColorPreference(){
@@ -29,7 +28,7 @@ class Themer{
                 document.documentElement.style.setProperty('--shadow-dark', "rgba(0, 0, 0, 0.5)");
                 document.documentElement.style.setProperty('--accent-one', "#868686");
                 break;
-            case "light":
+            case "dark":
                 document.documentElement.style.setProperty('--background', "#363636");
                 document.documentElement.style.setProperty('--foreground', "#F5F5F5");
                 document.documentElement.style.setProperty('--shadow-light', "rgba(0, 0, 0, 0.5)");
@@ -83,6 +82,18 @@ class Themer{
         Elements.V_INPUT.value = parseInt(hsv.value * 100);
         document.documentElement.style.setProperty('--accent-two', hexCode);
         document.documentElement.style.setProperty('--accent-three', this.textColorFromColor(color));
+    }
+
+    init(){
+        this._setDocumentTheme(this.theme);
+
+        if(this.theme == "dark"){
+            this.updateColors(new Color().fromHEX("#E7B03A"));
+        }else{
+            this.updateColors(new Color().fromHEX("#2265A4"));
+        };
+
+        Elements.THEME_TOGGLE.onclick = () => {this._toggleDocumentTheme();}
     }
 }
 

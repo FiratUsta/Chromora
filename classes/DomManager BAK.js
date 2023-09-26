@@ -63,34 +63,6 @@ const DOMHandler = (() => {
         };
     }
 
-    function _randomColor(){
-        const color = new Color().random();
-        ColorWheel.positionFromHSV(color);
-        updateColors(color);
-    }
-
-    function _colorInput(mode){
-        let color;
-        switch(mode){
-            case "hsv":
-                color = new Color().fromHSV(hInput.value, sInput.value / 100, vInput.value / 100);
-                break;
-            
-            case "rgb":
-                color = new Color(rInput.value, gInput.value, bInput.value);
-                break;
-
-            case "hex":
-                color = new Color().fromHEX(hexInput.value);
-                break
-
-            default:
-                break;
-        }
-        ColorWheel.positionFromHSV(color);
-        updateColors(color);
-    }
-
     function _createPrintSwatches(color, index){
         // For color list
         const container = document.createElement("div");

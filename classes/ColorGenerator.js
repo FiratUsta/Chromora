@@ -4,6 +4,8 @@ class ColorGenerator{
     constructor(){
         this.palette = [];
         this.modifiedPalette = [];
+
+        this.indexer;
     }
 
     _calculateValues(value, amount){
@@ -81,10 +83,10 @@ class ColorGenerator{
         return modifiedPalette;
     }
 
-    async namePalette(indexer){
+    async namePalette(){
         return new Promise(async function(resolve){
             
-            const names = await(indexer.findMultiple(modifiedPalette));
+            const names = await(this.indexer.findMultiple(modifiedPalette));
 
             for(let i = 0; i < modifiedPalette.length; i++){
                 modifiedPalette[i].name = names[i][0]["name"];
@@ -92,6 +94,10 @@ class ColorGenerator{
             
             resolve();
         });
+    }
+
+    bindIndexer(indexer){
+        this.indexer = indexer;
     }
 }
 

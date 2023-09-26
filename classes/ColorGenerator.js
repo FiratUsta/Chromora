@@ -1,9 +1,7 @@
 import { Color } from "./Color.js";
 
 class ColorGenerator{
-    constructor(indexer){
-        this.indexer = indexer;
-
+    constructor(){
         this.palette = [];
         this.modifiedPalette = [];
     }
@@ -83,10 +81,10 @@ class ColorGenerator{
         return modifiedPalette;
     }
 
-    async namePalette(){
+    async namePalette(indexer){
         return new Promise(async function(resolve){
             
-            const names = await(this.indexer.findMultiple(modifiedPalette));
+            const names = await(indexer.findMultiple(modifiedPalette));
 
             for(let i = 0; i < modifiedPalette.length; i++){
                 modifiedPalette[i].name = names[i][0]["name"];

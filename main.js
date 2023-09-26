@@ -1,22 +1,50 @@
+import { Indexer } from "./classes/Indexer.js"
+
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./app/serviceWorker.js");
 };
 
 const DEBUG = true;
 
-async function init(){
-    await Indexer.init();
-    DOMHandler.init();
-    ColorWheel.init();
-    document.getElementById("loader").classList.add("hide");
-    fetch('./data/version.json')
-    .then((response) => response.json())
-    .then((json) => {document.getElementById("versionText").innerText = "v" + json["version"];});
-};
+const app = (() => {
+    const indexer = new Indexer();
+
+    async function init(){
+        await indexer.init();
+
+        // Hide loading screen
+        document.getElementById("loader").classList.add("hide");
+
+        // Display version
+        fetch('./data/version.json')
+        .then((response) => response.json())
+        .then((json) => {document.getElementById("versionText").innerText = "v" + json["version"];});
+    };
+
+    return{
+        init
+    }
+})();
 
 addEventListener("DOMContentLoaded", () => {
-    init();
+    app.init();
+
     if(DEBUG){
-        Tools.changelog();
+        fetch('./data/version.json')
+        .then((response) => response.json())
+        .then((json) => {
+            const version = json["version"];
+            const changes = json["changelog"];
+            let msg = "Color Thing by Fırat Usta v" + version + "\nChangelog:";
+            changes.forEach(change => {
+                msg += "\n    -" + change;
+            })
+            console.log(msg);
+    
+            const debugText = document.createElement("p");
+            debugText.classList.add("debugLabel");
+            debugText.innerText = "DEBUG BUILD VERSION v" + version;
+            document.body.appendChild(debugText);
+        });
     };
 })

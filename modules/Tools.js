@@ -52,25 +52,6 @@ function isBetween(value, min, max){
     return (min <= value && value <= max);
 };
 
-function changelog(){
-    fetch('./data/version.json')
-    .then((response) => response.json())
-    .then((json) => {
-        const version = json["version"];
-        const changes = json["changelog"];
-        let msg = "Color Thing by Fırat Usta v" + version + "\nChangelog:";
-        changes.forEach(change => {
-            msg += "\n    -" + change;
-        })
-        console.log(msg);
-
-        const debugText = document.createElement("p");
-        debugText.classList.add("debugLabel");
-        debugText.innerText = "DEBUG BUILD VERSION v" + version;
-        document.body.appendChild(debugText);
-    });
-};
-
 export {
     numToHex,
     hexToNum,
@@ -79,6 +60,5 @@ export {
     wrap,
     wrapAngle,
     clamp,
-    isBetween,
-    changelog
+    isBetween
 }

@@ -33,11 +33,13 @@ class Indexer{
     }
 
     async init(){
+        const self = this;
+
         return new Promise(function(resolve){
             fetch('./data/colors.json')
             .then((response) => response.json())
             .then((json) => {
-                this.nameArray = json["colors"];
+                self.nameArray = json["colors"];
                 resolve();
             });
         })

@@ -92,6 +92,7 @@ class DomManager{
                 this._setGeneratorParameters( 6, 1, -1, 1);
                 break;
         }
+        this.parent.colorGenerator.generatePalette();
     }
 
     async updateDisplay(colors){

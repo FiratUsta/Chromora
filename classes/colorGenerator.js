@@ -5,11 +5,11 @@ import { wrapAngle, wrap } from "../modules/tools.js";
 import { Debugger } from "../modules/debugger.js";
 
 class ColorGenerator{
-    constructor(){
+    constructor(parent){
+        this.parent = parent;
+
         this.palette = [];
         this.modifiedPalette = [];
-
-        this.indexer = new Indexer;
     }
 
     _calculateValues(value, amount){
@@ -90,7 +90,7 @@ class ColorGenerator{
 
         return new Promise(async function(resolve){
             
-            const names = await(self.indexer.findMultiple(self.modifiedPalette));
+            const names = await(self.parent.indexer.findMultiple(self.modifiedPalette));
 
             for(let i = 0; i < self.modifiedPalette.length; i++){
                 self.modifiedPalette[i].name = names[i][0]["name"];
@@ -123,8 +123,6 @@ class ColorGenerator{
     }
 
     async init(){
-        await this.indexer.init();
-
         Elements.TINT_COLOR.oninput = this._tint;
         Elements.TINT_AMOUNT.onchange = this._tint;
 

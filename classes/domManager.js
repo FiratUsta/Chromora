@@ -2,12 +2,15 @@ import { Themer } from "./themer.js";
 import { ColorWheel } from "./colorWheel.js";
 import { Color } from "./color.js";
 import * as Elements from "../modules/elements.js";
-import { Debugger } from "../modules/debugger.js";
+import { SwatchDisplay } from "./swatchDisplay.js";
 
 class DomManager{
-    constructor(){
+    constructor(parent){
+        this.parent = parent;
+
         this.colorWheel = new ColorWheel(this);
         this.themer = new Themer;
+        this.display = new SwatchDisplay();
     }
 
     _randomColor(){
@@ -97,6 +100,17 @@ class DomManager{
         this.themer.init();
         this.colorWheel.init();
 
+        // COMMON
+        const helpers = [...document.getElementsByClassName("helpButton")];
+        helpers.forEach(button => {
+            button.addEventListener("touchstart", () => {
+                button.classList.add("hover");
+            })
+            button.addEventListener("touchend", () => {
+                button.classList.remove("hover");
+            })
+        });
+
         // STEP 1
         [Elements.H_INPUT, Elements.S_INPUT, Elements.V_INPUT].forEach(element => {
             element.onchange = () => {this._colorInput("hsv")};
@@ -119,8 +133,6 @@ class DomManager{
         });
 
         this._quickSettings(Elements.QUICK_COMPLEMENT.id);
-
-
     }
 }
 

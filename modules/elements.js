@@ -1,3 +1,6 @@
+// APP MISC
+const LOADING_SCREEN    = document.getElementById("loader");
+const VERSION_TEXT      = document.getElementById("versionText");
 // HEX input
 const HEX_INPUT         = document.getElementById("hex");
 // RGB input
@@ -36,12 +39,17 @@ const TAB_QUICK         = document.getElementById("quickTab");
 const TAB_ADVANCED      = document.getElementById("advancedTab");
 const OPTIONS_QUICK     = document.getElementById("quickOptions");
 const OPTIONS_ADVANCED  = document.getElementById("advancedOptions");
+// Swatch Display
+const SWATCH_DISPLAY    = document.getElementById("display");
 // Buttons
 const BUTTON_RANDOM     = document.getElementById("randomButton");
 const BUTTON_GENERATE   = document.getElementById("generateButton");
 const BUTTON_EXPORT     = document.getElementById("exportButton");
 
 export{
+    // MISC
+    LOADING_SCREEN,
+    VERSION_TEXT,
     // HEX
     HEX_INPUT,
     // RGB

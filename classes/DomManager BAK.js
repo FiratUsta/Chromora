@@ -1,6 +1,5 @@
 const DOMHandler = (() => {
 
-    const swatchDisplay = document.getElementById("display");
     // Export types
     const exImage = document.getElementById("exportImage");
     const exPrint = document.getElementById("exportPrint");
@@ -16,14 +15,7 @@ const DOMHandler = (() => {
     const notificationButton = document.getElementById("notifClose");
     const notificationText = document.getElementById("notifText");
 
-    function _updateDisplay(colors){
-        swatchDisplay.innerHTML = "";
 
-        for(let i = 0; i < colors.length; i++){
-            const swatch = new Swatch(swatchDisplay, colors[i]);
-            swatch.createLabels();
-        };
-    }
 
     function _createPrintSwatches(color, index){
         // For color list
@@ -141,16 +133,6 @@ const DOMHandler = (() => {
 
     function init(){
         document.getElementById("exportButton").onclick = _export;
-
-        const helpers = [...document.getElementsByClassName("helpButton")];
-        helpers.forEach(button => {
-            button.addEventListener("touchstart", () => {
-                button.classList.add("hover");
-            })
-            button.addEventListener("touchend", () => {
-                button.classList.remove("hover");
-            })
-        });
 
         notificationButton.onclick = () => {
             notificationContainer.classList.remove("show");

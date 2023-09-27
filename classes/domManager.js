@@ -1,8 +1,8 @@
-import { Themer } from "./Themer.js";
-import { ColorWheel } from "./ColorWheel.js";
-import { Color } from "./Color.js";
-import * as Elements from "../modules/Elements.js";
-import { Debugger } from "../modules/Debugger.js";
+import { Themer } from "./themer.js";
+import { ColorWheel } from "./colorWheel.js";
+import { Color } from "./color.js";
+import * as Elements from "../modules/elements.js";
+import { Debugger } from "../modules/debugger.js";
 
 class DomManager{
     constructor(){

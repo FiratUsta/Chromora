@@ -1,6 +1,6 @@
-import { clamp } from "../modules/Tools.js"
-import { Color } from "./Color.js";
-import * as Elements from "../modules/Elements.js"
+import { clamp } from "../modules/tools.js"
+import { Color } from "./color.js";
+import * as Elements from "../modules/elements.js"
 
 class ColorWheel{
     constructor(manager){

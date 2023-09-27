@@ -1,6 +1,6 @@
-import { ColorGenerator } from "./classes/ColorGenerator.js";
-import { DomManager } from "./classes/DomManager.js";
-import { Debugger } from "./modules/Debugger.js";
+import { ColorGenerator } from "./classes/colorGenerator.js";
+import { DomManager } from "./classes/domManager.js";
+import { Debugger } from "./modules/debugger.js";
 
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./app/serviceWorker.js");

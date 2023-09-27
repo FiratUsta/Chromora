@@ -1,8 +1,8 @@
-import { Color } from "./Color.js";
-import { Indexer } from "./Indexer.js";
-import * as Elements from "../modules/Elements.js";
-import { wrapAngle, wrap } from "../modules/Tools.js";
-import { Debugger } from "../modules/Debugger.js";
+import { Color } from "./color.js";
+import { Indexer } from "./indexer.js";
+import * as Elements from "../modules/elements.js";
+import { wrapAngle, wrap } from "../modules/tools.js";
+import { Debugger } from "../modules/debugger.js";
 
 class ColorGenerator{
     constructor(){

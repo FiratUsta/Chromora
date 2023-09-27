@@ -1,6 +1,6 @@
-import * as Elements from "../modules/Elements.js"
-import { isBetween } from "../modules/Tools.js";
-import { Color } from "./Color.js";
+import * as Elements from "../modules/elements.js"
+import { isBetween } from "../modules/tools.js";
+import { Color } from "./color.js";
 
 class Themer{
     constructor(){

@@ -145,9 +145,6 @@ const DOMHandler = (() => {
     }
 
     function init(){
-        tintColor.oninput = _applyTint;
-        tintAlpha.onchange = _applyTint;
-        document.getElementById("generateButton").onclick = _generate;
         document.getElementById("exportButton").onclick = _export;
 
         const helpers = [...document.getElementsByClassName("helpButton")];

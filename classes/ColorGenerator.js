@@ -99,7 +99,7 @@ class ColorGenerator{
         });
     }
 
-    async generatePalette(DEBUG = false){
+    async generatePalette(){
         const start = Date.now();
 
         this.palette = await this._generateColors();
@@ -110,7 +110,7 @@ class ColorGenerator{
             await this.namePalette();
         }
 
-        if(DEBUG){
+        if(true){
             console.log("Palette generated in " + (Date.now() - start) + "ms.");
         }
     }
@@ -125,6 +125,11 @@ class ColorGenerator{
 
     async init(){
         await this.indexer.init();
+
+        Elements.TINT_COLOR.oninput = this._tint;
+        Elements.TINT_AMOUNT.onchange = this._tint;
+
+        Elements.BUTTON_GENERATE.onclick = () => this.generatePalette();
     }
 }
 

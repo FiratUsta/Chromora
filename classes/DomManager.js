@@ -100,6 +100,8 @@ class DomManager{
         Elements.QUICK_BUTTONS.forEach(button => {
             button.onclick = () => {this._quickSettings(button.id)}
         });
+
+        this._quickSettings(Elements.QUICK_COMPLEMENT.id);
     }
 }
 

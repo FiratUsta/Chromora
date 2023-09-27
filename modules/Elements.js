@@ -33,6 +33,8 @@ const QUICK_COMPLEMENT  = document.getElementById("quickComplement");
 const QUICK_BUTTONS     = [QUICK_ANALOGOUS, QUICK_COMPLEMENT, QUICK_MONOCHROME, QUICK_MONOCHROME, QUICK_RANDOM, QUICK_TETRADIC, QUICK_TRIADIC]
 // Buttons
 const BUTTON_RANDOM     = document.getElementById("randomButton");
+const BUTTON_GENERATE   = document.getElementById("generateButton");
+const BUTTON_EXPORT     = document.getElementById("exportButton");
 
 export{
     // HEX
@@ -69,5 +71,7 @@ export{
     QUICK_COMPLEMENT,
     QUICK_BUTTONS,
     // BUTTONS
-    BUTTON_RANDOM
+    BUTTON_RANDOM,
+    BUTTON_GENERATE,
+    BUTTON_EXPORT
 }

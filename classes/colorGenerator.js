@@ -120,9 +120,9 @@ class ColorGenerator{
 
     getPalette(modified){
         if(modified){
-            return modifiedPalette;
+            return this.modifiedPalette;
         }else{
-            return palette;
+            return this.palette;
         };
     }
 

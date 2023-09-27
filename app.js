@@ -1,5 +1,6 @@
 import { ColorGenerator } from "./classes/colorGenerator.js";
 import { DomManager } from "./classes/domManager.js";
+import { Exporter } from "./classes/exporter.js";
 import { Indexer } from "./classes/indexer.js";
 import { Debugger } from "./modules/debugger.js";
 import * as Elements from "./modules/elements.js";
@@ -13,6 +14,7 @@ class App{
         this.indexer        = new Indexer(this);
         this.colorGenerator = new ColorGenerator(this);
         this.domManager     = new DomManager(this);
+        this.exporter       = new Exporter(this);
     }
 
     async init(){
@@ -20,7 +22,9 @@ class App{
         await this.indexer.init();
         this.colorGenerator.init();
         this.domManager.init();
+        this.exporter.init();
 
+        // Generate initial palette
         await this.colorGenerator.generatePalette();
 
         // Hide loading screen

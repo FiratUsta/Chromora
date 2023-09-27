@@ -20,7 +20,6 @@ const DOMHandler = (() => {
     const advancedTab = document.getElementById("advancedTab");
     const quickOptions = document.getElementById("quickOptions");
     const advancedOptions = document.getElementById("advancedOptions");
-    const quickButtons = [...document.querySelectorAll(".quickButton")];
 
     function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
@@ -28,28 +27,6 @@ const DOMHandler = (() => {
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(swatchDisplay, colors[i]);
             swatch.createLabels();
-        };
-    }
-
-    async function _generate(){
-        const start = Date.now();
-
-        if(codeCheck.checked && codeInput.value != ""){
-            _parseCode(codeInput.value);
-        }
-        const baseColor = new Color().fromHEX(base.value);
-        
-        if(random.checked){
-            ColorGenerator.random(baseColor, points.value);
-        }else{
-            ColorGenerator.generateColors(baseColor, points.value, amount.value, analogous.checked, angle.value);
-        };
-
-        _applyTint();      
-
-        const end = Date.now();
-        if(DEBUG){
-            console.log("Palette generated in " + (end - start) + "ms");
         };
     }
 
@@ -124,25 +101,6 @@ const DOMHandler = (() => {
         };
     }
 
-    async function _applyTint(){
-        const tintBase = new Color().fromHSV(tintColor.value, 1, 1);
-        const tintAmount = tintAlpha.value / 100;
-
-        tintColor.style.accentColor = tintBase.hex();
-        
-        tintBase.red = parseInt(tintBase.red * tintAmount);
-        tintBase.green = parseInt(tintBase.green * tintAmount);
-        tintBase.blue = parseInt(tintBase.blue * tintAmount);
-        
-        ColorGenerator.tint(tintBase);
-
-        if(document.getElementById("nameColors").checked){
-            await ColorGenerator.namePalette();
-        }
-
-        _updateDisplay(ColorGenerator.getPalette(true));
-    }
-
     function _createCode(){
         let code = "";
         const params = [hexInput.value, points.value, amount.value];
@@ -186,70 +144,6 @@ const DOMHandler = (() => {
         }
     }
 
-    function _changeQuickSettings(mode){
-        quickButtons.forEach(button => {
-            button.classList.remove("selected");
-        });
-
-        document.getElementById(mode).classList.add("selected");
-
-        let hue = -1;
-        let tone = -1;
-        let quickAngle = -1;
-        let randomBool = -1;
-
-        switch(mode){
-            case "complementary":
-                hue = 2;
-                tone = 3;
-                break;
-            case "triadic":
-                hue = 3;
-                tone = 2;
-                break;
-            case "tetradic":
-                hue = 4;
-                tone = 2;
-                break;
-            case "monochrome":
-                hue = 1;
-                tone = 6;
-                break;
-            case "randomQuick":
-                hue = 6;
-                tone = 1;
-                randomBool = 1;
-                break;
-            case "analogousQuick":
-                hue = 3;
-                tone = 2;
-                quickAngle = 30;
-                break;
-            case _:
-                break;
-        };
-
-        if(hue != -1){
-            points.value = hue;
-        };
-        if(tone != -1){
-            amount.value = tone;
-        };
-        if(quickAngle != -1){
-            analogous.checked = true;
-            analogousAngle.value = quickAngle;
-        }else{
-            analogous.checked = false;
-        };
-        if(randomBool != -1){
-            random.checked = true;
-        }else{
-            random.checked = false;
-        };
-
-        _generate();
-    }
-
     function init(){
         tintColor.oninput = _applyTint;
         tintAlpha.onchange = _applyTint;
@@ -289,8 +183,6 @@ const DOMHandler = (() => {
     }
 
     return{
-        init,
-        updateColors,
-        textColorFromColor
+        init
     }
 })();

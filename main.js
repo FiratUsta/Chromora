@@ -17,7 +17,7 @@ const app = (() => {
 
         domManager.init();
 
-        console.log(colorGenerator.generateColors())
+        await colorGenerator.generatePalette(DEBUG);
 
         // Hide loading screen
         document.getElementById("loader").classList.add("hide");

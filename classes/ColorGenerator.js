@@ -24,12 +24,13 @@ class ColorGenerator{
         return values;
     }
 
-    generateColors(){
-        const palette = [];
+    async _generateColors(){
+        const colors = [];
+        
         if(Elements.CHECK_RANDOM.checked){
             for(let i = 0; i < amount; i++){
                 const color = new Color().random();
-                palette.push(color);
+                colors.push(color);
             };
         }else{
             const base = new Color(Elements.R_INPUT.value, Elements.G_INPUT.value, Elements.B_INPUT.value);
@@ -52,11 +53,66 @@ class ColorGenerator{
                     }
                     const angle = wrapAngle(hsv.hue, shift * i * mod);
                     const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
-                    palette.push(color);
+                    colors.push(color);
                 }
             };
         };
-        return palette;
+
+        return colors;
+    }
+
+    async _tint(){
+        const tintColor     = new Color().fromHSV(Elements.TINT_COLOR.value, 1, 1);
+        const tintAmount    = Elements.TINT_AMOUNT.value / 100;
+
+        Elements.TINT_COLOR.style.accentColor = tintColor.hex();
+        
+        tintColor.red   = parseInt(tintColor.red * tintAmount);
+        tintColor.green = parseInt(tintColor.green * tintAmount);
+        tintColor.blue  = parseInt(tintColor.blue * tintAmount);
+
+        this.modifiedPalette = [];
+
+        this.palette.forEach(swatch => {
+            this.modifiedPalette.push(swatch.clone());
+        });
+
+        this.modifiedPalette.forEach(async function(swatch){
+            swatch.tint(tintColor);
+        });
+
+        return this.modifiedPalette;
+    }
+
+    async namePalette(){
+        const self = this;
+
+        return new Promise(async function(resolve){
+            
+            const names = await(self.indexer.findMultiple(self.modifiedPalette));
+
+            for(let i = 0; i < self.modifiedPalette.length; i++){
+                self.modifiedPalette[i].name = names[i][0]["name"];
+            };
+            
+            resolve();
+        });
+    }
+
+    async generatePalette(DEBUG = false){
+        const start = Date.now();
+
+        this.palette = await this._generateColors();
+
+        await this._tint();
+
+        if(Elements.CHECK_NAMING.checked){
+            await this.namePalette();
+        }
+
+        if(DEBUG){
+            console.log("Palette generated in " + (Date.now() - start) + "ms.");
+        }
     }
 
     getPalette(modified){
@@ -65,33 +121,6 @@ class ColorGenerator{
         }else{
             return palette;
         };
-    }
-
-    tint(color){
-        modifiedPalette = [];
-
-        palette.forEach(swatch => {
-            modifiedPalette.push(swatch.clone());
-        });
-
-        modifiedPalette.forEach(async function(swatch){
-            swatch.tint(color);
-        });
-
-        return modifiedPalette;
-    }
-
-    async namePalette(){
-        return new Promise(async function(resolve){
-            
-            const names = await(this.indexer.findMultiple(modifiedPalette));
-
-            for(let i = 0; i < modifiedPalette.length; i++){
-                modifiedPalette[i].name = names[i][0]["name"];
-            };
-            
-            resolve();
-        });
     }
 
     async init(){

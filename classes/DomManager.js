@@ -34,10 +34,57 @@ class DomManager{
         this.themer.updateColors(color);
     }
 
+    _setGeneratorParameters(hues, tones, analogousAngle, random){
+        Elements.HUES.value = hues;
+        Elements.TONES.value = tones;
+
+        if(analogousAngle !== -1){
+            Elements.CHECK_ANALOGOUS.checked = true;
+            Elements.ANALOGOUS_ANGLE.value = analogousAngle;
+        }else{
+            Elements.CHECK_ANALOGOUS.checked = false;
+        }
+
+        if(random !== -1){
+            Elements.CHECK_RANDOM.checked = true;
+        }else{
+            Elements.CHECK_RANDOM.checked = false;
+        }
+    }
+
+    _quickSettings(buttonID){
+        Elements.QUICK_BUTTONS.forEach(button => {
+            button.classList.remove("selected")
+        });
+        document.getElementById(buttonID).classList.add("selected");
+        switch(buttonID){
+            case "quick_complement":
+                this._setGeneratorParameters( 2, 3, -1, -1);
+                break;
+            case "quick_triadic":
+                this._setGeneratorParameters( 3, 2, -1, -1);
+                break;
+            case "quick_tetradic":
+                this._setGeneratorParameters( 4, 2, -1, -1);
+                break;
+            case "quick_monochrome":
+                this._setGeneratorParameters( 1, 6, -1, -1);
+                break;
+            case "quick_analogous":
+                this._setGeneratorParameters( 3, 2, 30, -1);
+                break;
+            case "quick_random":
+                this._setGeneratorParameters( 6, 1, -1, 1);
+                break;
+        }
+    }
+
     init(){
+        // Document INIT
         this.themer.init();
         this.colorWheel.init();
 
+        // STEP 1
         [Elements.H_INPUT, Elements.S_INPUT, Elements.V_INPUT].forEach(element => {
             element.onchange = () => {this._colorInput("hsv")};
         });
@@ -48,6 +95,11 @@ class DomManager{
 
         Elements.HEX_INPUT.onchange = () => {this._colorInput("hex")};
         Elements.BUTTON_RANDOM.onclick = () => this._randomColor();
+
+        // STEP 2
+        Elements.QUICK_BUTTONS.forEach(button => {
+            button.onclick = () => {this._quickSettings(button.id)}
+        });
     }
 }
 

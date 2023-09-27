@@ -12,6 +12,8 @@ class Indexer{
     }
 
     async findMultiple(colors){
+        const self = this;
+
         return new Promise(function(resolve){
             let similars = [];
 
@@ -19,9 +21,9 @@ class Indexer{
               similars.push([null, 999]);      
             });
 
-            this.nameArray.forEach(name => {
+            self.nameArray.forEach(name => {
                 for(let i = 0; i < colors.length; i++){
-                    const simIndex = _calculateSimilarity(name["rgb"], colors[i]);
+                    const simIndex = self._calculateSimilarity(name["rgb"], colors[i]);
                     if(simIndex < similars[i][1]){
                         similars[i] = [name, simIndex]
                     };

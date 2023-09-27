@@ -1,16 +1,15 @@
 class Swatch{
-    constructor(parent, color){
+    constructor(parent, color, textColor){
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
         parent.appendChild(this.element);
 
         this.color = color;
+        this.textColor = textColor;
         this.update(this.color);
     }
 
     createLabels(){
-        const textColor = DOMHandler.textColorFromColor(this.color);
-
         const hexLabel = document.createElement("p");
         hexLabel.classList.add("hexLabel");
         hexLabel.innerText = this.color.hex();
@@ -35,7 +34,7 @@ class Swatch{
 
         labels.forEach(label => {
             label.classList.add("swatchLabel");
-            label.style.color = textColor;
+            label.style.color = this.textColor;
             this.element.appendChild(label);
         })
     }

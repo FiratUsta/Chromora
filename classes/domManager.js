@@ -9,8 +9,8 @@ class DomManager{
         this.parent = parent;
 
         this.colorWheel = new ColorWheel(this);
-        this.themer = new Themer;
-        this.display = new SwatchDisplay();
+        this.themer = new Themer();
+        this.swatchDisplay = new SwatchDisplay(this);
     }
 
     _randomColor(){
@@ -93,6 +93,10 @@ class DomManager{
                 this._setGeneratorParameters( 6, 1, -1, 1);
                 break;
         }
+    }
+
+    async update(colors){
+        this.swatchDisplay.updateDisplay(colors);
     }
 
     init(){

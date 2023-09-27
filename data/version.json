@@ -1,4 +1,4 @@
 {
-    "version": "1.4.0-DEV1",
-    "changelog": []
+    "version": "1.4.0",
+    "changelog": ["Completely revamp project structure for better maintainability, modularity and readability."]
 }

@@ -1,5 +1,5 @@
 const Debugger = (() => {
-    const DEBUG = true;
+    const DEBUG = false;
 
     function debugMessage(){
         if(DEBUG){

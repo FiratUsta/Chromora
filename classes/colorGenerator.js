@@ -84,8 +84,8 @@ class ColorGenerator{
     }
 
     async _tint(){
-        const tintColor     = new Color().fromHSV(Elements.TINT_COLOR.value, 1, 1);
-        const tintAmount    = Elements.TINT_AMOUNT.value / 100;
+        const tintColor = new Color().fromHSV(Elements.TINT_COLOR.value, 1, 1);
+        const tintAmount = Elements.TINT_AMOUNT.value / 100;
 
         Elements.TINT_COLOR.style.accentColor = tintColor.hex();
         
@@ -152,8 +152,8 @@ class ColorGenerator{
     }
 
     async init(){
-        Elements.TINT_COLOR.oninput = this._tint;
-        Elements.TINT_AMOUNT.onchange = this._tint;
+        Elements.TINT_COLOR.oninput = () => this.generatePalette();
+        Elements.TINT_AMOUNT.onchange = () => this.generatePalette();
 
         Elements.BUTTON_GENERATE.onclick = () => this.generatePalette();
     }

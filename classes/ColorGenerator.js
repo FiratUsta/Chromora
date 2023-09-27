@@ -2,6 +2,7 @@ import { Color } from "./Color.js";
 import { Indexer } from "./Indexer.js";
 import * as Elements from "../modules/Elements.js";
 import { wrapAngle, wrap } from "../modules/Tools.js";
+import { Debugger } from "../modules/Debugger.js";
 
 class ColorGenerator{
     constructor(){
@@ -110,9 +111,7 @@ class ColorGenerator{
             await this.namePalette();
         }
 
-        if(true){
-            console.log("Palette generated in " + (Date.now() - start) + "ms.");
-        }
+        Debugger.log("Palette generated in " + (Date.now() - start) + "ms.");
     }
 
     getPalette(modified){

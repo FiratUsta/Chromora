@@ -15,11 +15,6 @@ const DOMHandler = (() => {
     const notificationContainer = document.getElementById("notification");
     const notificationButton = document.getElementById("notifClose");
     const notificationText = document.getElementById("notifText");
-    // Settings
-    const quickTab = document.getElementById("quickTab");
-    const advancedTab = document.getElementById("advancedTab");
-    const quickOptions = document.getElementById("quickOptions");
-    const advancedOptions = document.getElementById("advancedOptions");
 
     function _updateDisplay(colors){
         swatchDisplay.innerHTML = "";
@@ -160,23 +155,6 @@ const DOMHandler = (() => {
         notificationButton.onclick = () => {
             notificationContainer.classList.remove("show");
         }
-
-        quickTab.onclick = () => {
-            quickTab.classList.add("selected");
-            advancedTab.classList.remove("selected");
-            quickOptions.classList.remove("hidden");
-            advancedOptions.classList.add("hidden");
-        }
-        
-        advancedTab.onclick = () => {
-            quickTab.classList.remove("selected");
-            advancedTab.classList.add("selected");
-            quickOptions.classList.add("hidden");
-            advancedOptions.classList.remove("hidden");
-        }
-
-
-        _generate();
     }
 
     return{

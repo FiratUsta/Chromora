@@ -31,6 +31,11 @@ const QUICK_ANALOGOUS   = document.getElementById("quickAnalogous");
 const QUICK_RANDOM      = document.getElementById("quickRandom");
 const QUICK_COMPLEMENT  = document.getElementById("quickComplement");
 const QUICK_BUTTONS     = [QUICK_ANALOGOUS, QUICK_COMPLEMENT, QUICK_MONOCHROME, QUICK_MONOCHROME, QUICK_RANDOM, QUICK_TETRADIC, QUICK_TRIADIC]
+// Settings Tabs
+const TAB_QUICK         = document.getElementById("quickTab");
+const TAB_ADVANCED      = document.getElementById("advancedTab");
+const OPTIONS_QUICK     = document.getElementById("quickOptions");
+const OPTIONS_ADVANCED  = document.getElementById("advancedOptions");
 // Buttons
 const BUTTON_RANDOM     = document.getElementById("randomButton");
 const BUTTON_GENERATE   = document.getElementById("generateButton");
@@ -62,6 +67,11 @@ export{
     TINT_AMOUNT,
     TINT_COLOR,
     CHECK_NAMING,
+    // SETTINGS TABS
+    TAB_ADVANCED,
+    TAB_QUICK,
+    OPTIONS_ADVANCED,
+    OPTIONS_QUICK,
     // QUICK SETTINGS
     QUICK_ANALOGOUS,
     QUICK_MONOCHROME,

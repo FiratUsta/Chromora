@@ -29,7 +29,7 @@ class ColorGenerator{
         const colors = [];
         
         if(Elements.CHECK_RANDOM.checked){
-            for(let i = 0; i < amount; i++){
+            for(let i = 0; i < Elements.HUES.value; i++){
                 const color = new Color().random();
                 colors.push(color);
             };

@@ -2,6 +2,7 @@ import { Themer } from "./Themer.js";
 import { ColorWheel } from "./ColorWheel.js";
 import { Color } from "./Color.js";
 import * as Elements from "../modules/Elements.js";
+import { Debugger } from "../modules/Debugger.js";
 
 class DomManager{
     constructor(){
@@ -52,28 +53,40 @@ class DomManager{
         }
     }
 
+    _switchTab(selected){
+        [[Elements.TAB_ADVANCED, Elements.OPTIONS_ADVANCED], [Elements.TAB_QUICK, Elements.OPTIONS_QUICK]].forEach(couple => {
+            if(couple[0] === selected){
+                couple[0].classList.add("selected");
+                couple[1].classList.remove("hidden");
+            }else{
+                couple[0].classList.remove("selected");
+                couple[1].classList.add("hidden");
+            };
+        })
+    }
+
     _quickSettings(buttonID){
         Elements.QUICK_BUTTONS.forEach(button => {
             button.classList.remove("selected")
         });
         document.getElementById(buttonID).classList.add("selected");
         switch(buttonID){
-            case "quick_complement":
+            case "quickComplement":
                 this._setGeneratorParameters( 2, 3, -1, -1);
                 break;
-            case "quick_triadic":
+            case "quickTriadic":
                 this._setGeneratorParameters( 3, 2, -1, -1);
                 break;
-            case "quick_tetradic":
+            case "quickTetradic":
                 this._setGeneratorParameters( 4, 2, -1, -1);
                 break;
-            case "quick_monochrome":
+            case "quickMonochrome":
                 this._setGeneratorParameters( 1, 6, -1, -1);
                 break;
-            case "quick_analogous":
+            case "quickAnalogous":
                 this._setGeneratorParameters( 3, 2, 30, -1);
                 break;
-            case "quick_random":
+            case "quickRandom":
                 this._setGeneratorParameters( 6, 1, -1, 1);
                 break;
         }
@@ -97,11 +110,17 @@ class DomManager{
         Elements.BUTTON_RANDOM.onclick = () => this._randomColor();
 
         // STEP 2
+        [Elements.TAB_ADVANCED, Elements.TAB_QUICK].forEach(tab => {
+            tab.onclick = () => this._switchTab(tab);
+        })
+
         Elements.QUICK_BUTTONS.forEach(button => {
-            button.onclick = () => {this._quickSettings(button.id)}
+            button.onclick = () => this._quickSettings(button.id);
         });
 
         this._quickSettings(Elements.QUICK_COMPLEMENT.id);
+
+
     }
 }
 

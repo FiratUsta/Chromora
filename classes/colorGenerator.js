@@ -12,6 +12,27 @@ class ColorGenerator{
         this.modifiedPalette = [];
     }
 
+    _parseCode(code){
+        const params = code.split("-");
+
+        this.parent.domManager.updateColors(new Color().fromHEX(params[0]));
+        Elements.HUES.value = parseInt(params[1]);
+        Elements.TONES.value = parseInt(params[2]);
+
+        if (params.length > 3){
+            for(let i = 3; i < params.length; i++){
+                const param = params[i].split(";");
+                if(param.length > 1){
+                    Elements.TINT_AMOUNT.value = parseInt(param[0]);
+                    Elements.TINT_COLOR.value = parseInt(param[1]);
+                }else{
+                    Elements.CHECK_ANALOGOUS.checked = true;
+                    Elements.ANALOGOUS_ANGLE.value = parseInt(param[0]);
+                };
+            }
+        }
+    }
+
     _calculateValues(value, amount){
         let values = [];
 
@@ -103,6 +124,10 @@ class ColorGenerator{
     async generatePalette(){
         const start = Date.now();
 
+        if(Elements.CHECK_IMPORT.checked){
+            this._parseCode(Elements.IMPORT_CODE.value);
+        }
+
         this.palette = await this._generateColors();
 
         await this._tint();
@@ -113,7 +138,7 @@ class ColorGenerator{
 
         Debugger.log("Palette generated in " + (Date.now() - start) + "ms.");
 
-        await this.parent.domManager.update(this.modifiedPalette);
+        await this.parent.domManager.updateDisplay(this.modifiedPalette);
 
         Debugger.log("Generation complete in " + (Date.now() - start) + "ms.");
     }

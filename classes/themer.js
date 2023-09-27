@@ -3,7 +3,9 @@ import { isBetween } from "../modules/tools.js";
 import { Color } from "./color.js";
 
 class Themer{
-    constructor(){
+    constructor(parent){
+        this.parent = parent;
+
         this.theme = this._checkColorPreference();
     }
 
@@ -68,7 +70,7 @@ class Themer{
         }
     }
 
-    updateColors(color){
+    accentColor(color){
         const hexCode = color.hex();
         Elements.HEX_INPUT.value = hexCode;
         
@@ -88,9 +90,9 @@ class Themer{
         this._setDocumentTheme(this.theme);
 
         if(this.theme == "dark"){
-            this.updateColors(new Color().fromHEX("#E7B03A"));
+            this.parent.updateColors(new Color().fromHEX("#E7B03A"));
         }else{
-            this.updateColors(new Color().fromHEX("#2265A4"));
+            this.parent.updateColors(new Color().fromHEX("#2265A4"));
         };
 
         Elements.THEME_TOGGLE.onclick = () => {this._toggleDocumentTheme();}

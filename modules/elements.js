@@ -48,6 +48,9 @@ const EXPORT_CODE       = document.getElementById("exportCode");
 const EXPORT_CANVAS     = document.getElementById("saveCanvas");
 const PRINT_AREA        = document.getElementById("printDisplay");
 const PRINT_COLORS      = document.getElementById("printColors");
+// Importer Elements
+const CHECK_IMPORT      = document.getElementById("inputCodeCheck");
+const IMPORT_CODE       = document.getElementById("inputCodeText");
 // NOTIFICATION
 const NOTIF_CONTAINER   = document.getElementById("notification");
 const NOTIF_TEXT        = document.getElementById("notifText");
@@ -108,6 +111,9 @@ export{
     EXPORT_CANVAS,
     PRINT_AREA,
     PRINT_COLORS,
+    // IMPORTER
+    CHECK_IMPORT,
+    IMPORT_CODE,
     // NOTIFICATION
     NOTIF_BUTTON,
     NOTIF_CONTAINER,

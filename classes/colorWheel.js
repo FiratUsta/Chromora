@@ -3,8 +3,8 @@ import { Color } from "./color.js";
 import * as Elements from "../modules/elements.js"
 
 class ColorWheel{
-    constructor(manager){
-        this.manager = manager;
+    constructor(parent){
+        this.parent = parent;
 
         this.wheel = Elements.WHEEL;
         this.picker = Elements.PICKER;
@@ -129,7 +129,7 @@ class ColorWheel{
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
                 const color = this._track(event.pageX, event.pageY);
-                this.manager.themer.updateColors(color);
+                this.parent.updateColors(color);
             }
         });
 
@@ -138,7 +138,7 @@ class ColorWheel{
                 this.tracking = true;
                 this.wheel.classList.add("noCursor");
                 const color = this._track(event.touches[0].pageX, event.touches[0].pageY);
-                this.manager.themer.updateColors(color);
+                this.parent.updateColors(color);
             };
         });
 
@@ -159,21 +159,21 @@ class ColorWheel{
         this.wheel.addEventListener("mousemove", (event) => {
             if(this.tracking){
                 const color = this._track(event.pageX, event.pageY);
-                this.manager.themer.updateColors(color);
+                this.parent.updateColors(color);
             };
         });
 
         this.wheel.addEventListener("touchmove", (event) => {
             if(this.tracking){
                 const color = this._track(event.touches[0].pageX, event.touches[0].pageY);
-                this.manager.themer.updateColors(color);
+                this.parent.updateColors(color);
             };
         });
         
         this.valueInput.oninput = () => {
             const pos = this._getPickerPosition();
             const color = this._track(pos.x, pos.y);
-            this.manager.themer.updateColors(color);
+            this.parent.updateColors(color);
         }
     }
 }

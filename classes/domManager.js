@@ -9,14 +9,13 @@ class DomManager{
         this.parent = parent;
 
         this.colorWheel = new ColorWheel(this);
-        this.themer = new Themer();
+        this.themer = new Themer(this);
         this.swatchDisplay = new SwatchDisplay(this);
     }
 
     _randomColor(){
         const color = new Color().random();
-        this.colorWheel.positionFromHSV(color);
-        this.themer.updateColors(color);
+        this.updateColors(color);
     }
 
     _colorInput(mode){
@@ -95,8 +94,13 @@ class DomManager{
         }
     }
 
-    async update(colors){
+    async updateDisplay(colors){
         this.swatchDisplay.updateDisplay(colors);
+    }
+
+    updateColors(color){
+        this.colorWheel.positionFromHSV(color);
+        this.themer.accentColor(color);
     }
 
     init(){

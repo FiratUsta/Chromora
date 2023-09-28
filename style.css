@@ -460,7 +460,7 @@ input{
     opacity: 1;
 }
 /* Notification */
-#notification{
+.notifContainer{
     display: grid;
     grid-template-columns: 1fr 10px;
     grid-template-areas: "text button";
@@ -480,23 +480,20 @@ input{
     transition: opacity 0.35s, top 0.35s;
     pointer-events: none;
 }
-#notification.show{
+.notifContainer.show{
     top: 5%;
     opacity: 1;
     pointer-events: all;
 }
-#notifClose{
+.notifButton{
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     grid-area: button;
 }
-#notifText b{
+.notifContent b{
     user-select: none;
     -webkit-user-select: none;
-}
-#codeDisplay{
-    cursor: pointer;
 }
 /* Loader */
 #loader{
@@ -629,14 +626,14 @@ input{
         min-height: none;
         gap: 10px;
     }
-    #notification{
+    .notifContainer{
         width: 100%;
         min-height: 10%;
         top: 0;
         left: 0;
         border-radius: 0;
     }
-    #notification.show{
+    .notifContainer.show{
         top: 0;
     }
 }

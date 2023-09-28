@@ -51,10 +51,6 @@ const PRINT_COLORS      = document.getElementById("printColors");
 // Importer Elements
 const CHECK_IMPORT      = document.getElementById("inputCodeCheck");
 const IMPORT_CODE       = document.getElementById("inputCodeText");
-// NOTIFICATION
-const NOTIF_CONTAINER   = document.getElementById("notification");
-const NOTIF_TEXT        = document.getElementById("notifText");
-const NOTIF_BUTTON      = document.getElementById("notifClose");
 // Buttons
 const BUTTON_RANDOM     = document.getElementById("randomButton");
 const BUTTON_GENERATE   = document.getElementById("generateButton");
@@ -114,10 +110,6 @@ export{
     // IMPORTER
     CHECK_IMPORT,
     IMPORT_CODE,
-    // NOTIFICATION
-    NOTIF_BUTTON,
-    NOTIF_CONTAINER,
-    NOTIF_TEXT,
     // BUTTONS
     BUTTON_RANDOM,
     BUTTON_GENERATE,

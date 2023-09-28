@@ -142,9 +142,6 @@ class DomManager{
         });
 
         this._quickSettings(Elements.QUICK_COMPLEMENT.id);
-
-        // STEP 3
-        Elements.NOTIF_BUTTON.onclick = () => {Elements.NOTIF_CONTAINER.classList.remove("show")};
     }
 }
 

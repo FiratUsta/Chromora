@@ -433,6 +433,7 @@ input{
     font-weight: bold;
     user-select: none;
     -webkit-user-select: none;
+    cursor: pointer;
 }
 .swatch .hexLabel{
     position: absolute;
@@ -456,8 +457,12 @@ input{
     right: 2%;
     opacity: 0;
 }
+.hsvLabel, .rgbLabel{
+    display: none;
+}
 .swatch:hover .hsvLabel, .swatch:hover .rgbLabel{
     opacity: 1;
+    display: block;
 }
 /* Notification */
 .notifContainer{

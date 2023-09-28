@@ -1,4 +1,4 @@
-const version = "1.4.0-Beta1";
+const version = "1.4.0-Beta2";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
@@ -24,6 +24,7 @@ const shellFiles = [
     "../classes/swatch.js",
     "../classes/swatchDisplay.js",
     "../classes/themer.js",
+    "../classes/notificationManager.js",
     // Modules
     "../modules/debugger.js",
     "../modules/elements.js",

@@ -15,7 +15,7 @@ class DomManager{
 
     _randomColor(){
         const color = new Color().random();
-        this.updateColors(color);
+        this.accentColor(color);
     }
 
     _colorInput(mode){
@@ -34,7 +34,7 @@ class DomManager{
                 break;
         }
         this.colorWheel.positionFromHSV(color);
-        this.themer.updateColors(color);
+        this.themer.accentColor(color);
     }
 
     _setGeneratorParameters(hues, tones, analogousAngle, random){

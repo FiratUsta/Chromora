@@ -1,4 +1,4 @@
-const version = "1.4.0-Beta0";
+const version = "1.4.0-Beta1";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [

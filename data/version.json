@@ -1,4 +1,7 @@
 {
-    "version": "1.4.0",
-    "changelog": ["Completely revamp project structure for better maintainability, modularity and readability."]
+    "version": "1.4.0-Beta1",
+    "changelog": [
+        "Completely revamped project structure for better maintainability, modularity and readability.",
+        "Implemented a new notification system with better looking and behaving notifications."
+    ]
 }

@@ -51,6 +51,7 @@ class Notification{
     }
 
     dismiss(){
+        this.container.classList.remove("show");
         this.dismissed = true;
         document.body.removeChild(this.container);
     }

@@ -53,6 +53,14 @@ class SwatchDisplay{
     getNotificationManager(){
         return this.parent.parent.notifier;
     }
+
+    getPalette(){
+        const colors = [];
+        this.swatches.forEach(swatch => {
+            colors.push(swatch.color);
+        });
+        return colors;
+    }
 }
 
 export{SwatchDisplay}

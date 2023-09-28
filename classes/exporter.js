@@ -146,7 +146,7 @@ class Exporter{
     }
 
     init(){
-        Elements.BUTTON_EXPORT.onclick = () => this._export(this.parent.colorGenerator.getPalette(true));
+        Elements.BUTTON_EXPORT.onclick = () => this._export(this.parent.domManager.swatchDisplay.getPalette(true));
     }
 }
 

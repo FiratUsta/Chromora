@@ -32,12 +32,8 @@ class Notification{
         }
     }
 
-    _dismiss(){
-        document.body.removeChild(this.container);
-    }
-
     _bindMethods(elements){
-        elements["button"].onclick = () => this._dismiss();
+        elements["button"].onclick = () => this.dismiss();
         if(this.clickable){
             elements["content"].onclick = () => this.method.call();
         };
@@ -51,6 +47,10 @@ class Notification{
         const elements = this._createElements();
         this._bindMethods(elements);
         this._show();
+    }
+
+    dismiss(){
+        document.body.removeChild(this.container);
     }
 }
 

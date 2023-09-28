@@ -16,15 +16,20 @@ class Notification{
         if(this.clickable){
             notifContent.classList.add("clickable");
         }
-        notifContent.innerText = this.content;
+        notifContent.innerHTML = this.content;
         this.container.appendChild(notifContent);
 
         const notifButton = document.createElement("p");
         notifButton.classList.add("notifButton");
-        notifButton.innerText = "";
+        notifButton.innerText = "×";
         this.container.appendChild(notifButton);
 
         document.body.appendChild(this.container);
+
+        return{
+            "button": notifButton,
+            "content": notifContent
+        }
     }
 
     _dismiss(){

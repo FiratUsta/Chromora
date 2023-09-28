@@ -13,6 +13,24 @@ class Swatch{
         this.update(this.color);
     }
 
+    _copyInformation(info){
+        if(this.focused){
+            const notifier = this.parent.getNotificationManager();
+            const information = this.element.querySelector("." + info + "Label").innerText;
+            navigator.clipboard.writeText(information);
+            notifier.push("<b>Copied to clipboard: </b>" + information);
+        }
+    }
+
+    _toggleLock(){
+        this.element.querySelector(".lockLabel").classList.toggle("locked");
+        this.locked = !this.locked;
+    }
+
+    dismiss(){
+        this.parent.display.removeChild(this.element);
+    }
+
     createLabels(){
         const hexLabel = document.createElement("p");
         hexLabel.classList.add("hexLabel");
@@ -34,7 +52,7 @@ class Swatch{
         lockLabel.classList.add("lockLabel");
         lockLabel.onclick = () => {
             if(this.focused){
-                lockLabel.classList.toggle("locked");
+                this._toggleLock();
             }
         };
 
@@ -53,15 +71,6 @@ class Swatch{
             label.style.color = this.textColor;
             this.element.appendChild(label);
         })
-    }
-
-    _copyInformation(info){
-        if(this.focused){
-            const notifier = this.parent.getNotificationManager();
-            const information = this.element.querySelector("." + info + "Label").innerText;
-            navigator.clipboard.writeText(information);
-            notifier.push("<b>Copied to clipboard: </b>" + information);
-        }
     }
 
     update(color){

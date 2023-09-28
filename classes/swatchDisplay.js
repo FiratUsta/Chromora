@@ -10,6 +10,18 @@ class SwatchDisplay{
         this.focused = null;
     }
 
+    _clear(){
+        const newSwatches = [];
+        this.swatches.forEach(swatch => {
+            if(swatch.locked === true){
+                newSwatches.push(swatch);
+            }else{
+                swatch.dismiss();
+            };
+        });
+        this.swatches = newSwatches;
+    }
+
     async createSwatches(colors){
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(this, colors[i], this.parent.themer.textColorFromColor(colors[i]));
@@ -21,7 +33,7 @@ class SwatchDisplay{
     async updateDisplay(colors){
         const start = Date.now();
 
-        this.display.innerHTML = "";
+        this._clear();
 
         await this.createSwatches(colors)
 

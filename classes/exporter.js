@@ -89,14 +89,12 @@ class Exporter{
         };
 
         // Push Notification
-        Elements.NOTIF_TEXT.innerHTML = '<b>Your code is: </b><span id="codeDisplay">' + code + '</span>';
-        const codeDisplay = document.getElementById("codeDisplay");
-        codeDisplay.onclick = () => {
-            navigator.clipboard.writeText(codeDisplay.innerText);
-            Elements.NOTIF_TEXT.innerHTML = "<b>Your code has been copied to your clipboard!</b>";
-        };
-        Elements.NOTIF_CONTAINER.classList.add("show");
-        
+        const notification = this.parent.notifier.push('<b>Click to copy your export code: </b>' + code, true, () => {
+            notification.dismiss();
+            navigator.clipboard.writeText(code);
+            this.parent.notifier.push("Your code has been copied to your clipboard!");
+        });
+
         // Debug
         Debugger.log("Code export complete.")
     }

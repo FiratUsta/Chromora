@@ -9,6 +9,7 @@ class ColorWheel{
         this.wheel = Elements.WHEEL;
         this.picker = Elements.PICKER;
         this.valueInput = Elements.VALUE_SLIDER;
+        this.yScroll = 0;
 
         this.tracking = false;
     }
@@ -17,7 +18,7 @@ class ColorWheel{
         const rect = this.wheel.getBoundingClientRect();
         const center = {
             "x": rect.left + ((rect.right - rect.left) / 2),
-            "y": rect.top + ((rect.bottom - rect.top) / 2)
+            "y": (rect.top + ((rect.bottom - rect.top) / 2)) + this.yScroll
         }
 
         return {
@@ -117,6 +118,10 @@ class ColorWheel{
     }
 
     init(){
+        window.addEventListener("scroll", () => {
+            this.yScroll = window.scrollY;
+        })
+
         this.wheel.addEventListener("mouseleave", (event) => {
             if(this.tracking){
                 this.tracking = false;

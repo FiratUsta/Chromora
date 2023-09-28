@@ -3,6 +3,7 @@ class Notification{
         this.content    = content;
         this.clickable  = clickable;
         this.method     = method;
+        this.dismissed  = false;
 
         this._init();
     }
@@ -50,6 +51,7 @@ class Notification{
     }
 
     dismiss(){
+        this.dismissed = true;
         document.body.removeChild(this.container);
     }
 }
@@ -57,10 +59,18 @@ class Notification{
 class NotificationManager{
     constructor(parent){
         this.parent = parent;
+        this.lastNotification = null;
     }
 
     push(content, clickable = false, method = null){
-        return new Notification(content, clickable, method);
+        if(this.lastNotification !== null && this.lastNotification.dismissed === false){
+            this.lastNotification.dismiss();
+        };
+
+        const newNotification = new Notification(content, clickable, method);
+        this.lastNotification = newNotification;
+
+        return newNotification;
     }
 }
 

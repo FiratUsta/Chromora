@@ -466,15 +466,15 @@ input{
     grid-template-areas: "text button";
     align-items: center;
     position: fixed;
-    background-color: var(--foreground);
-    color: var(--background);
+    background-color: var(--background);
+    color: var(--foreground);
     height: 50px;
     width: 33%;
     top: 0;
     left: 33.5%;
     border-radius: 10px;
     z-index: 3;
-    box-shadow: 0 0 15px 0 var(--shadow-dark);
+    box-shadow: 0 0 15px 0 var(--foreground);
     padding: 0 20px 0 20px;
     opacity: 0;
     transition: opacity 0.35s, top 0.35s;

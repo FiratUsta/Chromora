@@ -10,7 +10,7 @@ class SwatchDisplay{
 
     async createSwatches(colors){
         for(let i = 0; i < colors.length; i++){
-            const swatch = new Swatch(this.display, colors[i], this.parent.themer.textColorFromColor(colors[i]));
+            const swatch = new Swatch(this, colors[i], this.parent.themer.textColorFromColor(colors[i]));
             swatch.createLabels();
         };
     }
@@ -23,6 +23,10 @@ class SwatchDisplay{
         await this.createSwatches(colors)
 
         Debugger.log("Swatches generated in " + (Date.now() - start) + "ms.")
+    }
+
+    getNotificationManager(){
+        return this.parent.parent.notifier;
     }
 }
 

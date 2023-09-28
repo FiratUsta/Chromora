@@ -1,8 +1,9 @@
 class Swatch{
     constructor(parent, color, textColor){
+        this.parent = parent;
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
-        parent.appendChild(this.element);
+        this.parent.display.appendChild(this.element);
 
         this.color = color;
         this.textColor = textColor;
@@ -13,15 +14,18 @@ class Swatch{
         const hexLabel = document.createElement("p");
         hexLabel.classList.add("hexLabel");
         hexLabel.innerText = this.color.hex();
+        hexLabel.onclick = () => this._copyInformation("hex");
 
         const rgbLabel = document.createElement("p");
         rgbLabel.classList.add("rgbLabel");
         rgbLabel.innerText = `rgb(${this.color.red}, ${this.color.green}, ${this.color.blue})`;
+        rgbLabel.onclick = () => this._copyInformation("rgb");
 
         const hsvLabel = document.createElement("p");
         const hsv = this.color.hsv();
         hsvLabel.classList.add("hsvLabel");
         hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.value * 100)}%)`;
+        hsvLabel.onclick = () => this._copyInformation("hsv");
 
         const labels = [hexLabel, rgbLabel, hsvLabel];
 
@@ -29,6 +33,7 @@ class Swatch{
             const nameLabel = document.createElement("p");
             nameLabel.classList.add("nameLabel");
             nameLabel.innerText = this.color.name;
+            nameLabel.onclick = () => this._copyInformation("name");
             labels.push(nameLabel);
         };
 
@@ -37,6 +42,13 @@ class Swatch{
             label.style.color = this.textColor;
             this.element.appendChild(label);
         })
+    }
+
+    _copyInformation(info){
+        const notifier = this.parent.getNotificationManager();
+        const information = this.element.querySelector("." + info + "Label").innerText;
+        navigator.clipboard.writeText(information);
+        notifier.push("<b>Copied to clipboard: </b>" + information);
     }
 
     update(color){

@@ -47,7 +47,10 @@ class Notification{
     _init(){
         const elements = this._createElements();
         this._bindMethods(elements);
-        this._show();
+        // A small delay is necessary for the animation to work for some reason.
+        setTimeout(() => {
+            this._show();
+        }, 100);
     }
 
     dismiss(){

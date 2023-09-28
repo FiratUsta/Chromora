@@ -461,6 +461,7 @@ input{
 }
 /* Notification */
 .notifContainer{
+    font-family: 'Roboto', sans-serif;
     display: grid;
     grid-template-columns: 1fr 10px;
     grid-template-areas: "text button";

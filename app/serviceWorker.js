@@ -1,11 +1,11 @@
-const version = "1.3.2";
+const version = "1.4.0-Beta0";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
     // Enter point files
     "../index.html",
     "../style.css",
-    "../main.js",
+    "../app.js",
     // Data
     "../data/colors.json",
     "../data/version.json",
@@ -14,6 +14,20 @@ const shellFiles = [
     "../assets/lightMode.png",
     "../assets/logo.svg",
     "../assets/wheel.png",
+    // Classes
+    "../classes/color.js",
+    "../classes/colorGenerator.js",
+    "../classes/colorWheel.js",
+    "../classes/domManager.js",
+    "../classes/exporter.js",
+    "../classes/indexer.js",
+    "../classes/swatch.js",
+    "../classes/swatchDisplay.js",
+    "../classes/themer.js",
+    // Modules
+    "../modules/debugger.js",
+    "../modules/elements.js",
+    "../modules/tools.js"
 ];
 
 self.addEventListener("message", (event) => {

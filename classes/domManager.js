@@ -89,7 +89,7 @@ class DomManager{
                 this._setGeneratorParameters( 3, 2, 30, -1);
                 break;
             case "quickRandom":
-                this._setGeneratorParameters( 6, 1, -1, 1);
+                this._setGeneratorParameters( 1, 1, -1, 1);
                 break;
         }
         this.parent.colorGenerator.generatePalette();

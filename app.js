@@ -2,6 +2,7 @@ import { ColorGenerator } from "./classes/colorGenerator.js";
 import { DomManager } from "./classes/domManager.js";
 import { Exporter } from "./classes/exporter.js";
 import { Indexer } from "./classes/indexer.js";
+import { NotificationManager } from "./classes/notificationManager.js";
 import { Debugger } from "./modules/debugger.js";
 import * as Elements from "./modules/elements.js";
 
@@ -15,6 +16,7 @@ class App{
         this.colorGenerator = new ColorGenerator(this);
         this.domManager     = new DomManager(this);
         this.exporter       = new Exporter(this);
+        this.notifier       = new NotificationManager(this);
     }
 
     async init(){

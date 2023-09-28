@@ -1,10 +1,13 @@
 class Swatch{
     constructor(parent, color, textColor){
         this.parent = parent;
+        this.focused = false;
+
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
+        this.element.onmouseover = () => this.parent.focus(this);
         this.parent.display.appendChild(this.element);
-
+        
         this.color = color;
         this.textColor = textColor;
         this.update(this.color);
@@ -27,7 +30,15 @@ class Swatch{
         hsvLabel.innerText = `hsv(${parseInt(hsv.hue)}°, ${parseInt(hsv.saturation * 100)}%, ${parseInt(hsv.value * 100)}%)`;
         hsvLabel.onclick = () => this._copyInformation("hsv");
 
-        const labels = [hexLabel, rgbLabel, hsvLabel];
+        const lockLabel = document.createElement("p");
+        lockLabel.classList.add("lockLabel");
+        lockLabel.onclick = () => {
+            if(this.focused){
+                lockLabel.classList.toggle("locked");
+            }
+        };
+
+        const labels = [hexLabel, rgbLabel, hsvLabel, lockLabel];
 
         if(this.color.name !== undefined){
             const nameLabel = document.createElement("p");
@@ -45,10 +56,12 @@ class Swatch{
     }
 
     _copyInformation(info){
-        const notifier = this.parent.getNotificationManager();
-        const information = this.element.querySelector("." + info + "Label").innerText;
-        navigator.clipboard.writeText(information);
-        notifier.push("<b>Copied to clipboard: </b>" + information);
+        if(this.focused){
+            const notifier = this.parent.getNotificationManager();
+            const information = this.element.querySelector("." + info + "Label").innerText;
+            navigator.clipboard.writeText(information);
+            notifier.push("<b>Copied to clipboard: </b>" + information);
+        }
     }
 
     update(color){

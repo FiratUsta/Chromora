@@ -89,7 +89,7 @@ class Exporter{
         };
 
         // Push Notification
-        const notification = this.parent.notifier.push('<b>Click to copy your exprot code: </b>' + code, true, () => {
+        const notification = this.parent.notifier.push('<b>Click to copy your export code: </b>' + code, true, () => {
             notification.dismiss();
             navigator.clipboard.writeText(code);
             this.parent.notifier.push("Your code has been copied to your clipboard!");

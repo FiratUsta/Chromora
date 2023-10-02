@@ -442,6 +442,8 @@ input{
 }
 .swatch .nameLabel{
     position: absolute;
+    text-align: right;
+    width: 33%;
     top: 5%;
     right: 2%;
 }

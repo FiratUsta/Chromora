@@ -1,8 +1,9 @@
 {
-    "version": "1.4.0-Beta2",
+    "version": "1.4.0-Beta3",
     "changelog": [
         "Completely revamped project structure for better maintainability, modularity and readability.",
         "Implemented a new notification system with better looking and behaving notifications.",
-        "You can now click on the labels on the generated swatches to copy information."
+        "You can now click on the labels on the generated swatches to copy information.",
+        "You can now click on the hearts on each swatch to lock certain colors."
     ]
 }

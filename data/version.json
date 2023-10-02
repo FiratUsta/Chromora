@@ -1,4 +1,12 @@
 {
-    "version": "1.3.2",
-    "changelog": ["Fix 'Polo Blue' color name in the database."]
+    "version": "1.4.0",
+    "changelog": [
+        "Completely revamped project structure for better maintainability, modularity and readability.",
+        "Implemented a new notification system with better looking and behaving notifications.",
+        "You can now click on the labels on the generated swatches to copy information.",
+        "You can now click on the hearts on each swatch to lock certain colors.",
+        "Improve the look of print exports.",
+        "Improve the look of image exports as well as present more information on them.",
+        "Added an about button to top left of the page."
+    ]
 }

@@ -36,9 +36,16 @@ main{
     font-family: 'Roboto', sans-serif;
     accent-color: var(--accent-two);
 }
-/* THEMER & VERSION*/
-.themer{
-    position: absolute;
+/* THEMER*/
+#topButtons{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    gap: 10px;
+}
+.topButton{
     top: 10px;
     left: 10px;
     display: flex;
@@ -48,30 +55,94 @@ main{
     user-select: none;
     -webkit-user-select: none;
 }
-#versionText{
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    color: var(--foreground);
-    opacity: 0.25;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.themer p{
+.topButton p{
     opacity: 0;
     transform: translateX(-40px);
     transition: transform 0.5s, opacity 0.5s;
 }
-.themer:hover p{
+.topButton:hover p{
     opacity: 1;
     transform: translateX(0);
 }
-#themeToggle{
+.topButton .topImage{
     width: 30px;
     height: 30px;
     cursor: pointer;
-    background-color: var(--background);
     z-index: 2;
+    border-radius: 50%;
+}
+/* ABOUT PANEL */
+#dimmer{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 98;
+    transition: all 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+#aboutPanel{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    width: 90%;
+    left: 5%;
+    top: 10%;
+    height: 80%;
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: 20px;
+    transition: all 0.5s;
+    opacity: 0;
+    pointer-events: none;
+    overflow: auto;
+}
+#versionText{
+    margin-bottom: 25px;
+}
+#changelog{
+    margin-bottom: 25px;
+}
+.vr{
+    width: 80%;
+    border-bottom: 2px solid var(--foreground);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#aboutPanel a{
+    color: #9900ff;
+    font-weight: bold;
+    text-decoration: none;
+}
+#aboutPanel ul{
+    width: 80%;
+    padding: 0;
+    padding-left: 15px;
+}
+#dimmer.show{
+    opacity: 1;
+    pointer-events: all;
+}
+#aboutPanel.show{
+    opacity: 1;
+    pointer-events: all;
+}
+#closeButton{
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    font-weight: bold;
+    font-size: 32px;
 }
 /* INPUT */
 #input{
@@ -433,6 +504,7 @@ input{
     font-weight: bold;
     user-select: none;
     -webkit-user-select: none;
+    cursor: pointer;
 }
 .swatch .hexLabel{
     position: absolute;
@@ -441,6 +513,8 @@ input{
 }
 .swatch .nameLabel{
     position: absolute;
+    text-align: right;
+    width: 33%;
     top: 5%;
     right: 2%;
 }
@@ -456,46 +530,71 @@ input{
     right: 2%;
     opacity: 0;
 }
-.swatch:hover .hsvLabel, .swatch:hover .rgbLabel{
+.swatch .lockLabel{
+    position: absolute;
+    height: 20px;
+    font-size: 20px;
+    top: 5%;
+    left: calc(50% - 10px);
+    opacity: 0;
+}
+.swatch .lockLabel.locked{
     opacity: 1;
+    display: block;
+}
+.lockLabel::after{
+    content: "♡";
+}
+.lockLabel.locked::after{
+    content: "♥";
+}
+.hsvLabel, .rgbLabel, .lockLabel{
+    display: none;
+}
+.swatch:hover .hsvLabel, .swatch:hover .rgbLabel, .swatch:hover .lockLabel{
+    opacity: 1;
+    display: block;
 }
 /* Notification */
-#notification{
+.notifContainer{
+    font-family: 'Roboto', sans-serif;
     display: grid;
     grid-template-columns: 1fr 10px;
     grid-template-areas: "text button";
     align-items: center;
     position: fixed;
-    background-color: var(--foreground);
-    color: var(--background);
+    background-color: var(--background);
+    color: var(--foreground);
     height: 50px;
     width: 33%;
     top: 0;
     left: 33.5%;
     border-radius: 10px;
     z-index: 3;
-    box-shadow: 0 0 15px 0 var(--shadow-dark);
+    box-shadow: 0 0 15px 0 var(--foreground);
     padding: 0 20px 0 20px;
     opacity: 0;
     transition: opacity 0.35s, top 0.35s;
     pointer-events: none;
 }
-#notification.show{
+.notifContainer.show{
     top: 5%;
     opacity: 1;
     pointer-events: all;
 }
-#notifClose{
+.notifButton{
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     grid-area: button;
+    font-weight: bold;
+    font-size: 32px;
 }
-#notifText b{
+.notifContent b{
     user-select: none;
     -webkit-user-select: none;
 }
-#codeDisplay{
+.notifContent.clickable{
     cursor: pointer;
 }
 /* Loader */
@@ -539,28 +638,39 @@ input{
     aspect-ratio: 1/1.4;
     height: 100%;
 }
-#printDisplay{
-    display: flex;
-    height: 200px;
-    border: 2px solid black;
-    border-radius: 10px;
-}
-#printColors{
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 10px;
-}
-.printColor{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
+
 .printSwatch{
-    aspect-ratio: 1/1;
-    width: 100px;
+    height: 250px;
+    width: 200px;
     border: 2px solid black;
+    padding: 0;
+    margin: 0;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+.printSwatchColor{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    justify-self: center;
+    border-bottom: 2px solid black;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.printSwatch h4{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 10px;
+
+}
+
+.printSwatch p{
+    margin-left: 10px;
+    color: black;
 }
 /* OTHER */
 .debugLabel{
@@ -582,18 +692,37 @@ input{
     html,body,main{
         background-color: white;
     }
-    #input, #themeToggle, #notification{
+    #input, #themeToggle, #notification, #versionText{
       visibility: hidden;
     }
     #print{
-      display: block;
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+      grid-auto-rows: 350px;
       position: absolute;
+      justify-items: center;
       top: 0;
       left: 0;
     }
 }
 /* RESPONSIVE DESIGN */
 @media only screen and (max-width: 850px) {
+    #aboutPanel{
+        position: fixed;
+        width: 100%;
+        min-height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+    }
+    #aboutPanel ul{
+        width: 80%;
+        padding: 0;
+        padding-left: 15px;
+    }
+    #aboutPanel p{
+        text-align: center;
+    }
     #input{
         width: 100%;
         height: 300%;
@@ -603,9 +732,6 @@ input{
         justify-content:normal;
     }
     .themer{
-        position: fixed;
-    }
-    #versionText{
         position: fixed;
     }
     .themer p{
@@ -629,14 +755,14 @@ input{
         min-height: none;
         gap: 10px;
     }
-    #notification{
+    .notifContainer{
         width: 100%;
         min-height: 10%;
         top: 0;
         left: 0;
         border-radius: 0;
     }
-    #notification.show{
+    .notifContainer.show{
         top: 0;
     }
 }

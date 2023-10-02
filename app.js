@@ -1,3 +1,4 @@
+import { AboutDisplay } from "./classes/aboutDisplay.js";
 import { ColorGenerator } from "./classes/colorGenerator.js";
 import { DomManager } from "./classes/domManager.js";
 import { Exporter } from "./classes/exporter.js";
@@ -17,6 +18,7 @@ class App{
         this.domManager     = new DomManager(this);
         this.exporter       = new Exporter(this);
         this.notifier       = new NotificationManager(this);
+        this.aboutDisplay   = new AboutDisplay(this);
     }
 
     async init(){
@@ -35,7 +37,10 @@ class App{
         // Display version
         fetch('./data/version.json')
         .then((response) => response.json())
-        .then((json) => {Elements.VERSION_TEXT.innerText = "v" + json["version"];});
+        .then((json) => {
+            Elements.VERSION_TEXT.innerText = "v" + json["version"];
+            this.aboutDisplay.init(json["changelog"]);
+        });
 
         // Display DEBUG
         Debugger.debugMessage();

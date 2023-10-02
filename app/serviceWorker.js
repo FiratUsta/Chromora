@@ -1,4 +1,4 @@
-const version = "1.4.0-Beta4";
+const version = "1.4.0";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
@@ -14,6 +14,8 @@ const shellFiles = [
     "../assets/lightMode.png",
     "../assets/logo.svg",
     "../assets/wheel.png",
+    "../assets/darkAbout.png",
+    "../assets/lightAbout.png",
     // Classes
     "../classes/color.js",
     "../classes/colorGenerator.js",
@@ -25,6 +27,7 @@ const shellFiles = [
     "../classes/swatchDisplay.js",
     "../classes/themer.js",
     "../classes/notificationManager.js",
+    "../classes/aboutDisplay.js",
     // Modules
     "../modules/debugger.js",
     "../modules/elements.js",

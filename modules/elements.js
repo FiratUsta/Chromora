@@ -54,6 +54,12 @@ const IMPORT_CODE       = document.getElementById("inputCodeText");
 const BUTTON_RANDOM     = document.getElementById("randomButton");
 const BUTTON_GENERATE   = document.getElementById("generateButton");
 const BUTTON_EXPORT     = document.getElementById("exportButton");
+// About Display
+const ABOUT_DISPLAY     = document.getElementById("aboutPanel");
+const ABOUT_CHANGELOG   = document.getElementById("changelog");
+const ABOUT_BUTTON_C    = document.getElementById("closeButton");
+const ABOUT_BUTTON_O    = document.getElementById("aboutButton");
+const DIMMER            = document.getElementById("dimmer");
 
 export{
     // MISC
@@ -111,5 +117,11 @@ export{
     // BUTTONS
     BUTTON_RANDOM,
     BUTTON_GENERATE,
-    BUTTON_EXPORT
+    BUTTON_EXPORT,
+    // ABOUT
+    ABOUT_BUTTON_C,
+    ABOUT_CHANGELOG,
+    ABOUT_DISPLAY,
+    ABOUT_BUTTON_O,
+    DIMMER
 }

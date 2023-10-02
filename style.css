@@ -36,9 +36,16 @@ main{
     font-family: 'Roboto', sans-serif;
     accent-color: var(--accent-two);
 }
-/* THEMER & VERSION*/
-.themer{
-    position: absolute;
+/* THEMER*/
+#topButtons{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    gap: 10px;
+}
+.topButton{
     top: 10px;
     left: 10px;
     display: flex;
@@ -48,30 +55,94 @@ main{
     user-select: none;
     -webkit-user-select: none;
 }
-#versionText{
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    color: var(--foreground);
-    opacity: 0.25;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.themer p{
+.topButton p{
     opacity: 0;
     transform: translateX(-40px);
     transition: transform 0.5s, opacity 0.5s;
 }
-.themer:hover p{
+.topButton:hover p{
     opacity: 1;
     transform: translateX(0);
 }
-#themeToggle{
+.topButton .topImage{
     width: 30px;
     height: 30px;
     cursor: pointer;
-    background-color: var(--background);
     z-index: 2;
+    border-radius: 50%;
+}
+/* ABOUT PANEL */
+#dimmer{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 98;
+    transition: all 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+#aboutPanel{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    width: 90%;
+    left: 5%;
+    top: 10%;
+    height: 80%;
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: 20px;
+    transition: all 0.5s;
+    opacity: 0;
+    pointer-events: none;
+    overflow: auto;
+}
+#versionText{
+    margin-bottom: 25px;
+}
+#changelog{
+    margin-bottom: 25px;
+}
+.vr{
+    width: 80%;
+    border-bottom: 2px solid var(--foreground);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#aboutPanel a{
+    color: #9900ff;
+    font-weight: bold;
+    text-decoration: none;
+}
+#aboutPanel ul{
+    width: 80%;
+    padding: 0;
+    padding-left: 15px;
+}
+#dimmer.show{
+    opacity: 1;
+    pointer-events: all;
+}
+#aboutPanel.show{
+    opacity: 1;
+    pointer-events: all;
+}
+#closeButton{
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    font-weight: bold;
+    font-size: 32px;
 }
 /* INPUT */
 #input{
@@ -636,6 +707,22 @@ input{
 }
 /* RESPONSIVE DESIGN */
 @media only screen and (max-width: 850px) {
+    #aboutPanel{
+        position: fixed;
+        width: 100%;
+        min-height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+    }
+    #aboutPanel ul{
+        width: 80%;
+        padding: 0;
+        padding-left: 15px;
+    }
+    #aboutPanel p{
+        text-align: center;
+    }
     #input{
         width: 100%;
         height: 300%;
@@ -645,9 +732,6 @@ input{
         justify-content:normal;
     }
     .themer{
-        position: fixed;
-    }
-    #versionText{
         position: fixed;
     }
     .themer p{

@@ -39,6 +39,7 @@ class Themer{
                 break;
         }
         Elements.THEME_TOGGLE.setAttribute("src", "../assets/" + theme + "Mode.png");
+        Elements.ABOUT_BUTTON_O.setAttribute("src", "../assets/" + theme + "About.png");
     }
 
     _toggleDocumentTheme(){

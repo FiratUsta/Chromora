@@ -225,11 +225,29 @@
             </div>
         </div>
         <div id="print"></div>
-        <div class="themer">
-            <img src="assets/lightMode.png" id="themeToggle">
-            <p>Toggle theme</p>
+        <div id="topButtons">
+            <div class="topButton">
+                <img src="assets/lightMode.png" id="themeToggle" class="topImage">
+                <p>Toggle theme</p>
+            </div>
+            <div class="topButton">
+                <img src="assets/lightAbout.png" id="aboutButton" class="topImage">
+                <p>About</p>
+            </div>
         </div>
-        <p id="versionText"></p>
+        <div id="dimmer"></div>
+        <div id="aboutPanel">
+            <img src="assets/logo.svg" alt="">
+            <h2>Color-Thing</h2>
+            <p id="versionText"></p>
+            <b>Changelog </b>
+            <div class="vr"></div>
+            <ul id="changelog"></ul>
+            <p>Created by <a href="https://ahmetfiratusta.com">Ahmet Fırat Usta</a></p>
+            <p>Source code at <a href="https://github.com/PrimaryCat/Color-Thing">GitHub</a></p>
+            <p>If you want to support me donate to your local no-kill animal shelter instead!</p>
+            <p id="closeButton">×</p>
+        </div>
         <canvas id="saveCanvas"></canvas>
         <div id="loader">
             <img src="assets/logo.svg" id="spinner">

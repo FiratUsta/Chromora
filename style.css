@@ -547,28 +547,39 @@ input{
     aspect-ratio: 1/1.4;
     height: 100%;
 }
-#printDisplay{
-    display: flex;
-    height: 200px;
-    border: 2px solid black;
-    border-radius: 10px;
-}
-#printColors{
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 10px;
-}
-.printColor{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
+
 .printSwatch{
-    aspect-ratio: 1/1;
-    width: 100px;
+    height: 250px;
+    width: 200px;
     border: 2px solid black;
+    padding: 0;
+    margin: 0;
     border-radius: 10px;
+    overflow: hidden;
+}
+
+.printSwatchColor{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    justify-self: center;
+    border-bottom: 2px solid black;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.printSwatch h4{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 10px;
+
+}
+
+.printSwatch p{
+    margin-left: 10px;
+    color: black;
 }
 /* OTHER */
 .debugLabel{
@@ -594,8 +605,11 @@ input{
       visibility: hidden;
     }
     #print{
-      display: block;
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+      grid-auto-rows: 350px;
       position: absolute;
+      justify-items: center;
       top: 0;
       left: 0;
     }

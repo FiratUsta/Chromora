@@ -46,8 +46,7 @@ const EXPORT_IMAGE      = document.getElementById("exportImage");
 const EXPORT_PRINT      = document.getElementById("exportPrint");
 const EXPORT_CODE       = document.getElementById("exportCode");
 const EXPORT_CANVAS     = document.getElementById("saveCanvas");
-const PRINT_AREA        = document.getElementById("printDisplay");
-const PRINT_COLORS      = document.getElementById("printColors");
+const PRINT_AREA        = document.getElementById("print");
 // Importer Elements
 const CHECK_IMPORT      = document.getElementById("inputCodeCheck");
 const IMPORT_CODE       = document.getElementById("inputCodeText");
@@ -106,7 +105,6 @@ export{
     EXPORT_PRINT,
     EXPORT_CANVAS,
     PRINT_AREA,
-    PRINT_COLORS,
     // IMPORTER
     CHECK_IMPORT,
     IMPORT_CODE,

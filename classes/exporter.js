@@ -7,18 +7,13 @@ class Exporter{
     }
 
     _createPrintSwatch(color, index){
-        // For color list
-        const container = document.createElement("div");
-        container.classList.add("printColor");
-
         const swatch = document.createElement("div");
         swatch.classList.add("printSwatch");
-        swatch.style.backgroundColor = color.hex();
-        container.appendChild(swatch);
 
-        const infoContainer = document.createElement("div");
-        infoContainer.classList.add("printInfo");
-        container.appendChild(infoContainer);
+        const colorArea = document.createElement("div");
+        colorArea.classList.add("printSwatchColor");
+        colorArea.style.backgroundColor = "" + color.hex();
+        swatch.appendChild(colorArea);
 
         const title = document.createElement("h4");
         if(color.name !== undefined){
@@ -26,39 +21,33 @@ class Exporter{
         }else{
             title.innerText = "Color " + index;
         };
-        infoContainer.appendChild(title);
+        title.style.color = "" + ((this.parent.domManager.themer.textColorFromColor(color) === "#363636" ? "black" : "white"));
+        colorArea.appendChild(title);
 
         const hex = document.createElement("p");
         hex.innerHTML = "<b>HEX:</b> " + color.hex();
-        infoContainer.appendChild(hex);
+        swatch.appendChild(hex);
 
         const rgb = document.createElement("p");
         rgb.innerHTML = "<b>RGB:</b> " + color.red + ", " + color.green + ", " + color.blue;
-        infoContainer.appendChild(rgb);
+        swatch.appendChild(rgb);
 
         const HSV = color.hsv();
         const hsv = document.createElement("p");
         hsv.innerHTML = "<b>HSV:</b> " + Math.round(HSV.hue) + "°, " + Math.round(HSV.saturation * 100) + "%, " + Math.round(HSV.value * 100) + "%";
-        infoContainer.appendChild(hsv);
+        swatch.appendChild(hsv);
         
-        // For the display
-        const displaySwatch = document.createElement("div");
-        displaySwatch.classList.add("swatch");
-        displaySwatch.style.backgroundColor = color.hex();
-        
-        return {displaySwatch, container};
+        return swatch;
     }
 
     _printExport(palette){
         // Clear Print Area
         Elements.PRINT_AREA.innerHTML = "";
-        Elements.PRINT_COLORS.innerHTML = "";
 
         // Generate swatches
         for(let i = 0; i < palette.length; i++){
-            const elems = this._createPrintSwatch(palette[i], i + 1);
-            Elements.PRINT_AREA.appendChild(elems.displaySwatch);
-            Elements.PRINT_COLORS.appendChild(elems.container);
+            const elem = this._createPrintSwatch(palette[i], i + 1);
+            Elements.PRINT_AREA.appendChild(elem);
         };
 
         // Print

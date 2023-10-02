@@ -590,7 +590,7 @@ input{
     html,body,main{
         background-color: white;
     }
-    #input, #themeToggle, #notification{
+    #input, #themeToggle, #notification, #versionText{
       visibility: hidden;
     }
     #print{

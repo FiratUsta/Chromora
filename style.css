@@ -442,6 +442,8 @@ input{
 }
 .swatch .nameLabel{
     position: absolute;
+    text-align: right;
+    width: 33%;
     top: 5%;
     right: 2%;
 }
@@ -457,10 +459,28 @@ input{
     right: 2%;
     opacity: 0;
 }
-.hsvLabel, .rgbLabel{
+.swatch .lockLabel{
+    position: absolute;
+    height: 20px;
+    font-size: 20px;
+    top: 5%;
+    left: calc(50% - 10px);
+    opacity: 0;
+}
+.swatch .lockLabel.locked{
+    opacity: 1;
+    display: block;
+}
+.lockLabel::after{
+    content: "♡";
+}
+.lockLabel.locked::after{
+    content: "♥";
+}
+.hsvLabel, .rgbLabel, .lockLabel{
     display: none;
 }
-.swatch:hover .hsvLabel, .swatch:hover .rgbLabel{
+.swatch:hover .hsvLabel, .swatch:hover .rgbLabel, .swatch:hover .lockLabel{
     opacity: 1;
     display: block;
 }

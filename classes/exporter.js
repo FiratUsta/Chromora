@@ -92,19 +92,36 @@ class Exporter{
         // Generate Image
         const ctx = Elements.EXPORT_CANVAS.getContext("2d");
 
-        ctx.canvas.width = 900;
-        ctx.canvas.height = 150 * (Math.ceil(palette.length / 6));
+        ctx.canvas.width = 300;
+        ctx.canvas.height = 450;
+
+        const swatchHeight = 450 / palette.length;
+
+        let writeText = true;
+        let textMargin;
+        if(swatchHeight > 20){
+            textMargin = (swatchHeight / 2) + 5;
+        }else{
+            writeText = false;
+        }
         
-        let x = 0;
         let y = 0;
         palette.forEach(color => {
             ctx.fillStyle = color.hex();
-            ctx.fillRect(x, y, 150, 150);
-            x += 150;
-            if(x >= 900){
-                x = 0;
-                y += 150;
+            ctx.fillRect(0, y, 350, y + swatchHeight);
+            if(writeText){
+                ctx.fillStyle = ((this.parent.domManager.themer.textColorFromColor(color) === "#363636" ? "black" : "white"));
+                ctx.font = "bold 10pt Noto Sans"
+                ctx.fillText("" + color.hex(), 15, y + textMargin);
+                if(swatchHeight > 60){
+                    const rgbText = color.red + ", " + color.green + ", " + color.blue;
+                    ctx.fillText(rgbText, 15, y + textMargin + 25);
+                    const HSV = color.hsv();
+                    const hsvText = Math.round(HSV.hue) + "°, " + Math.round(HSV.saturation * 100) + "%, " + Math.round(HSV.value * 100) + "%"
+                    ctx.fillText(hsvText, 15, y + textMargin - 25);
+                }
             }
+            y += swatchHeight;
         });
 
         // Download Image

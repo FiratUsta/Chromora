@@ -692,7 +692,7 @@ input{
     html,body,main{
         background-color: white;
     }
-    #input, #themeToggle, #notification, #versionText{
+    #input, #themeToggle, #notification, #aboutButton{
       visibility: hidden;
     }
     #print{

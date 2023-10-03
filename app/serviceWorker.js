@@ -1,4 +1,4 @@
-const version = "1.4.1";
+const version = "1.4.2";
 
 const cacheName = "colorThing-v" + version;
 const shellFiles = [
@@ -41,6 +41,7 @@ self.addEventListener("message", (event) => {
 });
 
 self.addEventListener('install', (e) => {
+    self.skipWaiting();
     console.log('Service worker installed. Version: ' + version);
     console.log('Service worker clearing old caches...');
     caches.keys().then(function(names) {

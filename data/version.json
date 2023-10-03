@@ -1,12 +1,7 @@
 {
-    "version": "1.4.1",
+    "version": "1.4.2",
     "changelog": [
-        "Completely revamped project structure for better maintainability, modularity and readability.",
-        "Implemented a new notification system with better looking and behaving notifications.",
-        "You can now click on the labels on the generated swatches to copy information.",
-        "You can now click on the hearts on each swatch to lock certain colors.",
-        "Improve the look of print exports.",
-        "Improve the look of image exports as well as present more information on them.",
-        "Added an about button to top left of the page."
+        "Fix the about button showing up on print exports.",
+        "Improve ServiceWorker behavior so that updates are more consistent."
     ]
 }

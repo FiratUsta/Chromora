@@ -111,7 +111,7 @@ class Exporter{
             ctx.fillRect(0, y, 350, y + swatchHeight);
             if(writeText){
                 ctx.fillStyle = ((this.parent.domManager.themer.textColorFromColor(color) === "#363636" ? "black" : "white"));
-                ctx.font = "bold 10pt Noto Sans"
+                ctx.font = "bold 10pt Noto Sans, sans-serif"
                 ctx.fillText("" + color.hex(), 15, y + textMargin);
                 if(swatchHeight > 60){
                     const rgbText = color.red + ", " + color.green + ", " + color.blue;

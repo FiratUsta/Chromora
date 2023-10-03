@@ -33,7 +33,7 @@ html,body,main{
     background-color: var(--background);
 }
 main{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     accent-color: var(--accent-two);
     transition: accent-color 0.25s;
 }

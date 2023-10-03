@@ -35,6 +35,7 @@ html,body,main{
 main{
     font-family: 'Roboto', sans-serif;
     accent-color: var(--accent-two);
+    transition: accent-color 0.25s;
 }
 /* THEMER*/
 #topButtons{
@@ -347,7 +348,7 @@ input{
     transition: box-shadow 0.45s;
     font-weight: bold;
     margin-top: 10px;
-    transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.25s, color 0.25s;
 }
 .colorButton:hover{
     box-shadow: 0 10px 15px 0 var(--shadow-dark);
@@ -402,9 +403,10 @@ input{
     justify-content: center;
     height: auto;
     gap: 2%;
-    border-bottom: 5px solid var(--accent-two);
+    border-bottom: 5px solid;
+    border-color: var(--accent-two);
     margin-bottom: -10px;
-    transition: border-color 0.5s;
+    transition: border-color 0.25s;
 }
 .tab{
     border: none;
@@ -417,7 +419,7 @@ input{
     -webkit-user-select: none;
     cursor: pointer;
     opacity: 0.6;
-    transition: background-color 0.5s , color 0.5s;
+    transition: background-color 0.25s , color 0.25s;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -468,7 +470,7 @@ input{
     opacity: 1;
 }
 .quickButton.selected{
-    transition: background-color 0.5s , color 0.5s;
+    transition: background-color 0.25s , color 0.25s;
     background-color: var(--accent-two);
     color: var(--accent-three);
     opacity: 1;

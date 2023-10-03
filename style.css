@@ -347,6 +347,7 @@ input{
     transition: box-shadow 0.45s;
     font-weight: bold;
     margin-top: 10px;
+    transition: background-color 0.5s, color 0.5s;
 }
 .colorButton:hover{
     box-shadow: 0 10px 15px 0 var(--shadow-dark);
@@ -403,7 +404,7 @@ input{
     gap: 2%;
     border-bottom: 5px solid var(--accent-two);
     margin-bottom: -10px;
-    transition: border-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: border-color 0.5s;
 }
 .tab{
     border: none;
@@ -416,7 +417,7 @@ input{
     -webkit-user-select: none;
     cursor: pointer;
     opacity: 0.6;
-    transition: background-color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), color 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: background-color 0.5s , color 0.5s;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -467,6 +468,7 @@ input{
     opacity: 1;
 }
 .quickButton.selected{
+    transition: background-color 0.5s , color 0.5s;
     background-color: var(--accent-two);
     color: var(--accent-three);
     opacity: 1;

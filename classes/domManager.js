@@ -84,7 +84,7 @@ class DomManager{
                 this._setGeneratorParameters( 4, 2, -1, -1);
                 break;
             case "quickMonochrome":
-                this._setGeneratorParameters( 1, 6, -1, -1);
+                this._setGeneratorParameters( 1, 5, -1, -1);
                 break;
             case "quickAnalogous":
                 this._setGeneratorParameters( 3, 2, 30, -1);

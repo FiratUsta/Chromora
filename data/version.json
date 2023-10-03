@@ -3,6 +3,6 @@
     "changelog": [
         "Fix the about button showing up on print exports.",
         "Improve ServiceWorker behavior so that updates are more consistent.",
-        "[SELF HOSTING] Fix the build script in order to make the archives accessible."
+        "[SELF HOSTING] Fix the releases in order to make the archives accessible."
     ]
 }

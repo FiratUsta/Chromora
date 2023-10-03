@@ -15,7 +15,7 @@ class DomManager{
 
     _randomColor(){
         const color = new Color().random();
-        this.accentColor(color);
+        this.themer.accentColor(color);
     }
 
     _colorInput(mode){

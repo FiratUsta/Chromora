@@ -1,5 +1,4 @@
 import { Color } from "./color.js";
-import { Indexer } from "./indexer.js";
 import * as Elements from "../modules/elements.js";
 import { wrapAngle, wrap } from "../modules/tools.js";
 import { Debugger } from "../modules/debugger.js";

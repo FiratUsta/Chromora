@@ -28,6 +28,7 @@ const shellFiles = [
     "../classes/themer.js",
     "../classes/notificationManager.js",
     "../classes/aboutDisplay.js",
+    "../classes/paletteViewer.js",
     // Modules
     "../modules/debugger.js",
     "../modules/elements.js",

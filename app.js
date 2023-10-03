@@ -4,6 +4,7 @@ import { DomManager } from "./classes/domManager.js";
 import { Exporter } from "./classes/exporter.js";
 import { Indexer } from "./classes/indexer.js";
 import { NotificationManager } from "./classes/notificationManager.js";
+import { PaletteViewer } from "./classes/paletteViewer.js";
 import { Debugger } from "./modules/debugger.js";
 import * as Elements from "./modules/elements.js";
 
@@ -25,6 +26,7 @@ class App{
         this.exporter       = new Exporter(this);
         this.notifier       = new NotificationManager(this);
         this.aboutDisplay   = new AboutDisplay(this);
+        this.paletteViewer  = new PaletteViewer(this);
     }
 
     async init(){
@@ -33,9 +35,11 @@ class App{
         this.colorGenerator.init();
         this.domManager.init();
         this.exporter.init();
+        this.paletteViewer.init();
 
         // Generate initial palette
         await this.colorGenerator.generatePalette();
+        await this.paletteViewer.show();
 
         // Hide loading screen
         Elements.LOADING_SCREEN.classList.add("hide");

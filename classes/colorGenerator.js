@@ -125,6 +125,7 @@ class ColorGenerator{
 
         if(Elements.CHECK_IMPORT.checked){
             this._parseCode(Elements.IMPORT_CODE.value);
+            Elements.CHECK_IMPORT.checked = false;
         }
 
         this.palette = await this._generateColors();

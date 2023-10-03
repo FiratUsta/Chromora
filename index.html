@@ -202,7 +202,7 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>Choose your export option below.</p>
-                                <p><b>Note: </b>Code exports don't work with randomized palettes or locked colors!</p>
+                                <p><b>Note: </b>Code/URL exports don't work with randomized palettes or locked colors!</p>
                             </div>
                         </div>
                     </div>
@@ -214,6 +214,10 @@
                         <div>
                             <input type="radio" id="exportImage" name="exportType" value="image">
                             <label for="image">Image</label><br>
+                        </div>
+                        <div>
+                            <input type="radio" id="exportURL" name="exportType" value="url">
+                            <label for="url">URL</label><br>
                         </div>
                         <div>
                             <input type="radio" id="exportCode" name="exportType" value="code">
@@ -249,9 +253,14 @@
             <p id="closeButton">×</p>
         </div>
         <canvas id="saveCanvas"></canvas>
-        <div id="loader">
-            <img src="assets/logo.svg" id="spinner">
+        <div id="viewerMain">
+            <div id="viewerDisplay"></div>
+            <div class="topButton" id="viewerButton">
+                <img src="assets/darkEdit.png" id="viewerToggle" class="topImage">
+                <p>Edit palette</p>
+            </div>
         </div>
+        <div id="loader"><img src="assets/logo.svg" id="spinner"></div>
         <script type="module" src="app.js"></script>
     </main>
 </body>

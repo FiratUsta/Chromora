@@ -2,6 +2,7 @@
     "version": "1.4.2",
     "changelog": [
         "Fix the about button showing up on print exports.",
-        "Improve ServiceWorker behavior so that updates are more consistent."
+        "Improve ServiceWorker behavior so that updates are more consistent.",
+        "[SELF HOSTING] Fix the build script in order to make the archives accessible."
     ]
 }

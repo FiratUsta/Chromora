@@ -105,6 +105,9 @@ main{
     pointer-events: none;
     overflow: auto;
 }
+#aboutLogo{
+    width: 40%;
+}
 #versionText{
     margin-bottom: 25px;
 }
@@ -118,7 +121,7 @@ main{
     margin-bottom: 10px;
 }
 #aboutPanel a{
-    color: #9900ff;
+    color: #8A00FF;
     font-weight: bold;
     text-decoration: none;
 }

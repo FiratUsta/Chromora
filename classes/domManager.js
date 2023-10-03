@@ -142,7 +142,7 @@ class DomManager{
             button.onclick = () => this._quickSettings(button.id);
         });
 
-        this._quickSettings(Elements.QUICK_COMPLEMENT.id);
+        this._quickSettings(Elements.QUICK_MONOCHROME.id);
     }
 }
 

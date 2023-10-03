@@ -15,6 +15,7 @@ class DomManager{
 
     _randomColor(){
         const color = new Color().random();
+        this.colorWheel.positionFromHSV(color);
         this.themer.accentColor(color);
     }
 

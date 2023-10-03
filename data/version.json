@@ -2,6 +2,7 @@
     "version": "1.4.2",
     "changelog": [
         "Fix the about button showing up on print exports.",
+        "Fix random button not working",
         "Improve ServiceWorker behavior so that updates are more consistent.",
         "Improve UI animations and overall feel of the app",
         "[SELF HOSTING] Fix the releases in order to make the archives accessible."

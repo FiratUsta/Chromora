@@ -57,7 +57,7 @@ class Exporter{
         Debugger.log("Print export complete.")
     }
 
-    _codeExport(){
+    _createCode(){
         // Create Code
         let code = "";
         const params = [Elements.HEX_INPUT.value, Elements.HUES.value, Elements.TONES.value];
@@ -76,6 +76,12 @@ class Exporter{
                 code += "-";
             };
         };
+
+        return code;
+    }
+
+    _codeExport(){
+        const code = this._createCode();
 
         // Push Notification
         const notification = this.parent.notifier.push('<b>Click to copy your export code: </b>' + code, true, () => {
@@ -137,6 +143,23 @@ class Exporter{
         Debugger.log("Image export complete.")
     }
 
+    _urlExport(){
+        const code = this._createCode();
+        const currentUrl = window.location.href;
+
+        const url = new URL("?view="+code, currentUrl);
+
+        // Push Notification
+        const notification = this.parent.notifier.push('<b>Click to copy your url: </b>' + url, true, () => {
+            notification.dismiss();
+            navigator.clipboard.writeText(url);
+            this.parent.notifier.push("Your url has been copied to your clipboard!");
+        });
+
+        // Debug
+        Debugger.log("URL export complete." + url)
+    }
+
     _export(palette){
         Debugger.log("Starting export...");
         if(Elements.EXPORT_PRINT.checked){
@@ -148,6 +171,9 @@ class Exporter{
         }else if(Elements.EXPORT_IMAGE.checked){
             Debugger.log("Export mode: Image");
             this._imageExport(palette);
+        }else if(Elements.EXPORT_URL.checked){
+            Debugger.log("Export mode: URL");
+            this._urlExport();
         };
     }
 

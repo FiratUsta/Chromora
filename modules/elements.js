@@ -45,6 +45,7 @@ const SWATCH_DISPLAY    = document.getElementById("display");
 const EXPORT_IMAGE      = document.getElementById("exportImage");
 const EXPORT_PRINT      = document.getElementById("exportPrint");
 const EXPORT_CODE       = document.getElementById("exportCode");
+const EXPORT_URL        = document.getElementById("exportURL");
 const EXPORT_CANVAS     = document.getElementById("saveCanvas");
 const PRINT_AREA        = document.getElementById("print");
 // Importer Elements
@@ -60,6 +61,8 @@ const ABOUT_CHANGELOG   = document.getElementById("changelog");
 const ABOUT_BUTTON_C    = document.getElementById("closeButton");
 const ABOUT_BUTTON_O    = document.getElementById("aboutButton");
 const DIMMER            = document.getElementById("dimmer");
+// Palette Viewer
+const VIEWER_MAIN       = document.getElementById("paletteViewer");
 
 export{
     // MISC
@@ -110,6 +113,7 @@ export{
     EXPORT_IMAGE,
     EXPORT_PRINT,
     EXPORT_CANVAS,
+    EXPORT_URL,
     PRINT_AREA,
     // IMPORTER
     CHECK_IMPORT,
@@ -123,5 +127,7 @@ export{
     ABOUT_CHANGELOG,
     ABOUT_DISPLAY,
     ABOUT_BUTTON_O,
-    DIMMER
+    DIMMER,
+    // VIEWER
+    VIEWER_MAIN
 }

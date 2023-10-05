@@ -109,7 +109,11 @@ main{
     width: 40%;
 }
 #versionText{
+    width: 40%;
+    margin-top: -1%;
     margin-bottom: 25px;
+    text-align: right;
+    font-size: 12pt;
 }
 #changelog{
     margin-bottom: 25px;
@@ -781,6 +785,9 @@ input{
         top: 0;
         left: 0;
         border-radius: 0;
+    }
+    #versionText{
+        text-align: right !important;
     }
     #aboutPanel ul{
         width: 80%;

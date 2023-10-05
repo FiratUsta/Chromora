@@ -54,13 +54,14 @@ class ColorGenerator{
                 colors.push(color);
             };
         }else{
-            const base = new Color(Elements.R_INPUT.value, Elements.G_INPUT.value, Elements.B_INPUT.value);
+            const base = new Color().fromHEX(Elements.HEX_INPUT.value);
 
             const hsv = base.hsv();
             const values = this._calculateValues(hsv.value, Elements.TONES.value);
             
             let shift;
             let mod = 1;
+
             if(!Elements.CHECK_ANALOGOUS.checked){
                 shift = 360 / Elements.HUES.value;
             }else{
@@ -69,11 +70,16 @@ class ColorGenerator{
             
             for(let i = 0; i < Elements.HUES.value; i++){
                 for(let j = 0; j < Elements.TONES.value; j++){
-                    if(Elements.CHECK_ANALOGOUS.checked){
-                        mod = (i % 2 === 0 ? -1 : 1);
+                    let color;
+                    if(i === 0 && values[j] === hsv.value){
+                        color = base;
+                    }else{
+                        if(Elements.CHECK_ANALOGOUS.checked){
+                            mod = (i % 2 === 0 ? -1 : 1);
+                        };
+                        const angle = wrapAngle(hsv.hue, shift * i * mod);
+                        color = new Color().fromHSV(angle, hsv.saturation, values[j]);
                     }
-                    const angle = wrapAngle(hsv.hue, shift * i * mod);
-                    const color = new Color().fromHSV(angle, hsv.saturation, values[j]);
                     colors.push(color);
                 }
             };

@@ -88,7 +88,7 @@ class ColorWheel{
 
         const radius = (positions.rect.right - positions.rect.left) / 2;
         if(Math.sqrt((offsets.center.x * offsets.center.x) + (offsets.center.y * offsets.center.y)) > radius){
-            this.positionFromHSV(color);
+            this.positionFromColor(color);
         }else{
             this._movePicker(offsets.rect.x, offsets.rect.y);
         }
@@ -96,17 +96,16 @@ class ColorWheel{
         return color;
     };
 
-    positionFromHSV(color){
-        const hsv = color.hsv();
+    positionFromHSV(hue, saturation, value){
         // Calculate radius, (radius, radius) is the (0,0) point on the circle offsetted from the top-left.
         const positions = this._calculatePositions();
         const radius = (positions.rect.right - positions.rect.left) / 2;
         // Initiate the coordinates at (1,0) unit vector, scaled by the saturation.
-        let x = hsv.saturation;
+        let x = saturation;
         let y = 0;
         // Rotate the vector by hue. 
-        const cos = Math.cos(hsv. hue / 57.3) // Math.cos() takes radians!
-        const sin = Math.sin(hsv. hue / 57.3) // Math.sin() takes radians!
+        const cos = Math.cos(hue / 57.3) // Math.cos() takes radians!
+        const sin = Math.sin(hue / 57.3) // Math.sin() takes radians!
         const rotX = (cos * x) - (sin * y);
         const rotY = (sin * x) + (cos * y);
         // Scale and offset the vector by radius to get the position
@@ -114,7 +113,11 @@ class ColorWheel{
         const posY = radius + (rotY * radius);
 
         this._movePicker(posX, posY);
-        this.valueInput.value = hsv.value * 100;
+    }
+
+    positionFromColor(color){
+        const hsv = color.hsv();
+        this.positionFromHSV(hsv.hue, hsv.saturation, hsv.value);
     }
 
     init(){
@@ -174,12 +177,6 @@ class ColorWheel{
                 this.parent.updateColors(color);
             };
         });
-        
-        this.valueInput.oninput = () => {
-            const pos = this._getPickerPosition();
-            const color = this._track(pos.x, pos.y);
-            this.parent.updateColors(color);
-        }
     }
 }
 

@@ -1,3 +1,4 @@
+import { Debugger } from "../modules/debugger.js";
 import * as Elements from "../modules/elements.js"
 import { isBetween } from "../modules/tools.js";
 import { Color } from "./color.js";
@@ -71,7 +72,8 @@ class Themer{
         }
     }
 
-    accentColor(color){
+    accentColor(color, fromHSV = false){
+        Debugger.log("Setting accent color.");
         const hexCode = color.hex();
         Elements.HEX_INPUT.value = hexCode;
         
@@ -83,6 +85,10 @@ class Themer{
         Elements.H_INPUT.value = Math.round(hsv.hue);
         Elements.S_INPUT.value = parseInt(hsv.saturation * 100);
         Elements.V_INPUT.value = parseInt(hsv.value * 100);
+        Elements.VALUE_SLIDER.value = parseInt(hsv.value * 100);
+        
+        Elements.SHADER.style.opacity = 1 - hsv.value;
+
         document.documentElement.style.setProperty('--accent-two', hexCode);
         document.documentElement.style.setProperty('--accent-three', this.textColorFromColor(color));
     }

@@ -3,6 +3,7 @@ import { ColorWheel } from "./colorWheel.js";
 import { Color } from "./color.js";
 import * as Elements from "../modules/elements.js";
 import { SwatchDisplay } from "./swatchDisplay.js";
+import { Debugger } from "../modules/debugger.js";
 
 class DomManager{
     constructor(parent){
@@ -15,27 +16,43 @@ class DomManager{
 
     _randomColor(){
         const color = new Color().random();
-        this.colorWheel.positionFromHSV(color);
+        this.colorWheel.positionFromColor(color);
         this.themer.accentColor(color);
     }
 
     _colorInput(mode){
+        Debugger.log("Color input fired.");
         let color;
         switch(mode){
             case "hsv":
-                color = new Color().fromHSV(Elements.H_INPUT.value, Elements.S_INPUT.value / 100, Elements.V_INPUT.value / 100);
+                // Get the values
+                const hue = Elements.H_INPUT.value;
+                const saturation = Elements.S_INPUT.value;
+                const value = Elements.V_INPUT.value;
+
+                // Apply color
+                color = new Color().fromHSV(hue, saturation / 100, value / 100);
+                this.themer.accentColor(color);
+                this.colorWheel.positionFromHSV(hue, saturation / 100, value / 100);
+
+                // Set values
+                Elements.H_INPUT.value = hue;
+                Elements.S_INPUT.value = saturation;
+                Elements.V_INPUT.value = value;
                 break;
             case "rgb":
                 color = new Color(Elements.R_INPUT.value, Elements.G_INPUT.value, Elements.B_INPUT.value);
+                this.colorWheel.positionFromColor(color);
+                this.themer.accentColor(color);
                 break;
             case "hex":
                 color = new Color().fromHEX(Elements.HEX_INPUT.value);
+                this.colorWheel.positionFromColor(color);
+                this.themer.accentColor(color);
                 break;
             default:
                 break;
         }
-        this.colorWheel.positionFromHSV(color);
-        this.themer.accentColor(color);
     }
 
     _setGeneratorParameters(hues, tones, analogousAngle, random){
@@ -101,8 +118,8 @@ class DomManager{
     }
 
     updateColors(color){
-        this.colorWheel.positionFromHSV(color);
         this.themer.accentColor(color);
+        this.colorWheel.positionFromColor(color);
     }
 
     init(){
@@ -123,8 +140,13 @@ class DomManager{
 
         // STEP 1
         [Elements.H_INPUT, Elements.S_INPUT, Elements.V_INPUT].forEach(element => {
-            element.onchange = () => {this._colorInput("hsv")};
+            element.onchange = () => {this._colorInput("hsv");};
         });
+
+        Elements.VALUE_SLIDER.oninput = () => {
+            Elements.V_INPUT.value = Elements.VALUE_SLIDER.value;
+            this._colorInput("hsv");
+        };
 
         [Elements.R_INPUT, Elements.G_INPUT, Elements.B_INPUT].forEach(element => {
             element.onchange = () => {this._colorInput("rgb")};

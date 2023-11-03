@@ -32,60 +32,111 @@ class ColorGenerator{
         }
     }
 
-    _calculateValues(value, amount){
-        let values = [];
+    _calculateShadesAndTones(hsv, amount){
+        const shades = [];
+        const tones  = [];
 
-        const increment = 1 / amount;
-        for(let i = 0; i < amount; i++){
-            values.push(wrap(value, increment * i, 0, 1));
-        };
+        const shadeA = Math.floor((amount - 1) / 2);
+        const toneA  = Math.ceil((amount - 1) / 2);
 
-        values.sort();
+        const shadeI = hsv.value / (shadeA + 1);
+        for(let i = 0; i < shadeA; i++){
+            const value = wrap(hsv.value, shadeI * (i + 1) * -1, 0, 1)
 
-        return values;
+            shades.push({"hue": hsv.hue, "saturation": hsv.saturation, "value": value});
+        }
+
+        shades.sort((a, b) => {return a.value > b.value});
+
+        const toneI = hsv.saturation / (toneA + 1);
+        for(let i = 0; i < toneA; i++){
+            const saturation = wrap(hsv.saturation, toneI * (i + 1) * -1, 0, 1);
+
+            tones.push({"hue": hsv.hue, "saturation": saturation, "value": hsv.value});
+        }
+
+        tones.sort((a, b) => {return a.saturation < b.saturation});
+
+        return{shades, tones};
     }
 
-    async _generateColors(){
+    _generateMonochrome(hsv, amount, insert = null){
         const colors = [];
-        
-        if(Elements.CHECK_RANDOM.checked){
-            for(let i = 0; i < Elements.HUES.value; i++){
-                const color = new Color().random();
-                colors.push(color);
-            };
+        const shadesAndTones = this._calculateShadesAndTones(hsv, amount);
+        const shades = shadesAndTones.shades;
+        const tones = shadesAndTones.tones;
+
+        for(let i = 0; i < shades.length; i++){
+            const hsv = shades[i];
+            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
+        };
+
+        if(insert === null){
+            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
         }else{
-            const base = new Color().fromHEX(Elements.HEX_INPUT.value);
+            colors.push(insert);
+        }
+        
 
-            const hsv = base.hsv();
-            const values = this._calculateValues(hsv.value, Elements.TONES.value);
-            
-            let shift;
-            let mod = 1;
-
-            if(!Elements.CHECK_ANALOGOUS.checked){
-                shift = 360 / Elements.HUES.value;
-            }else{
-                shift = Elements.ANALOGOUS_ANGLE.value;
-            };
-            
-            for(let i = 0; i < Elements.HUES.value; i++){
-                for(let j = 0; j < Elements.TONES.value; j++){
-                    let color;
-                    if(i === 0 && values[j] === hsv.value){
-                        color = base;
-                    }else{
-                        if(Elements.CHECK_ANALOGOUS.checked){
-                            mod = (i % 2 === 0 ? -1 : 1);
-                        };
-                        const angle = wrapAngle(hsv.hue, shift * i * mod);
-                        color = new Color().fromHSV(angle, hsv.saturation, values[j]);
-                    }
-                    colors.push(color);
-                }
-            };
+        for(let i = 0; i < tones.length; i++){
+            const hsv = tones[i];
+            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
         };
 
         return colors;
+    }
+
+    _generateHues(hsv, amount){
+        const hues = [];
+        let shift;
+
+        if(!Elements.CHECK_ANALOGOUS.checked){
+            shift = 360 / Elements.HUES.value;
+        }else{
+            shift = Elements.ANALOGOUS_ANGLE.value;
+        };
+
+        for(let i = 0; i < amount; i++){
+            let mod = 1;
+            if(Elements.CHECK_ANALOGOUS.checked){
+                mod = (i % 2 === 0 ? -1 : 1);
+            };
+            const angle = wrapAngle(hsv.hue, shift * i * mod);
+            hues.push({"hue": angle, "saturation": hsv.saturation, "value": hsv.value});
+        }
+
+        return hues
+    }
+
+    _generateRandom(amount){
+        const colors = [];
+
+        for(let i = 0; i < amount; i++){
+            const color = new Color().random();
+            colors.push(color);
+        };
+
+        return colors;
+    }
+
+    async _generateColors(){
+        let palette = [];
+        const base = new Color().fromHEX(Elements.HEX_INPUT.value).hsv();
+        const amount = Elements.HUES.value;
+
+        if(Elements.CHECK_RANDOM.checked){
+            palette = this._generateRandom(amount);
+        }else{
+            const hues = this._generateHues(base, amount);
+
+            for(let i = 0; i < hues.length; i++){
+                const generated = this._generateMonochrome(hues[i], Elements.TONES.value, (i === 0 ? new Color().fromHEX(Elements.HEX_INPUT.value) : null));
+                for(let j = 0; j < generated.length; j++){
+                    palette.push(generated[j]);
+                };
+            };
+        };
+        return palette;
     }
 
     async _tint(){

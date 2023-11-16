@@ -79,16 +79,16 @@ class DomManager{
                 this._setGeneratorParameters( 2, 3, -1, -1);
                 break;
             case "quickTriadic":
-                this._setGeneratorParameters( 3, 1, -1, -1);
+                this._setGeneratorParameters( 3, 2, -1, -1);
                 break;
             case "quickTetradic":
-                this._setGeneratorParameters( 4, 1, -1, -1);
+                this._setGeneratorParameters( 4, 2, -1, -1);
                 break;
             case "quickMonochrome":
                 this._setGeneratorParameters( 1, 5, -1, -1);
                 break;
             case "quickAnalogous":
-                this._setGeneratorParameters( 3, 1, 30, -1);
+                this._setGeneratorParameters( 3, 2, 30, -1);
                 break;
             case "quickRandom":
                 this._setGeneratorParameters( 1, 1, -1, 1);

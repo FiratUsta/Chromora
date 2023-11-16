@@ -8,7 +8,8 @@
     "Fix font declarations, the app should now use Noto Sans.",
     "Improve ServiceWorker behavior so that updates are more consistent.",
     "Improve UI animations and overall feel of the app",
-    "Significantly improve HSV color picking and inputting.",
+    "Improve HSV color picking and inputting.",
+    "Improve tone and monochrome palette generation.",
     "[SELF HOSTING] Fix the releases in order to make the archives accessible."
     ]
 }

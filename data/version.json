@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
-    "changelog": [        "Add new export mode: URL sharing.",
+    "changelog": [        
+    "Add new export mode: URL sharing.",
     "Add a new full screen view mode exclusively for viewing URL shared palettes.",
     "Fix the about button showing up on print exports.",
     "Fix random button not working",

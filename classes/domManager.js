@@ -18,6 +18,7 @@ class DomManager{
         const color = new Color().random();
         this.colorWheel.positionFromColor(color);
         this.themer.accentColor(color);
+        this.parent.colorGenerator.generatePalette();
     }
 
     _colorInput(mode){

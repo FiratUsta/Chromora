@@ -1,6 +1,13 @@
 {
     "version": "2.0.0",
-    "changelog": [
-        "Significantly improve HSV color picking and inputting."
+    "changelog": [        "Add new export mode: URL sharing.",
+    "Add a new full screen view mode exclusively for viewing URL shared palettes.",
+    "Fix the about button showing up on print exports.",
+    "Fix random button not working",
+    "Fix font declarations, the app should now use Noto Sans.",
+    "Improve ServiceWorker behavior so that updates are more consistent.",
+    "Improve UI animations and overall feel of the app",
+    "Significantly improve HSV color picking and inputting.",
+    "[SELF HOSTING] Fix the releases in order to make the archives accessible."
     ]
 }

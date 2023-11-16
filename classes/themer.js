@@ -96,11 +96,7 @@ class Themer{
     init(){
         this._setDocumentTheme(this.theme);
 
-        if(this.theme == "dark"){
-            this.parent.updateColors(new Color().fromHEX("#E7B03A"));
-        }else{
-            this.parent.updateColors(new Color().fromHEX("#2265A4"));
-        };
+        this.parent.updateColors(new Color().fromHEX("#8A00FF"));
 
         Elements.THEME_TOGGLE.onclick = () => {this._toggleDocumentTheme();}
     }

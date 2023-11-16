@@ -1,16 +1,16 @@
-# COLOR-THING: COLOR PALETTE GENERATOR
+# CHROMORA - THE POWERFUL & FAST COLOR PALETTE GENERATOR
 
-Color-Thing is a lightweight, powerful and fast color palette generator that can be used both online and offline as a PWA. 
+Chromora is a lightweight, powerful and fast color palette generator that can be used both online and offline as a PWA. 
 
 ![](git-assets/Screenshot.png)
 
-## Why Color-Thing?
+## Why Chromora?
 
-Why should you use Color-Thing for your color palette generator needs? Because:
+Why should you use Chromora for your color palette generator needs? Because:
 
 * It's lightweight, the entire repo is less than 500kb, this even includes the files that are not necessary to run the app like this README, or the picture on it.
 
-* It's powerful, Color-Thing doesn't limit you to the 5 most common color palette types, you can create palettes that can have up to 36,000 colors.
+* It's powerful, Chromora doesn't limit you to the 5 most common color palette types, you can create palettes that can have up to 36,000 colors.
 
 * It's fast, it can generate 360 colors and find you the names of the closest color to all of them in 100ms on a i3-6006 with 4gb of RAM.
 
@@ -22,7 +22,7 @@ Why should you use Color-Thing for your color palette generator needs? Because:
 
 ## Want to give it a shot?
 
-Check out the live instance over at [my website](https://ahmetfiratusta.com/stuff/color-thing)!
+Check out the live instance over at [my website](https://chromora.com)!
 
 If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed. 
 
@@ -30,7 +30,7 @@ You can also grab one of the zips from the releases for self hosting. These file
 
 ## What's next?
 
-I honestly don't know, the app is pretty much complete in my eyes. Of course, if I discover any bugs or get any PRs, those will be handled on a case by case basis. Otherwise, maybe native desktop programs or a mobile app? I understand if people don't want to use it as a PWA, especially since Firefox doesn't officially support them.
+I honestly don't know, the app is pretty much complete in my eyes. Of course, if I discover any bugs or get any PRs, those will be handled on a case by case basis.
 
 ## What's not next?
 

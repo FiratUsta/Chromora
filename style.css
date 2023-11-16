@@ -103,8 +103,15 @@ main{
     pointer-events: none;
     overflow: auto;
 }
+#aboutLogo{
+    width: 40%;
+}
 #versionText{
+    width: 40%;
+    margin-top: -1%;
     margin-bottom: 25px;
+    text-align: right;
+    font-size: 12pt;
 }
 #changelog{
     margin-bottom: 25px;
@@ -116,7 +123,7 @@ main{
     margin-bottom: 10px;
 }
 #aboutPanel a{
-    color: #9900ff;
+    color: #8A00FF;
     font-weight: bold;
     text-decoration: none;
 }
@@ -787,6 +794,9 @@ input{
         top: 0;
         left: 0;
         border-radius: 0;
+    }
+    #versionText{
+        text-align: right !important;
     }
     #aboutPanel ul{
         width: 80%;

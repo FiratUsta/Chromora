@@ -61,8 +61,8 @@ class PaletteViewer{
 
         return new Promise(async function(resolve){
             Elements.VIEWER_DISPLAY.innerHTML = "";
-            Elements.VIEWER_MAIN.classList.add("show");
             await self._createSwatches();
+            Elements.VIEWER_MAIN.classList.add("show");
             resolve();
         });
     }

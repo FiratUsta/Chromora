@@ -1,6 +1,6 @@
 {
-    "name": "Color Thing: Color Palette Generator",
-    "short_name": "ColorThing",
+    "name": "Chromora - The Powerful & Fast Color Palette Generator!",
+    "short_name": "Chromora",
     "start_url": "index.html",
     "display": "standalone",
     "background_color": "#F5F5F5",

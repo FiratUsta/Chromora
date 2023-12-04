@@ -131,6 +131,11 @@ main{
     width: 80%;
     padding: 0;
     padding-left: 15px;
+    overflow-y: auto;
+}
+#aboutFooter{
+    display: flex;
+    gap: 5px;
 }
 #dimmer.show{
     opacity: 1;
@@ -790,13 +795,19 @@ input{
     #aboutPanel{
         position: fixed;
         width: 100%;
+        max-height: 100%;
         min-height: 100%;
         top: 0;
         left: 0;
         border-radius: 0;
     }
+    #aboutLogo{
+        width: 80%;
+        padding-top: 15px;
+    }
     #versionText{
         text-align: right !important;
+        width: 80%;
     }
     #aboutPanel ul{
         width: 80%;
@@ -805,6 +816,17 @@ input{
     }
     #aboutPanel p{
         text-align: center;
+    }
+    #aboutFooter{
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    #aboutFooterDivider{
+        display: none;
+    }
+    #closeButton{
+        top: -10px;
+        right: 5px;
     }
     #input{
         width: 100%;

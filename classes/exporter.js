@@ -4,6 +4,24 @@ import * as Elements from "../modules/elements.js";
 class Exporter{
     constructor(parent){
         this.parent = parent;
+        this.restricted = false;
+    }
+
+    _setRestrictions(){
+        const restrictees = [Elements.EXPORT_URL, Elements.EXPORT_CODE];
+        if(this.restricted){
+            restrictees.every(button => {
+                if(button.checked){
+                    Elements.EXPORT_PRINT.click();
+                    return false;
+                }
+                return true;
+            });
+
+            restrictees.forEach(button => button.disabled = true);
+        }else{
+            restrictees.forEach(button => button.disabled = false);
+        };
     }
 
     _createPrintSwatch(color, index){
@@ -174,6 +192,23 @@ class Exporter{
         }else if(Elements.EXPORT_URL.checked){
             Debugger.log("Export mode: URL");
             this._urlExport();
+        };
+    }
+
+    checkRestrictions(){
+        let check = false;
+
+        if(Elements.CHECK_RANDOM.checked){
+            check = true;
+        };
+
+        if(this.parent.domManager.swatchDisplay.hasLocked()){
+            check = true;
+        };
+
+        if(check !== this.restricted){
+            this.restricted = check;
+            this._setRestrictions();
         };
     }
 

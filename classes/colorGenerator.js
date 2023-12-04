@@ -213,6 +213,8 @@ class ColorGenerator{
         Elements.TINT_AMOUNT.onchange = () => this.generatePalette();
 
         Elements.BUTTON_GENERATE.onclick = () => this.generatePalette();
+
+        Elements.CHECK_RANDOM.onclick = () => this.parent.exporter.checkRestrictions();
     }
 }
 

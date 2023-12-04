@@ -61,6 +61,20 @@ class SwatchDisplay{
         });
         return colors;
     }
+
+    hasLocked(){
+        let check = false;
+
+        this.swatches.every(swatch => {
+            if(swatch.locked){
+                check = true;
+                return false;
+            }
+            return true;
+        })
+
+        return check;
+    }
 }
 
 export{SwatchDisplay}

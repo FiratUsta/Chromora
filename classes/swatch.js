@@ -2,6 +2,7 @@ class Swatch{
     constructor(parent, color, textColor){
         this.parent = parent;
         this.focused = false;
+        this.locked = false;
 
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
@@ -25,6 +26,7 @@ class Swatch{
     _toggleLock(){
         this.element.querySelector(".lockLabel").classList.toggle("locked");
         this.locked = !this.locked;
+        this.parent.parent.parent.exporter.checkRestrictions();
     }
 
     dismiss(){

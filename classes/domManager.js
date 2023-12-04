@@ -72,6 +72,8 @@ class DomManager{
         }else{
             Elements.CHECK_RANDOM.checked = false;
         }
+
+        this.parent.exporter.checkRestrictions();
     }
 
     _switchTab(selected){

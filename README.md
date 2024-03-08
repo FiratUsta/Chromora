@@ -1,9 +1,9 @@
 <p align="center">
-    <img src="./git-assets/logo.png">
     The Powerful & Fast Color Palette Generator
 </p>
-
-Chromora is a lightweight, powerful and fast color palette generator that can be used both online and offline as a PWA. 
+<p align="center">
+    <img src="./git-assets/logo.png">
+</p>
 
 ![](git-assets/Screenshot.png)
 
@@ -11,7 +11,7 @@ Chromora is a lightweight, powerful and fast color palette generator that can be
 
 Why should you use Chromora for your color palette generator needs? Because:
 
-* It's lightweight, the entire repo is less than 2.5mb, this even includes the files that are not necessary to run the app like this README, or the picture on it.
+* It's lightweight, the entire repo is less than 2.5mb, this even includes the files that are not necessary to run the app like this README, or the pictures on it.
 
 * It's powerful, Chromora doesn't limit you to the 5 most common color palette types, you can create palettes that can have up to 36,000 colors.
 
@@ -34,10 +34,6 @@ You can also grab one of the zips from the releases for self hosting. These file
 ## What's next?
 
 Check the open issues, maybe you'll find something that interests you!
-
-## What's not next?
-
-Most likely full Webkit support unless someone makes a PR. I have no way of testing for iPhones or Macs. The only way I can test for Webkit is with Epiphany, on which everything seems to be fine (In reality, it's a mess on iPhones, a little better now on desktop Safari).
 
 ## "Your code sucks and is inefficient"
 

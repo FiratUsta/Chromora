@@ -1,5 +1,7 @@
 # CHROMORA - THE POWERFUL & FAST COLOR PALETTE GENERATOR
 
+![](git-assets/logo.png)
+
 Chromora is a lightweight, powerful and fast color palette generator that can be used both online and offline as a PWA. 
 
 ![](git-assets/Screenshot.png)
@@ -22,7 +24,7 @@ Why should you use Chromora for your color palette generator needs? Because:
 
 ## Want to give it a shot?
 
-Check out the live instance over at [my website](https://chromora.com)!
+Check out the live instance [over here](https://chromora.com)!
 
 If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed. 
 

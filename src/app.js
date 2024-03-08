@@ -15,7 +15,7 @@ if ("serviceWorker" in navigator) {
             registration.update();
         };
     });
-    navigator.serviceWorker.register("serviceWorker.js");
+    navigator.serviceWorker.register("./serviceWorker.js");
 };
 
 class App{

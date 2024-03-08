@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
+    <title>Color Thing: Color Palette Generator</title>
+</head>
+<style>
+    html, body, div{
+        height: 100%;
+        width: 100%;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: #f5f5f5;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: min(5vw, 18px);
+        user-select: none;
+    }
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #151515;
+    }
+    p, i, a {
+        text-align: center;
+    }
+    img{
+        width: 100%;
+    }
+    a{
+        margin: 25px;
+        min-width: 50%;
+        width: 50%;
+    }
+    @media only screen and (max-width: 750px) {
+    a{
+        min-width: 80%;
+        width: 80%;
+    }
+}
+</style>
+<body>
+    <div>
+        <p>Color-Thing is now</p>
+        <a href="https://chromora.com">
+            <img src="assets/logo.png" draggable="false">
+        </a>
+        <i>Click the logo to go to the new website!</i>
+    </div>
+</body>
+</html>

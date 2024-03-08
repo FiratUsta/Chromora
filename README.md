@@ -27,7 +27,7 @@ Why should you use Chromora for your color palette generator needs? Because:
 
 Check out the live instance [over here](https://chromora.com)!
 
-If you want to host an instance for yourself, just clone the repo and host it, no special set-up is needed. 
+If you want to host an instance for yourself, just clone the repo and host the `src` directory, no special set-up is needed. 
 
 You can also grab one of the zips from the releases for self hosting. These files are cleaned of any unnecessary files like this `README.md` file, or the `git-assets` directory. Additionally, the 'light' version leaves out the `app` directory as well, however this version will only work online as it lacks PWA capabilities.
 

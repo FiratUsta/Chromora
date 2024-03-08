@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -e "Removing old builds..."
+rm dist/Chromora.zip
+rm dist/Chromora-light.zip
+
+echo -e "Packing new builds..."
+cd src
+zip -r ../dist/Chromora.zip app assets classes data modules index.html style.css app.js LICENSE
+zip -r ../dist/Chromora.zip assets classes data modules index.html style.css app.js LICENSE
+
+cd ..
+
+echo -e "Done!"

@@ -1,41 +1,41 @@
-const version = "2.0.0";
+const version = "2.0.1";
 
-const cacheName = "colorThing-v" + version;
+const cacheName = "chromora-v" + version;
 const shellFiles = [
     // Enter point files
-    "../index.html",
-    "../style.css",
-    "../app.js",
+    "index.html",
+    "style.css",
+    "app.js",
     // Data
-    "../data/colors.json",
-    "../data/version.json",
+    "data/colors.json",
+    "data/version.json",
     // Assets
-    "../assets/darkAbout.png",
-    "../assets/darkEdit.png",
-    "../assets/darkMode.png",
-    "../assets/lightAbout.png",
-    "../assets/lightEdit.png",
-    "../assets/lightMode.png",
-    "../assets/logo.svg",
-    "../assets/logoFull.png",
-    "../assets/wheel.png",
+    "assets/darkAbout.png",
+    "assets/darkEdit.png",
+    "assets/darkMode.png",
+    "assets/lightAbout.png",
+    "assets/lightEdit.png",
+    "assets/lightMode.png",
+    "assets/logo.svg",
+    "assets/logoFull.png",
+    "assets/wheel.png",
     // Classes
-    "../classes/aboutDisplay.js",
-    "../classes/color.js",
-    "../classes/colorGenerator.js",
-    "../classes/colorWheel.js",
-    "../classes/domManager.js",
-    "../classes/exporter.js",
-    "../classes/indexer.js",
-    "../classes/notificationManager.js",
-    "../classes/paletteViewer.js",
-    "../classes/swatch.js",
-    "../classes/swatchDisplay.js",
-    "../classes/themer.js",
+    "classes/aboutDisplay.js",
+    "classes/color.js",
+    "classes/colorGenerator.js",
+    "classes/colorWheel.js",
+    "classes/domManager.js",
+    "classes/exporter.js",
+    "classes/indexer.js",
+    "classes/notificationManager.js",
+    "classes/paletteViewer.js",
+    "classes/swatch.js",
+    "classes/swatchDisplay.js",
+    "classes/themer.js",
     // Modules
-    "../modules/debugger.js",
-    "../modules/elements.js",
-    "../modules/tools.js"
+    "modules/debugger.js",
+    "modules/elements.js",
+    "modules/tools.js"
 ];
 
 self.addEventListener("message", (event) => {

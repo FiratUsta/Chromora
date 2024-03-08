@@ -9,13 +9,13 @@ import { Debugger } from "./modules/debugger.js";
 import * as Elements from "./modules/elements.js";
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.getRegistration("./app/")
+    navigator.serviceWorker.getRegistration()
     .then((registration) => {
         if(registration){
             registration.update();
         };
     });
-    navigator.serviceWorker.register("./app/serviceWorker.js");
+    navigator.serviceWorker.register("serviceWorker.js");
 };
 
 class App{

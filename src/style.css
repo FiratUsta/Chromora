@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
-
 /* CSS RESET */
 * {margin: 0;}
 input, textarea, select {font: inherit;}
@@ -33,7 +31,7 @@ html,body,main{
     background-color: var(--background);
 }
 main{
-    font-family: 'Noto Sans', sans-serif;
+    font-family: Noto, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
     accent-color: var(--accent-two);
 }
 /* THEMER*/

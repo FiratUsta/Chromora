@@ -1,6 +1,7 @@
 {
-    "version": "2.0.1",
+    "version": "2.0.2",
     "changelog": [        
-    "[SELF HOSTING] Move service worker and manifest to root to avoid scope issues."
+    "[SELF HOSTING] Move service worker and manifest to root to avoid scope issues.",
+    "The app now uses Noto if the font is installed, or fallsback to other sans-serif fonts instead of trying to import it from Google."
     ]
 }

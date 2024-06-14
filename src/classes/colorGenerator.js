@@ -46,7 +46,7 @@ class ColorGenerator{
             shades.push({"hue": hsv.hue, "saturation": hsv.saturation, "value": value});
         }
 
-        shades.sort((a, b) => {return a.value > b.value});
+        shades.sort((a, b) => {return a.value - b.value});
 
         const toneI = hsv.saturation / (toneA + 1);
         for(let i = 0; i < toneA; i++){
@@ -55,7 +55,7 @@ class ColorGenerator{
             tones.push({"hue": hsv.hue, "saturation": saturation, "value": hsv.value});
         }
 
-        tones.sort((a, b) => {return a.saturation < b.saturation});
+        tones.sort((a, b) => {return b.saturation - a.saturation});
 
         return{shades, tones};
     }

@@ -40,3 +40,10 @@ Check the open issues, maybe you'll find something that interests you!
 I know, it's a mess.
 
 <a href="https://512kb.club"><img src="https://512kb.club/assets/images/orange-team.gif" alt="a proud member of the orange team of 512KB club" /></a>
+
+<a title="250KB Club page" href="https://250kb.club/chromora-com">
+    <img
+      alt="badge: proud member of the 250KB Club"
+      src="https://250kb.club/simple_badge_dark.png"
+    />
+  </a>

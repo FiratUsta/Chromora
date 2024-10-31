@@ -285,10 +285,11 @@ class Exporter{
 
         // Download Image
         const dataUrl = Elements.EXPORT_CANVAS.toDataURL();
-        this._fileDownloader(dataUrl, "png");
-
+    
         // Debug
         Debugger.log("Image export complete.")
+
+        return dataUrl;
     }
 
     _exportToURL(){
@@ -308,21 +309,35 @@ class Exporter{
         Debugger.log("URL export complete." + url)
     }
 
-    _export(palette){
-        Debugger.log("Starting export...");
-        if(Elements.EXPORT_PRINT.checked){
-            Debugger.log("Export mode: Print");
-            this._printExport(palette);
-        }else if(Elements.EXPORT_CODE.checked){
-            Debugger.log("Export mode: Code");
-            this._codeExport();
-        }else if(Elements.EXPORT_IMAGE.checked){
-            Debugger.log("Export mode: Image");
-            this._imageExport(palette);
-        }else if(Elements.EXPORT_URL.checked){
-            Debugger.log("Export mode: URL");
-            this._urlExport();
-        };
+    _export(mode, palette){
+        Debugger.log(`Starting export: Export mode set to ${mode}`);
+        switch (mode) {
+            case "ASE":
+                this._fileDownloader(this._exportToASE(palette), "ase");
+                break;
+            case "ACO":
+                this._fileDownloader(this._exportToACO(palette), "aco");
+                break;
+            case "GPL":
+                this._fileDownloader(this._exportToGPL(palette), "gpl");
+                break;
+            case "IMG":
+                this._fileDownloader(this._exportToImage(palette), "png");
+                break;
+            case "PRT":
+                this._exportToPrint(palette);
+                break;
+            case "COD":
+                this._exportToCode();
+                break;
+            case "URL":
+                this._exportToURL();
+                break;        
+            default:
+                Debugger.log(`Aborting export: Unknown export mode ${mode}`);
+                break;
+        }
+        Debugger.log("Export operation complete.");
     }
 
     checkRestrictions(){

@@ -41,6 +41,7 @@ class Themer{
         }
         Elements.THEME_TOGGLE.setAttribute("src", "assets/" + theme + "Mode.png");
         Elements.ABOUT_BUTTON_O.setAttribute("src", "assets/" + theme + "About.png");
+        Elements.VIEWER_BUTTON.setAttribute("src", "assets/" + theme + "View.png");
     }
 
     _toggleDocumentTheme(){

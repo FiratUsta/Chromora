@@ -588,14 +588,6 @@ select{
     border: none;
     cursor: pointer;
 }
-select > option{
-    background-color: var(--foreground);
-    color: var(--foreground);
-}
-select > option:hover{
-    background-color: var(--accent-two);
-    color: var(--accent-three);
-}
 /* Notification */
 .notifContainer{
     font-family: 'Roboto', sans-serif;

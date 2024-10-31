@@ -34,6 +34,10 @@ main{
     font-family: Noto, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
     accent-color: var(--accent-two);
 }
+::selection{
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+}
 /* THEMER*/
 #topButtons{
     display: flex;
@@ -589,6 +593,9 @@ input{
     display: grid;
     grid-template-columns: 22% 4% 1fr;
 }
+.swatchInput p{
+    user-select: none;
+}
 .swatchInputsContainer{
     display: flex;
     justify-content: space-between;
@@ -600,6 +607,15 @@ input{
 }
 .swatchInputsContainer input[type=number]{
     background-color: transparent;
+}
+.swatchInputsContainer input[type=number],
+.swatchInput input[type=text]{
+    border: none;
+}
+.swatchInputsContainer input[type=number]:focus,
+.swatchInput input[type=text]:focus{
+    border-bottom: 1px solid var(--foreground);
+    margin-bottom: -1px;
 }
 #display:not(.editMode) > .swatch:hover .hsvLabel,
 #display:not(.editMode) > .swatch:hover .rgbLabel,
@@ -621,6 +637,26 @@ input{
 .swatch.editMode > .swatchLabel{
     pointer-events: none;
     opacity: 0;
+}
+.swatchButtons{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    height: 50%;
+    right: 0;
+    top: 0;
+}
+.swatchButton{
+    width: 70%;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+.swatchButton:hover{
+    scale: 1.1;
 }
 /* EXPORT */
 select{

@@ -11,6 +11,19 @@ class Indexer{
         return (0.3 * (r * r)) + (0.59 * (g * g)) + (0.11 * (b *b));
     }
 
+    findName(color){
+        let similar = [null, 999];
+
+        this.nameArray.forEach(name => {
+            const simIndex = this._calculateSimilarity(name["rgb"], color);
+            if(simIndex < similar[1]){
+                similar = [name["name"], simIndex];
+            };
+        })
+
+        return similar[0];
+    }
+
     async findMultiple(colors){
         const self = this;
 

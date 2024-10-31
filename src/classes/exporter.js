@@ -132,7 +132,7 @@ class Exporter{
     
             // Create the name block
             // Format: [String length + 1 (chars), UTF-16 encoded string, 0x00 0x00 terminator]
-            const nameBlock = [0x00, name.length + 1, ...stringToUTF16(name), 0x00, 0x00];
+            const nameBlock = [0x00, name.length + 1, ...this._stringToUTF16(name), 0x00, 0x00];
     
             // Concat color block into palette array
             aco = aco.concat(colorBlock, nameBlock);
@@ -155,13 +155,13 @@ class Exporter{
                 name = color.name;
             }
     
-            const colorNameArray = stringToUTF16(name);
+            const colorNameArray = this._stringToUTF16(name);
             
             // Format: [Block type: 01 = Color Block, Block Length (After this), Name Length, UTF-16 Encoded String, Color Space, Color Values, Color Mode]
             const colorBlockHeader = new Uint8Array([0x00, 0x01, 0x00, 0x00, 0x00, (11 + name.length) * 2, 0x00, name.length + 1, ...colorNameArray, 0x00, 0x00, 0x52, 0x47, 0x42, 0x20]);
             // For some ungodly reason everything else is little endian while the RGB values are expected to be big endian. Wowza.
             // I decided I wanted to learn web because I didn't want to deal with this stuff!
-            const colorRGBData = new Uint8Array(toBigEndianFloat32Array([color.red / 255, color.green / 255, color.blue / 255]).buffer);
+            const colorRGBData = new Uint8Array(this._toBigEndianFloat32Array([color.red / 255, color.green / 255, color.blue / 255]).buffer);
             const colorMode = new Uint8Array([0x00, 0x00]);
     
             const mergedArray = new Uint8Array(ase.length + colorBlockHeader.length + colorRGBData.length + colorMode.length);

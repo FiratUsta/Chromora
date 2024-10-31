@@ -7,6 +7,15 @@ class Exporter{
         this.restricted = false;
     }
 
+    _fileDownloader(url, extension){
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = `palette.${extension}`;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor); 
+    }
+
     _setRestrictions(){
         const restrictees = [Elements.EXPORT_URL, Elements.EXPORT_CODE];
         if(this.restricted){
@@ -150,12 +159,7 @@ class Exporter{
 
         // Download Image
         const dataUrl = Elements.EXPORT_CANVAS.toDataURL();
-        const anchor = document.createElement("a");
-        anchor.href = dataUrl;
-        anchor.download = "palette.png";
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
+        this._fileDownloader(dataUrl, "png");
 
         // Debug
         Debugger.log("Image export complete.")

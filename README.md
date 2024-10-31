@@ -17,6 +17,8 @@ Why should you use Chromora for your color palette generator needs? Because:
 
 * It's fast, it can generate 360 colors and find you the names of the closest color to all of them in 100ms on a i3-6006 with 4gb of RAM.
 
+* It can export your palettes to common and popular formats such as `.aco`, `.ase` and `.gpl` (Want more? Open an issue!)
+
 * It can work offline without any limitations, all of its functions including exporting and importing work offline. You can even install it on your device as a PWA.
 
 * No watermarks anywhere in the exports, 

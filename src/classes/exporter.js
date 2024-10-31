@@ -198,6 +198,24 @@ class Exporter{
         return URL.createObjectURL(new Blob([ase], {type: 'application/octet-stream'}));;
     }
 
+    // GIMP palettes are pretty self explanatory, so no comments here. Thank you GIMP.
+    _exportToGPL(palette){
+        let gpl = "GIMP Palette\n";
+        gpl += "Name: Chromora Exported Palette\n";
+        gpl += "Columns: 0\n";
+
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+
+            gpl += `${color.red} ${color.green} ${color.blue} ${name}\n`;
+        });
+
+        return URL.createObjectURL(new Blob([gpl], {type:"text/plain"}));
+    }
+
     _exportToPrint(palette){
         // Clear Print Area
         Elements.PRINT_AREA.innerHTML = "";

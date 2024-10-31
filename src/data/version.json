@@ -1,8 +1,7 @@
 {
-    "version": "2.0.3",
+    "version": "2.1.0",
     "changelog": [        
-    "[SELF HOSTING] Move service worker and manifest to root to avoid scope issues.",
-    "The app now uses Noto if the font is installed, or fallsback to other sans-serif fonts instead of trying to import it from Google.",
-    "Monochrome palettes now should sort correctly on Chrome."
+    "Added new export options: .aco, .ase and .gpl.",
+    "Added a new button for switching to the fullscreen palette viewer."
     ]
 }

@@ -163,7 +163,7 @@ class Exporter{
     
         const acoBytes = new Uint8Array(aco);
     
-        return new Blob([aco], {type: 'application/octet-stream'});
+        return URL.createObjectURL(new Blob([aco], {type: 'application/octet-stream'}));;
     }
 
     _exportToASE(palette){
@@ -195,7 +195,7 @@ class Exporter{
             ase = mergedArray;
         });
     
-        return new Blob([ase], {type: 'application/octet-stream'});
+        return URL.createObjectURL(new Blob([ase], {type: 'application/octet-stream'}));;
     }
 
     _exportToPrint(palette){

@@ -30,6 +30,13 @@ class App{
     }
 
     async init(){
+        // Import code from the URL if it exists
+        const location = window.location;
+        if(location.search !== "" && location.hash !== ""){
+            Elements.CHECK_IMPORT.checked = true;
+            Elements.IMPORT_CODE.value = location.hash;
+        }
+        
         // Initialize the modules
         await this.indexer.init();
         this.colorGenerator.init();

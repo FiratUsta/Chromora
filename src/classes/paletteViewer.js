@@ -67,14 +67,6 @@ class PaletteViewer{
         });
     }
 
-    _checkURL(){
-        const location = window.location;
-        if(location.search !== "" && location.hash !== ""){
-            Elements.CHECK_IMPORT.checked = true;
-            Elements.IMPORT_CODE.value = location.hash;
-        }
-    }
-
     async show(){
         const self = this;
         return new Promise(async function(resolve){
@@ -89,7 +81,6 @@ class PaletteViewer{
 
     init(){
         Elements.VIEWER_TOGGLE.onclick = () => {Elements.VIEWER_MAIN.classList.remove("show")};
-        this._checkURL();
     }
 }
 

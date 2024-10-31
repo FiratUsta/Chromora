@@ -85,7 +85,6 @@ class Swatch{
     update(color){
         this.color = color;
         this.element.style.backgroundColor = this.color.hex();
-        this.updateLabels();
     }
 }
 

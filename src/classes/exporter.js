@@ -43,45 +43,6 @@ class Exporter{
             .join('');
     }
 
-    _exportToACO(palette){
-        // Start with v1 Header
-        // FORMAT: [version number (1 or 2), number of colors]
-        let aco = [0x00, 0x01, 0x00, palette.length];
-    
-        palette.forEach(color => {
-            // Format: [color space, color data (wyxz)]
-            // Colorspace: 0 = RGB, 1 = HSB, 2 = CMYK, 7 = LAB, 8 = GRAYSCALE
-            // Z Variable is 0 for all colorspaces except CMYK, where it's K.
-            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00];
-    
-            // Concat color block into palette array
-            aco = aco.concat(colorBlock);
-        });
-    
-        // Add v2 header
-        aco.push(0x00, 0x02, 0x00, palette.length);
-    
-        palette.forEach((color, index) => {
-            let name = `Color ${index + 1}`;
-            if(color.name !== undefined){
-                name = color.name;
-            }
-            // We do the same thing as v1 first, but this time add a constant 0 at the end of color data before the name.
-            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00, 0x00, 0x00];
-    
-            // Create the name block
-            // Format: [String length + 1 (chars), UTF-16 encoded string, 0x00 0x00 terminator]
-            const nameBlock = [0x00, name.length + 1, ...stringToUTF16(name), 0x00, 0x00];
-    
-            // Concat color block into palette array
-            aco = aco.concat(colorBlock, nameBlock);
-        });
-    
-        const acoBytes = new Uint8Array(aco);
-    
-        return new Blob([aco], {type: 'application/octet-stream'});
-    }
-
     _fileDownloader(url, extension){
         const anchor = document.createElement("a");
         anchor.href = url;
@@ -140,6 +101,78 @@ class Exporter{
         swatch.appendChild(hsv);
         
         return swatch;
+    }
+
+    // ACO and ASE exports have a restricted amount of colors supported compared to the actual spec, should fix.
+    _exportToACO(palette){
+        // Start with v1 Header
+        // FORMAT: [version number (1 or 2), number of colors]
+        let aco = [0x00, 0x01, 0x00, palette.length];
+    
+        palette.forEach(color => {
+            // Format: [color space, color data (wyxz)]
+            // Colorspace: 0 = RGB, 1 = HSB, 2 = CMYK, 7 = LAB, 8 = GRAYSCALE
+            // Z Variable is 0 for all colorspaces except CMYK, where it's K.
+            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00];
+    
+            // Concat color block into palette array
+            aco = aco.concat(colorBlock);
+        });
+    
+        // Add v2 header
+        aco.push(0x00, 0x02, 0x00, palette.length);
+    
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+            // We do the same thing as v1 first, but this time add a constant 0 at the end of color data before the name.
+            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00, 0x00, 0x00];
+    
+            // Create the name block
+            // Format: [String length + 1 (chars), UTF-16 encoded string, 0x00 0x00 terminator]
+            const nameBlock = [0x00, name.length + 1, ...stringToUTF16(name), 0x00, 0x00];
+    
+            // Concat color block into palette array
+            aco = aco.concat(colorBlock, nameBlock);
+        });
+    
+        const acoBytes = new Uint8Array(aco);
+    
+        return new Blob([aco], {type: 'application/octet-stream'});
+    }
+
+    _exportToASE(palette){
+        // Start with the header
+        // Format: [Signature (ASEF), Version (1), Number of Blocks (palette size)]
+        let ase = new Uint8Array([0x41, 0x53, 0x45, 0x46, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, palette.length]);
+    
+        // Add color blocks
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+    
+            const colorNameArray = stringToUTF16(name);
+            
+            // Format: [Block type: 01 = Color Block, Block Length (After this), Name Length, UTF-16 Encoded String, Color Space, Color Values, Color Mode]
+            const colorBlockHeader = new Uint8Array([0x00, 0x01, 0x00, 0x00, 0x00, (11 + name.length) * 2, 0x00, name.length + 1, ...colorNameArray, 0x00, 0x00, 0x52, 0x47, 0x42, 0x20]);
+            // For some ungodly reason everything else is little endian while the RGB values are expected to be big endian. Wowza.
+            // I decided I wanted to learn web because I didn't want to deal with this stuff!
+            const colorRGBData = new Uint8Array(toBigEndianFloat32Array([color.red / 255, color.green / 255, color.blue / 255]).buffer);
+            const colorMode = new Uint8Array([0x00, 0x00]);
+    
+            const mergedArray = new Uint8Array(ase.length + colorBlockHeader.length + colorRGBData.length + colorMode.length);
+            mergedArray.set(ase);
+            mergedArray.set(colorBlockHeader, ase.length);
+            mergedArray.set(colorRGBData, ase.length + colorBlockHeader.length);
+            mergedArray.set(colorMode, ase.length + colorBlockHeader.length + colorRGBData.length);
+            ase = mergedArray;
+        });
+    
+        return new Blob([ase], {type: 'application/octet-stream'});
     }
 
     _printExport(palette){

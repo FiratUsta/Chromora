@@ -3,7 +3,6 @@ import * as Elements from "../modules/elements.js";
 class PaletteViewer{
     constructor(parent){
         this.parent  = parent;
-        this.visible = false;
     }
 
     _createSwatch(color){
@@ -67,30 +66,14 @@ class PaletteViewer{
         });
     }
 
-    _checkURL(){
-        const location = window.location;
-        if(location.search !== "" && location.hash !== ""){
-            Elements.CHECK_IMPORT.checked = true;
-            Elements.IMPORT_CODE.value = location.hash;
-            this.visible = true;
-        }
-    }
-
-    async show(){
-        const self = this;
-        return new Promise(async function(resolve){
-           if(self.visible){
-                await self._prepare();
-                resolve();
-           }else{
-                resolve();
-           };
-        });
+    async _show(){
+        await this._prepare();
+        Elements.VIEWER_MAIN.classList.add("show");
     }
 
     init(){
+        Elements.VIEWER_BUTTON.onclick = () => {this._show()};
         Elements.VIEWER_TOGGLE.onclick = () => {Elements.VIEWER_MAIN.classList.remove("show")};
-        this._checkURL();
     }
 }
 

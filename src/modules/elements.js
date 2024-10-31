@@ -62,6 +62,7 @@ const ABOUT_BUTTON_C    = document.getElementById("closeButton");
 const ABOUT_BUTTON_O    = document.getElementById("aboutButton");
 const DIMMER            = document.getElementById("dimmer");
 // Palette Viewer
+const VIEWER_BUTTON     = document.getElementById("viewToggle");
 const VIEWER_MAIN       = document.getElementById("viewerMain");
 const VIEWER_DISPLAY    = document.getElementById("viewerDisplay");
 const VIEWER_TOGGLE     = document.getElementById("viewerToggle");
@@ -131,6 +132,7 @@ export{
     ABOUT_BUTTON_O,
     DIMMER,
     // VIEWER
+    VIEWER_BUTTON,
     VIEWER_MAIN,
     VIEWER_DISPLAY,
     VIEWER_TOGGLE

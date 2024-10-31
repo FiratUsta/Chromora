@@ -208,22 +208,15 @@
                         </div>
                     </div>
                     <div class="horizontal justified">
-                        <div>
-                            <input type="radio" id="exportPrint" name="exportType" value="print" checked>
-                            <label for="print">Print</label><br>
-                        </div>
-                        <div>
-                            <input type="radio" id="exportImage" name="exportType" value="image">
-                            <label for="image">Image</label><br>
-                        </div>
-                        <div>
-                            <input type="radio" id="exportURL" name="exportType" value="url">
-                            <label for="url">URL</label><br>
-                        </div>
-                        <div>
-                            <input type="radio" id="exportCode" name="exportType" value="code">
-                            <label for="code">Code</label><br>
-                        </div>
+                        <select name="exportMethod" id="exportMethod">
+                            <option value="URL">Chromora URL</option>
+                            <option value="COD">Chromora Code</option>
+                            <option value="PRT">Print</option>  
+                            <option value="ASE">ASE File</option>
+                            <option value="ACO">ACO File</option>
+                            <option value="GPL">GPL File</option>
+                            <option value="IMG">PNG File</option>
+                        </select>
                     </div>
                     <input type="button" value="Export" id="exportButton" class="colorButton">
                 </div>

@@ -1,18 +1,37 @@
+import * as Elements from "../modules/elements.js";
+
 class Swatch{
     constructor(parent, color, textColor){
         this.parent = parent;
         this.focused = false;
         this.locked = false;
         this.edited = false;
+        this.customName = "";
 
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
+        this.element.addEventListener("contextmenu", (event) => {
+            const colorBeingEdited = !(Array.from(Elements.SWATCH_DISPLAY.querySelectorAll(".editMode")).length === 0);
+            if(this.focused){
+                if(this.element.classList.contains("editMode")){
+                    event.preventDefault();
+                    this.element.classList.remove("editMode");
+                    Elements.SWATCH_DISPLAY.classList.remove("editMode");
+                }else if(!colorBeingEdited){
+                    event.preventDefault();
+                    this.element.classList.add("editMode");
+                    Elements.SWATCH_DISPLAY.classList.add("editMode");
+                }
+            }
+        })
         this.element.onmouseover = () => this.parent.focus(this);
         this.parent.display.appendChild(this.element);
         
         this.color = color;
         this.textColor = textColor;
         this.labels = [];
+        this.editPanel = this.createEditPanel();
+        
         this.update(this.color);
     }
 
@@ -33,6 +52,44 @@ class Swatch{
 
     dismiss(){
         this.parent.display.removeChild(this.element);
+    }
+
+    createEditPanel(){
+        const editPanel = document.createElement("div");
+        editPanel.classList.add("swatchEditPanel");
+        editPanel.innerHTML = `
+        <div class="swatchInput">
+            <p>Name</p>
+            <p>:</p>
+            <input type="text">
+        </div>
+        <div class="swatchInput">
+            <p>HEX</p>
+            <p>:</p>
+            <input type="text">
+        </div>
+        <div class="swatchInput">
+            <p>RGB</p>
+            <p>:</p>
+            <div class="swatchInputsContainer">
+                <input type="number">
+                <input type="number">
+                <input type="number">
+            </div>
+        </div>
+        <div class="swatchInput">
+            <p>HSV</p>
+            <p>:</p>
+            <div class="swatchInputsContainer">
+                <input type="number">
+                <input type="number">
+                <input type="number">
+            </div>
+        </div>
+        `
+        this.element.appendChild(editPanel);
+
+        return editPanel;
     }
 
     createLabels(){

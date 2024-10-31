@@ -29,6 +29,20 @@ class Exporter{
         return new Float32Array(buffer);
     }
 
+    _floatTo32bitHex(float){
+        const getHex = i => ('00' + i.toString(16)).slice(-2);
+    
+        var view = new DataView(new ArrayBuffer(4)),
+            result;
+    
+        view.setFloat32(0, float);
+    
+        result = Array
+            .apply(null, { length: 4 })
+            .map((_, i) => getHex(view.getUint8(i)))
+            .join('');
+    }
+
     _fileDownloader(url, extension){
         const anchor = document.createElement("a");
         anchor.href = url;

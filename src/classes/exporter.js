@@ -43,6 +43,45 @@ class Exporter{
             .join('');
     }
 
+    _exportToACO(palette){
+        // Start with v1 Header
+        // FORMAT: [version number (1 or 2), number of colors]
+        let aco = [0x00, 0x01, 0x00, palette.length];
+    
+        palette.forEach(color => {
+            // Format: [color space, color data (wyxz)]
+            // Colorspace: 0 = RGB, 1 = HSB, 2 = CMYK, 7 = LAB, 8 = GRAYSCALE
+            // Z Variable is 0 for all colorspaces except CMYK, where it's K.
+            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00];
+    
+            // Concat color block into palette array
+            aco = aco.concat(colorBlock);
+        });
+    
+        // Add v2 header
+        aco.push(0x00, 0x02, 0x00, palette.length);
+    
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+            // We do the same thing as v1 first, but this time add a constant 0 at the end of color data before the name.
+            const colorBlock = [0x00, 0x00, color.red, color.red, color.green, color.green, color.blue, color.blue, 0x00, 0x00, 0x00, 0x00];
+    
+            // Create the name block
+            // Format: [String length + 1 (chars), UTF-16 encoded string, 0x00 0x00 terminator]
+            const nameBlock = [0x00, name.length + 1, ...stringToUTF16(name), 0x00, 0x00];
+    
+            // Concat color block into palette array
+            aco = aco.concat(colorBlock, nameBlock);
+        });
+    
+        const acoBytes = new Uint8Array(aco);
+    
+        return new Blob([aco], {type: 'application/octet-stream'});
+    }
+
     _fileDownloader(url, extension){
         const anchor = document.createElement("a");
         anchor.href = url;

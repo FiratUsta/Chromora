@@ -6,7 +6,7 @@ class Exporter{
         this.parent = parent;
         this.restricted = false;
     }
-    
+
     // JS strings are already UTF-16 encoded so we just need to make an array of char codes
     _stringToUTF16(string){
         const bytes = [];
@@ -16,6 +16,17 @@ class Exporter{
         };
 
         return bytes;
+    }
+
+    _toBigEndianFloat32Array(floats) {
+        const buffer = new ArrayBuffer(floats.length * 4);
+        const view = new DataView(buffer);
+    
+        floats.forEach((float, index) => {
+            view.setFloat32(index * 4, float, false);
+        });
+    
+        return new Float32Array(buffer);
     }
 
     _fileDownloader(url, extension){

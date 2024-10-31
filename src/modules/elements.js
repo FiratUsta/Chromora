@@ -45,10 +45,7 @@ const OPTIONS_ADVANCED  = document.getElementById("advancedOptions");
 // Swatch Display
 const SWATCH_DISPLAY    = document.getElementById("display");
 // Exporter Elements
-const EXPORT_IMAGE      = document.getElementById("exportImage");
-const EXPORT_PRINT      = document.getElementById("exportPrint");
-const EXPORT_CODE       = document.getElementById("exportCode");
-const EXPORT_URL        = document.getElementById("exportURL");
+const EXPORT_MODE       = document.getElementById("exportMethod");
 const EXPORT_CANVAS     = document.getElementById("saveCanvas");
 const PRINT_AREA        = document.getElementById("print");
 // Importer Elements
@@ -117,11 +114,8 @@ export{
     // DISPLAY
     SWATCH_DISPLAY,
     // EXPORTER
-    EXPORT_CODE,
-    EXPORT_IMAGE,
-    EXPORT_PRINT,
+    EXPORT_MODE,
     EXPORT_CANVAS,
-    EXPORT_URL,
     PRINT_AREA,
     // IMPORTER
     CHECK_IMPORT,

@@ -578,6 +578,24 @@ input{
     opacity: 1;
     display: block;
 }
+/* EXPORT */
+select{
+    width: 100%;
+    height: 30px;
+    background-color: var(--foreground);
+    color: var(--background);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+select > option{
+    background-color: var(--foreground);
+    color: var(--foreground);
+}
+select > option:hover{
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+}
 /* Notification */
 .notifContainer{
     font-family: 'Roboto', sans-serif;

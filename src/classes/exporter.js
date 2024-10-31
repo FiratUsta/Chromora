@@ -340,6 +340,8 @@ class Exporter{
         Debugger.log("Export operation complete.");
     }
 
+    // TO-DO: Add checks for restricting ACO and ASE exports if palette size is greater than the limit.
+    // TO-DO: Find the limit of the aforementioned exports for the current likely wrong implementation.
     checkRestrictions(){
         let check = false;
 
@@ -358,7 +360,7 @@ class Exporter{
     }
 
     init(){
-        Elements.BUTTON_EXPORT.onclick = () => this._export(this.parent.domManager.swatchDisplay.getPalette(true));
+        Elements.BUTTON_EXPORT.onclick = () => this._export(Elements.EXPORT_MODE.value, this.parent.domManager.swatchDisplay.getPalette(true));
     }
 }
 

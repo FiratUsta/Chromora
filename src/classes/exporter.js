@@ -103,6 +103,29 @@ class Exporter{
         return swatch;
     }
 
+    _createCode(){
+        // Create Code
+        let code = "";
+        const params = [Elements.HEX_INPUT.value, Elements.HUES.value, Elements.TONES.value];
+
+        if(Elements.TINT_AMOUNT.value !== "0"){
+            params.push(Elements.TINT_AMOUNT.value + ";" + Elements.TINT_COLOR.value);
+        };
+
+        if(Elements.CHECK_ANALOGOUS.checked){
+            params.push(Elements.ANALOGOUS_ANGLE.value);
+        };
+
+        for(let i = 0; i < params.length; i++){
+            code += params[i];
+            if(i !== params.length - 1){
+                code += "-";
+            };
+        };
+
+        return code;
+    }
+
     // ACO and ASE exports have a restricted amount of colors supported compared to the actual spec, should fix.
     _exportToACO(palette){
         // Start with v1 Header
@@ -175,7 +198,7 @@ class Exporter{
         return new Blob([ase], {type: 'application/octet-stream'});
     }
 
-    _printExport(palette){
+    _exportToPrint(palette){
         // Clear Print Area
         Elements.PRINT_AREA.innerHTML = "";
 
@@ -192,30 +215,7 @@ class Exporter{
         Debugger.log("Print export complete.")
     }
 
-    _createCode(){
-        // Create Code
-        let code = "";
-        const params = [Elements.HEX_INPUT.value, Elements.HUES.value, Elements.TONES.value];
-
-        if(Elements.TINT_AMOUNT.value !== "0"){
-            params.push(Elements.TINT_AMOUNT.value + ";" + Elements.TINT_COLOR.value);
-        };
-
-        if(Elements.CHECK_ANALOGOUS.checked){
-            params.push(Elements.ANALOGOUS_ANGLE.value);
-        };
-
-        for(let i = 0; i < params.length; i++){
-            code += params[i];
-            if(i !== params.length - 1){
-                code += "-";
-            };
-        };
-
-        return code;
-    }
-
-    _codeExport(){
+    _exportToCode(){
         const code = this._createCode();
 
         // Push Notification
@@ -229,7 +229,7 @@ class Exporter{
         Debugger.log("Code export complete.")
     }
 
-    _imageExport(palette){
+    _exportToImage(palette){
         // Generate Image
         const ctx = Elements.EXPORT_CANVAS.getContext("2d");
 
@@ -273,7 +273,7 @@ class Exporter{
         Debugger.log("Image export complete.")
     }
 
-    _urlExport(){
+    _exportToURL(){
         const code = this._createCode();
         const currentUrl = window.location.href;
 

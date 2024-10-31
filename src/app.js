@@ -39,7 +39,6 @@ class App{
 
         // Generate initial palette
         await this.colorGenerator.generatePalette();
-        await this.paletteViewer.show();
 
         // Hide loading screen
         Elements.LOADING_SCREEN.classList.add("hide");

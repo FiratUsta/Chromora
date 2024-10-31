@@ -72,7 +72,6 @@ class PaletteViewer{
         if(location.search !== "" && location.hash !== ""){
             Elements.CHECK_IMPORT.checked = true;
             Elements.IMPORT_CODE.value = location.hash;
-            this.visible = true;
         }
     }
 

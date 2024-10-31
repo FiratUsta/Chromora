@@ -6,6 +6,17 @@ class Exporter{
         this.parent = parent;
         this.restricted = false;
     }
+    
+    // JS strings are already UTF-16 encoded so we just need to make an array of char codes
+    _stringToUTF16(string){
+        const bytes = [];
+
+        for(let i = 0; i < string.length; i++){
+            bytes.push(0, string.charCodeAt(i));
+        };
+
+        return bytes;
+    }
 
     _fileDownloader(url, extension){
         const anchor = document.createElement("a");

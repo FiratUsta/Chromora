@@ -2,6 +2,7 @@
     "version": "2.1.0",
     "changelog": [        
     "Added new export options: .aco, .ase and .gpl.",
-    "Added a new button for switching to the fullscreen palette viewer."
+    "Added a new button for switching to the fullscreen palette viewer.",
+    "Your palette is now editable! Change the colors on individual swatches, add new swatches or delete existing ones."
     ]
 }

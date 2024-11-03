@@ -7,6 +7,14 @@ class Color{
         this.blue = b;
     }
 
+    fromRGB(r, g, b){
+        this.red = r;
+        this.green = g;
+        this.blue = b;
+
+        return this;
+    }
+
     fromHSV(hue, saturation, value){
         const C = value * saturation;
         const X = C * (1 - Math.abs(((hue / 60) % 2) - 1));

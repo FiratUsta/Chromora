@@ -24,7 +24,7 @@ class SwatchDisplay{
 
     async createSwatches(colors){
         for(let i = 0; i < colors.length; i++){
-            const swatch = new Swatch(this, colors[i], this.parent.themer.textColorFromColor(colors[i]));
+            const swatch = new Swatch(this, colors[i]);
             swatch.createLabels();
             this.swatches.push(swatch);
         };

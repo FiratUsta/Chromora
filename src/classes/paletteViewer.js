@@ -44,7 +44,7 @@ class PaletteViewer{
         const self = this;
 
         return new Promise(function(resolve){
-            const palette = self.parent.colorGenerator.getPalette(true);
+            const palette = self.parent.domManager.swatchDisplay.getPalette(true);
             const buttonColor = self.parent.domManager.themer.textColorFromColor(palette[0]);
             if(buttonColor === "#363636"){
                 Elements.VIEWER_TOGGLE.classList.remove("dark");

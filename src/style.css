@@ -34,6 +34,10 @@ main{
     font-family: Noto, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Nimbus Sans L", Roboto, "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
     accent-color: var(--accent-two);
 }
+::selection{
+    background-color: var(--accent-two);
+    color: var(--accent-three);
+}
 /* THEMER*/
 #topButtons{
     display: flex;
@@ -524,16 +528,13 @@ input{
     min-height: 0;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.swatch:hover{
-    flex-grow: 3;
-    min-height: 20%;
-}
 .swatchLabel{
     font-size: 0.9em;
     font-weight: bold;
     user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
+    transition: 0.3s opacity;
 }
 .swatch .hexLabel{
     position: absolute;
@@ -580,9 +581,95 @@ input{
 .hsvLabel, .rgbLabel, .lockLabel{
     display: none;
 }
-.swatch:hover .hsvLabel, .swatch:hover .rgbLabel, .swatch:hover .lockLabel{
+.swatchEditPanel{
+    height: 100%;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    right: 100%;
+    transition: 0.3s right;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
+    padding: 2%;
+}
+.swatchInput{
+    width: 75%;
+    display: grid;
+    grid-template-columns: 22% 4% 1fr;
+}
+.swatchInput p{
+    user-select: none;
+}
+.swatchInputsContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.swatchInput input[type=text]{
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+}
+.swatchInputsContainer input[type=number]{
+    background-color: transparent;
+}
+.swatchInputsContainer input[type=number],
+.swatchInput input[type=text]{
+    border: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+}
+.swatchInputsContainer input[type=number]:focus,
+.swatchInput input[type=text]:focus{
+    border-bottom: 1px solid var(--foreground);
+    margin-bottom: -1px;
+}
+#display:not(.editMode) > .swatch:hover .hsvLabel,
+#display:not(.editMode) > .swatch:hover .rgbLabel,
+#display:not(.editMode) > .swatch:hover .lockLabel{
     opacity: 1;
     display: block;
+}
+#display:not(.editMode) > .swatch:hover{
+    flex-grow: 3;
+    min-height: 20%;
+}
+.swatch.editMode{
+    flex-grow: 3;
+    min-height: 20%;
+}
+.swatch.editMode > .swatchEditPanel{
+    right: 20%;
+}
+.swatch.editMode > .swatchLabel{
+    pointer-events: none;
+    opacity: 0;
+}
+.swatchButtons{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 15%;
+    width: 20%;
+    height: 100%;
+    right: 2%;
+    top: 0;
+}
+.swatchButton{
+    height: 20%;
+    max-height: 25px;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    opacity: 0.7;
+    transition: 0.3s all;
+}
+.swatchButton:hover{
+    scale: 1.2;
+    opacity: 1;
 }
 /* EXPORT */
 select{

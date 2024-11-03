@@ -198,6 +198,8 @@ class ColorGenerator{
         await this.parent.domManager.updateDisplay(this.modifiedPalette);
 
         Debugger.log("Generation complete in " + (Date.now() - start) + "ms.");
+
+        this.parent.exporter.checkRestrictions();
     }
 
     getPalette(modified){

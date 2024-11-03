@@ -48,6 +48,9 @@ const SWATCH_DISPLAY    = document.getElementById("display");
 const EXPORT_MODE       = document.getElementById("exportMethod");
 const EXPORT_CANVAS     = document.getElementById("saveCanvas");
 const PRINT_AREA        = document.getElementById("print");
+const OPTION_URL        = document.getElementById("optionURL");
+const OPTION_CODE       = document.getElementById("optionCOD");
+const OPTION_ASE        = document.getElementById("optionASE");
 // Importer Elements
 const CHECK_IMPORT      = document.getElementById("inputCodeCheck");
 const IMPORT_CODE       = document.getElementById("inputCodeText");
@@ -118,6 +121,9 @@ export{
     EXPORT_MODE,
     EXPORT_CANVAS,
     PRINT_AREA,
+    OPTION_URL,
+    OPTION_CODE,
+    OPTION_ASE,
     // IMPORTER
     CHECK_IMPORT,
     IMPORT_CODE,

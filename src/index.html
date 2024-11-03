@@ -207,19 +207,19 @@
                             <p>?</p>
                             <div class="helpPanel">
                                 <p>Choose your export option below.</p>
-                                <p><b>Note: </b>Code/URL exports don't work with randomized palettes or locked colors!</p>
+                                <p><b>Note: </b>Code/URL exports only work for unedited auto-generated palettes.</p>
                             </div>
                         </div>
                     </div>
                     <div class="horizontal justified">
                         <select name="exportMethod" id="exportMethod">
-                            <option value="URL">Chromora URL</option>
-                            <option value="COD">Chromora Code</option>
-                            <option value="PRT">Print</option>  
-                            <option value="ASE">ASE File</option>
+                            <option value="URL" id="optionURL">Chromora URL</option>
+                            <option value="COD" id="optionCOD">Chromora Code</option>
+                            <option value="ASE" id="optionASE">ASE File</option>
                             <option value="ACO">ACO File</option>
                             <option value="GPL">GPL File</option>
                             <option value="IMG">PNG File</option>
+                            <option value="PRT">Print</option>  
                         </select>
                     </div>
                     <input type="button" value="Export" id="exportButton" class="colorButton">

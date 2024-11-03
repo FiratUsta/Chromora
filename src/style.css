@@ -611,6 +611,7 @@ input{
 .swatchInputsContainer input[type=number],
 .swatchInput input[type=text]{
     border: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
 }
 .swatchInputsContainer input[type=number]:focus,
 .swatchInput input[type=text]:focus{

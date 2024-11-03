@@ -585,6 +585,7 @@ input{
     height: 100%;
     width: 80%;
     background-color: rgba(0, 0, 0, 0.7);
+    color: #f5f5f5;
     position: absolute;
     right: 100%;
     transition: 0.3s right;
@@ -617,11 +618,12 @@ input{
 .swatchInputsContainer input[type=number],
 .swatchInput input[type=text]{
     border: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+    border-bottom: 1px solid #f5f5f53f;
+    color: #f5f5f5;
 }
 .swatchInputsContainer input[type=number]:focus,
 .swatchInput input[type=text]:focus{
-    border-bottom: 1px solid var(--foreground);
+    border-bottom: 1px solid #f5f5f5;
     margin-bottom: -1px;
 }
 #display:not(.editMode) > .swatch:hover .hsvLabel,

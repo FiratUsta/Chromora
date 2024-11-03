@@ -642,21 +642,27 @@ input{
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 15%;
     width: 20%;
-    height: 50%;
-    right: 0;
+    height: 100%;
+    right: 2%;
     top: 0;
 }
 .swatchButton{
-    width: 70%;
+    height: 20%;
+    max-height: 25px;
     cursor: pointer;
     user-select: none;
     margin: 0;
     padding: 0;
+    opacity: 0.7;
+    transition: 0.3s all;
 }
 .swatchButton:hover{
-    scale: 1.1;
+    scale: 1.2;
+    opacity: 1;
 }
 /* EXPORT */
 select{

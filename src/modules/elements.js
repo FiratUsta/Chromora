@@ -69,6 +69,8 @@ const VIEWER_BUTTON     = document.getElementById("viewToggle");
 const VIEWER_MAIN       = document.getElementById("viewerMain");
 const VIEWER_DISPLAY    = document.getElementById("viewerDisplay");
 const VIEWER_TOGGLE     = document.getElementById("viewerToggle");
+// Menu
+const BUTTON_MENU       = document.getElementById("menuButton");
 
 export{
     // MISC
@@ -141,5 +143,7 @@ export{
     VIEWER_BUTTON,
     VIEWER_MAIN,
     VIEWER_DISPLAY,
-    VIEWER_TOGGLE
+    VIEWER_TOGGLE,
+    // MENU
+    BUTTON_MENU
 }

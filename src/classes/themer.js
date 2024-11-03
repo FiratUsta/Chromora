@@ -23,7 +23,7 @@ class Themer{
     }
 
     _setDocumentTheme(theme){
-        const themeVectors = [Elements.ABOUT_BUTTON_O, Elements.THEME_TOGGLE, Elements.VIEWER_BUTTON];
+        const themeVectors = Array.from(document.querySelectorAll(".themeVector"));
         switch(theme){
             case "light":
                 document.documentElement.style.setProperty('--background', "#F5F5F5");

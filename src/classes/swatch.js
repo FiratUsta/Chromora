@@ -49,7 +49,6 @@ class Swatch{
     _toggleLock(){
         this.element.querySelector(".lockLabel").classList.toggle("locked");
         this.locked = !this.locked;
-        this.parent.parent.parent.exporter.checkRestrictions();
     }
 
     _delete(){
@@ -107,6 +106,7 @@ class Swatch{
         this.element.appendChild(editPanel);
 
         const indexer = this.parent.parent.parent.indexer;
+        const exporter = this.parent.parent.parent.exporter;
 
         const inputRed = editPanel.querySelector(".swatchRedInput");
         const inputGreen = editPanel.querySelector(".swatchGreenInput");
@@ -117,6 +117,7 @@ class Swatch{
                 this.color.name = indexer.findName(this.color);
                 this.update(this.color);
                 this.updateLabels();
+                exporter.checkRestrictions();
             };
         })
 
@@ -129,6 +130,7 @@ class Swatch{
                 this.color.name = indexer.findName(this.color);
                 this.update(this.color);
                 this.updateLabels();
+                exporter.checkRestrictions();
             };
         })
 
@@ -142,6 +144,7 @@ class Swatch{
             this.color.name = indexer.findName(this.color);
             this.update(this.color);
             this.updateLabels();
+            exporter.checkRestrictions();
         };
         inputHex.oninput = () => {
             if(inputHex.value === ""){
@@ -161,6 +164,7 @@ class Swatch{
                 this.color.customName = inputName.value;
             };
             this.updateLabels();
+            exporter.checkRestrictions();
         };
 
         const duplicateButton = editPanel.querySelector(".duplicateButton");
@@ -175,6 +179,7 @@ class Swatch{
             dupe.createLabels();
             this.parent.swatches.push(dupe);
             console.log(this.parent.swatches);
+            exporter.checkRestrictions();
         }
 
         revertButton.onclick = () => {
@@ -182,11 +187,13 @@ class Swatch{
             this.color.name = indexer.findName(this.color);
             this.update(this.color);
             this.updateLabels();
+            exporter.checkRestrictions();
         }
 
         deleteButton.onclick = () => {
             this._delete();
             Elements.SWATCH_DISPLAY.classList.remove("editMode");
+            exporter.checkRestrictions();
         }
 
         return editPanel;

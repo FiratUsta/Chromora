@@ -13,6 +13,7 @@ class Exporter{
 
         if(a.length !== b.length){
             same = false;
+            return same;
         };
 
         a.forEach((color, index) => {

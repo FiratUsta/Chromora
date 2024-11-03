@@ -23,6 +23,7 @@ class Themer{
     }
 
     _setDocumentTheme(theme){
+        const themeVectors = [Elements.ABOUT_BUTTON_O, Elements.THEME_TOGGLE, Elements.VIEWER_BUTTON];
         switch(theme){
             case "light":
                 document.documentElement.style.setProperty('--background', "#F5F5F5");
@@ -30,6 +31,9 @@ class Themer{
                 document.documentElement.style.setProperty('--shadow-light', "rgba(0, 0, 0, 0.2)");
                 document.documentElement.style.setProperty('--shadow-dark', "rgba(0, 0, 0, 0.5)");
                 document.documentElement.style.setProperty('--accent-one', "#868686");
+                themeVectors.forEach(button => {
+                    button.classList.remove("dark");
+                });
                 break;
             case "dark":
                 document.documentElement.style.setProperty('--background', "#363636");
@@ -37,11 +41,11 @@ class Themer{
                 document.documentElement.style.setProperty('--shadow-light', "rgba(0, 0, 0, 0.5)");
                 document.documentElement.style.setProperty('--shadow-dark', "rgba(0, 0, 0, 0.8)");
                 document.documentElement.style.setProperty('--accent-one', "#AFAFAF");
+                themeVectors.forEach(button => {
+                    button.classList.add("dark");
+                });
                 break;
         }
-        Elements.THEME_TOGGLE.setAttribute("src", "assets/" + theme + "Mode.png");
-        Elements.ABOUT_BUTTON_O.setAttribute("src", "assets/" + theme + "About.png");
-        Elements.VIEWER_BUTTON.setAttribute("src", "assets/" + theme + "View.png");
     }
 
     _toggleDocumentTheme(){

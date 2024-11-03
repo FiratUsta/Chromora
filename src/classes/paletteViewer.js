@@ -46,8 +46,11 @@ class PaletteViewer{
         return new Promise(function(resolve){
             const palette = self.parent.colorGenerator.getPalette(true);
             const buttonColor = self.parent.domManager.themer.textColorFromColor(palette[0]);
-            const theme = ((buttonColor === "#363636") ? "light" : "dark");
-            Elements.VIEWER_TOGGLE.setAttribute("src", "assets/" + theme + "Edit.png");
+            if(buttonColor === "#363636"){
+                Elements.VIEWER_TOGGLE.classList.remove("dark");
+            }else{
+                Elements.VIEWER_TOGGLE.classList.add("dark");
+            }
             palette.forEach(color => {
                 self._createSwatch(color);
             });

@@ -63,11 +63,17 @@ main{
     transform: translateX(0);
 }
 .topButton .topImage{
-    width: 30px;
-    height: 30px;
+    width: 33px;
+    height: 33px;
     cursor: pointer;
     z-index: 2;
     border-radius: 50%;
+}
+.themeVector{
+    filter: invert(14%) sepia(0%) saturate(60%) hue-rotate(177deg) brightness(108%) contrast(82%);
+}
+.themeVector.dark{
+    filter: invert(98%) sepia(4%) saturate(512%) hue-rotate(284deg) brightness(120%) contrast(92%);
 }
 /* ABOUT PANEL */
 #dimmer{

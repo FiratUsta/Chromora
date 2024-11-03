@@ -18,8 +18,6 @@ const H_INPUT           = document.getElementById("h");
 const S_INPUT           = document.getElementById("s");
 const V_INPUT           = document.getElementById("v");
 const HSV_INPUT         = [H_INPUT, S_INPUT, V_INPUT, VALUE_SLIDER];
-// Theme
-const THEME_TOGGLE      = document.getElementById("themeToggle");
 // Generator Parameters
 const HUES              = document.getElementById("hues");
 const TONES             = document.getElementById("tones");
@@ -62,15 +60,16 @@ const BUTTON_EXPORT     = document.getElementById("exportButton");
 const ABOUT_DISPLAY     = document.getElementById("aboutPanel");
 const ABOUT_CHANGELOG   = document.getElementById("changelog");
 const ABOUT_BUTTON_C    = document.getElementById("closeButton");
-const ABOUT_BUTTON_O    = document.getElementById("aboutButton");
 const DIMMER            = document.getElementById("dimmer");
 // Palette Viewer
-const VIEWER_BUTTON     = document.getElementById("viewToggle");
 const VIEWER_MAIN       = document.getElementById("viewerMain");
 const VIEWER_DISPLAY    = document.getElementById("viewerDisplay");
-const VIEWER_TOGGLE     = document.getElementById("viewerToggle");
 // Menu
 const BUTTON_MENU       = document.getElementById("menuButton");
+const THEME_TOGGLE      = document.getElementById("themeToggle");
+const VIEWER_BUTTON     = document.getElementById("viewToggle");
+const ABOUT_BUTTON_O    = document.getElementById("aboutButton");
+const BUTTON_MAIN_VIEW  = document.getElementById("mainViewButton");
 
 export{
     // MISC
@@ -93,8 +92,6 @@ export{
     S_INPUT,
     V_INPUT,
     HSV_INPUT,
-    // THEME
-    THEME_TOGGLE,
     // PARAMETERS
     HUES,
     TONES,
@@ -137,13 +134,14 @@ export{
     ABOUT_BUTTON_C,
     ABOUT_CHANGELOG,
     ABOUT_DISPLAY,
-    ABOUT_BUTTON_O,
     DIMMER,
     // VIEWER
-    VIEWER_BUTTON,
     VIEWER_MAIN,
     VIEWER_DISPLAY,
-    VIEWER_TOGGLE,
     // MENU
-    BUTTON_MENU
+    BUTTON_MENU,
+    THEME_TOGGLE,
+    VIEWER_BUTTON,
+    ABOUT_BUTTON_O,
+    BUTTON_MAIN_VIEW
 }

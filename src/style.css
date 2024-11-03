@@ -68,7 +68,6 @@ main{
 .topButton.open img{
     scale: 1.0;
     opacity: 1.0;
-    pointer-events: all;
 }
 #menuButton img{
     scale: 1.0;
@@ -770,7 +769,7 @@ select{
     height: 100%;
     width: 100%;
 }
-#viewerButton{
+#viewerMain .topButton{
     position: absolute;
 }
 .viewerSwatch{

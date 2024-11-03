@@ -47,9 +47,9 @@ class PaletteViewer{
             const palette = self.parent.domManager.swatchDisplay.getPalette(true);
             const buttonColor = self.parent.domManager.themer.textColorFromColor(palette[0]);
             if(buttonColor === "#363636"){
-                Elements.VIEWER_TOGGLE.classList.remove("dark");
+                Elements.BUTTON_MAIN_VIEW.classList.remove("dark");
             }else{
-                Elements.VIEWER_TOGGLE.classList.add("dark");
+                Elements.BUTTON_MAIN_VIEW.classList.add("dark");
             }
             palette.forEach(color => {
                 self._createSwatch(color);
@@ -72,11 +72,15 @@ class PaletteViewer{
     async _show(){
         await this._prepare();
         Elements.VIEWER_MAIN.classList.add("show");
+        Elements.BUTTON_MAIN_VIEW.parentNode.classList.add("open");
     }
 
     init(){
         Elements.VIEWER_BUTTON.onclick = () => {this._show()};
-        Elements.VIEWER_TOGGLE.onclick = () => {Elements.VIEWER_MAIN.classList.remove("show")};
+        Elements.BUTTON_MAIN_VIEW.onclick = () => {
+            Elements.VIEWER_MAIN.classList.remove("show");
+            Elements.BUTTON_MAIN_VIEW.parentNode.classList.remove("open");
+        };
     }
 }
 

@@ -7,6 +7,22 @@ class Exporter{
         this.restricted = false;
     }
 
+    // Returns false if two palettes are not the same, true if they are.
+    _comparePalettes(a, b){
+        if(a.length !== b.length){
+            return false;
+        };
+
+        a.forEach((color, index) => {
+            const colorB = b[index];
+            if(color.red !== colorB.red || color.green !== colorB.green || color.blue !== colorB.blue){
+                return false
+            };
+        });
+
+        return true
+    }
+
     // JS strings are already UTF-16 encoded so we just need to make an array of char codes
     _stringToUTF16(string){
         const bytes = [];
@@ -343,19 +359,24 @@ class Exporter{
     // TO-DO: Add checks for restricting ACO and ASE exports if palette size is greater than the limit.
     // TO-DO: Find the limit of the aforementioned exports for the current likely wrong implementation.
     checkRestrictions(){
-        let check = false;
+        let restrict = false;
 
         if(Elements.CHECK_RANDOM.checked){
-            check = true;
+            restrict = true;
         };
 
-        if(this.parent.domManager.swatchDisplay.hasLocked()){
-            check = true;
+        const swatchPalette = this.parent.domManager.swatchDisplay.getPalette();
+        const generatorPalette = this.parent.colorGenerator.getPalette();
+
+        if(!this._comparePalettes(swatchPalette, generatorPalette)){
+            restrict = true;
         };
 
-        if(check !== this.restricted){
-            this.restricted = check;
-            this._setRestrictions();
+        console.log(restrict)
+
+        if(restrict !== this.restricted){
+            this.restricted = restrict;
+            //this._setRestrictions();
         };
     }
 

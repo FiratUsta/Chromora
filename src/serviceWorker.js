@@ -16,6 +16,7 @@ const shellFiles = [
     "assets/edit.svg",
     "assets/logo.svg",
     "assets/logoFull.png",
+    "assets/menu.svg",
     "assets/preview.svg",
     "assets/recert.svg",
     "assets/wheel.png",

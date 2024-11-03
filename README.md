@@ -11,7 +11,7 @@
 
 Why should you use Chromora for your color palette generator needs? Because:
 
-* It's lightweight, the entire repo is less than 2.5mb, this even includes the files that are not necessary to run the app like this README, or the pictures on it.
+* It's lightweight, the entire repo is less than 3mb, this even includes the files that are not necessary to run the app like this README, or the pictures on it. The hosted website is not even 1mb! Check the bottom of the readme for more info.
 
 * It's powerful, Chromora doesn't limit you to the 5 most common color palette types, you can create palettes that can have up to 36,000 colors.
 

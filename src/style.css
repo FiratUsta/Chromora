@@ -886,7 +886,7 @@ select{
     html,body,main{
         background-color: white;
     }
-    #input, #themeToggle, #notification, #aboutButton{
+    #input, #themeToggle, #notification, .topButton{
       visibility: hidden;
     }
     #print{

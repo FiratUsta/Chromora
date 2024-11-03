@@ -56,6 +56,28 @@ main{
     color: var(--foreground);
     user-select: none;
     -webkit-user-select: none;
+    pointer-events: none;
+}
+.topButton img{
+    scale: 0.0;
+    transition: 0.3s scale;
+}
+.topButton.open{
+    pointer-events: all;
+}
+.topButton.open img{
+    scale: 1.0;
+    opacity: 1.0;
+    pointer-events: all;
+}
+#menuButton img{
+    scale: 1.0;
+    opacity: 1.0;
+    pointer-events: all;
+    transition: 0.3s transform;
+}
+#menuButton.open img{
+    transform: rotateZ(90deg);
 }
 .topButton p{
     opacity: 0;

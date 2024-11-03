@@ -116,6 +116,15 @@ class DomManager{
         this.parent.colorGenerator.generatePalette();
     }
 
+    _toggleMenu(){
+        Elements.BUTTON_MENU.classList.toggle("open");
+        const menuButtons = [Elements.THEME_TOGGLE.parentNode, Elements.VIEWER_BUTTON.parentNode, Elements.ABOUT_BUTTON_O.parentNode];
+
+        menuButtons.forEach(button => {
+            button.classList.toggle("open");
+        })
+    }
+
     async updateDisplay(colors){
         this.swatchDisplay.updateDisplay(colors);
     }
@@ -166,6 +175,8 @@ class DomManager{
         Elements.QUICK_BUTTONS.forEach(button => {
             button.onclick = () => this._quickSettings(button.id);
         });
+
+        Elements.BUTTON_MENU.onclick = () => this._toggleMenu();
 
         this._quickSettings(Elements.QUICK_MONOCHROME.id);
     }

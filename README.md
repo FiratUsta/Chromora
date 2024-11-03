@@ -19,6 +19,8 @@ Why should you use Chromora for your color palette generator needs? Because:
 
 * It can export your palettes to common and popular formats such as `.aco`, `.ase` and `.gpl` (Want more? Open an issue!)
 
+* It's responsive, it can work across all of your devices that support modern javascript.
+
 * It can work offline without any limitations, all of its functions including exporting and importing work offline. You can even install it on your device as a PWA.
 
 * No watermarks anywhere in the exports, 

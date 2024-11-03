@@ -5,6 +5,7 @@ rm dist/Chromora.zip
 rm dist/Chromora-light.zip
 
 echo -e "Packing new builds..."
+mkdir -p dist
 cd src
 cp ../LICENSE LICENSE
 zip -r ../dist/Chromora.zip assets classes data modules index.html style.css app.js manifest.json serviceWorker.js LICENSE

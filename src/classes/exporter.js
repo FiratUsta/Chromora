@@ -9,18 +9,20 @@ class Exporter{
 
     // Returns false if two palettes are not the same, true if they are.
     _comparePalettes(a, b){
+        let same = true;
+
         if(a.length !== b.length){
-            return false;
+            same = false;
         };
 
         a.forEach((color, index) => {
             const colorB = b[index];
             if(color.red !== colorB.red || color.green !== colorB.green || color.blue !== colorB.blue){
-                return false
+                same = false
             };
         });
 
-        return true
+        return same
     }
 
     // JS strings are already UTF-16 encoded so we just need to make an array of char codes
@@ -69,19 +71,12 @@ class Exporter{
     }
 
     _setRestrictions(){
-        const restrictees = [Elements.EXPORT_URL, Elements.EXPORT_CODE];
+        const restrictees = [Elements.OPTION_URL, Elements.OPTION_CODE];
         if(this.restricted){
-            restrictees.every(button => {
-                if(button.checked){
-                    Elements.EXPORT_PRINT.click();
-                    return false;
-                }
-                return true;
-            });
-
-            restrictees.forEach(button => button.disabled = true);
+            restrictees.forEach(option => option.disabled = true);
+            Elements.OPTION_ASE.selected = "selected";
         }else{
-            restrictees.forEach(button => button.disabled = false);
+            restrictees.forEach(option => option.disabled = false);
         };
     }
 
@@ -359,24 +354,19 @@ class Exporter{
     // TO-DO: Add checks for restricting ACO and ASE exports if palette size is greater than the limit.
     // TO-DO: Find the limit of the aforementioned exports for the current likely wrong implementation.
     checkRestrictions(){
-        let restrict = false;
+        const swatchPalette = this.parent.domManager.swatchDisplay.getPalette();
+        const generatorPalette = this.parent.colorGenerator.getPalette();
+
+        let restrict = !this._comparePalettes(swatchPalette, generatorPalette);
 
         if(Elements.CHECK_RANDOM.checked){
             restrict = true;
         };
 
-        const swatchPalette = this.parent.domManager.swatchDisplay.getPalette();
-        const generatorPalette = this.parent.colorGenerator.getPalette();
-
-        if(!this._comparePalettes(swatchPalette, generatorPalette)){
-            restrict = true;
-        };
-
-        console.log(restrict)
 
         if(restrict !== this.restricted){
             this.restricted = restrict;
-            //this._setRestrictions();
+            this._setRestrictions();
         };
     }
 

@@ -26,6 +26,11 @@ class SwatchDisplay{
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(this, colors[i]);
             swatch.createLabels();
+            if(i !== 0){
+                const previousSwatch = this.swatches[this.swatches.length - 1];
+                previousSwatch.nextSwatch = swatch;
+                swatch.previousSwatch = previousSwatch;
+            }
             this.swatches.push(swatch);
         };
     }

@@ -13,8 +13,8 @@ class Swatch{
         this.textColor;
         this.labels = [];
 
-        this.gradientBackground = "";
-        this.flatBackground = "";
+        this.previousSwatch = null;
+        this.nextSwatch = null;
 
         this.element = document.createElement("div");
         this.element.classList.add("swatch");

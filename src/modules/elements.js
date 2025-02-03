@@ -27,7 +27,8 @@ const ANALOGOUS_ANGLE   = document.getElementById("analogousAngle")
 const TINT_AMOUNT       = document.getElementById("tintAmount");
 const TINT_COLOR        = document.getElementById("tintColor");
 const CHECK_NAMING      = document.getElementById("nameColors");
-const SETTINGS_BUTTONS  = [HUES, TONES, CHECK_ANALOGOUS, ANALOGOUS_ANGLE];
+const GHOST_PICKERS     = document.getElementById("ghostPickers");
+const SETTINGS_BUTTONS  = [HUES, TONES, CHECK_ANALOGOUS, ANALOGOUS_ANGLE, GHOST_PICKERS];
 // Quick Settings
 const QUICK_TRIADIC     = document.getElementById("quickTriadic");
 const QUICK_TETRADIC    = document.getElementById("quickTetradic");
@@ -102,6 +103,7 @@ export{
     TINT_AMOUNT,
     TINT_COLOR,
     CHECK_NAMING,
+    GHOST_PICKERS,
     SETTINGS_BUTTONS,
     // SETTINGS TABS
     TAB_ADVANCED,

@@ -28,6 +28,7 @@ const TINT_AMOUNT       = document.getElementById("tintAmount");
 const TINT_COLOR        = document.getElementById("tintColor");
 const CHECK_NAMING      = document.getElementById("nameColors");
 const GHOST_PICKERS     = document.getElementById("ghostPickers");
+const GRADIENT_CHECKBOX = document.getElementById("gradientCheckbox");
 const SETTINGS_BUTTONS  = [HUES, TONES, CHECK_ANALOGOUS, ANALOGOUS_ANGLE, GHOST_PICKERS];
 // Quick Settings
 const QUICK_TRIADIC     = document.getElementById("quickTriadic");
@@ -104,6 +105,7 @@ export{
     TINT_COLOR,
     CHECK_NAMING,
     GHOST_PICKERS,
+    GRADIENT_CHECKBOX,
     SETTINGS_BUTTONS,
     // SETTINGS TABS
     TAB_ADVANCED,

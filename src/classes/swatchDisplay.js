@@ -40,9 +40,10 @@ class SwatchDisplay{
 
         this._clear();
 
-        await this.createSwatches(colors)
+        await this.createSwatches(colors);
+        this.toggleGradient();
 
-        Debugger.log("Swatches generated in " + (Date.now() - start) + "ms.")
+        Debugger.log("Swatches generated in " + (Date.now() - start) + "ms.");
     }
 
     focus(swatch){
@@ -79,6 +80,12 @@ class SwatchDisplay{
         })
 
         return check;
+    }
+
+    toggleGradient(){
+        this.swatches.forEach(swatch => {
+            swatch.toggleGradient();
+        });
     }
 }
 

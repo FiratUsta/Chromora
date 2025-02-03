@@ -13,6 +13,9 @@ class Swatch{
         this.textColor;
         this.labels = [];
 
+        this.gradientBackground = "";
+        this.flatBackground = "";
+
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
         this.element.addEventListener("contextmenu", (event) => {

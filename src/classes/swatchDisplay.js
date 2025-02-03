@@ -22,15 +22,20 @@ class SwatchDisplay{
         this.swatches = newSwatches;
     }
 
+    _linkSwatches(){
+        for(let i = 0; i < this.swatches.length; i++){
+            if(i !== 0){
+                const previousSwatch = this.swatches[i - 1];
+                this.swatches[i].previousSwatch = previousSwatch;
+                previousSwatch.nextSwatch = this.swatches[i];
+            };
+        }
+    }
+
     async createSwatches(colors){
         for(let i = 0; i < colors.length; i++){
             const swatch = new Swatch(this, colors[i]);
             swatch.createLabels();
-            if(i !== 0){
-                const previousSwatch = this.swatches[this.swatches.length - 1];
-                previousSwatch.nextSwatch = swatch;
-                swatch.previousSwatch = previousSwatch;
-            }
             this.swatches.push(swatch);
         };
     }
@@ -83,6 +88,7 @@ class SwatchDisplay{
     }
 
     toggleGradient(){
+        this._linkSwatches();
         this.swatches.forEach(swatch => {
             swatch.toggleGradient();
         });

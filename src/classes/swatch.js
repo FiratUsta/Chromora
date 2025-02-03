@@ -328,18 +328,19 @@ class Swatch{
         this.updateEditInputs();
     }
 
-    update(color){
-        this.color = color;
-        this.element.style.backgroundColor = this.color.hex();
-        this.textColor = this.parent.parent.themer.textColorFromColor(this.color);
-    }
-
     toggleGradient(){
         if(Elements.GRADIENT_CHECKBOX.checked){
             this.element.style.background = this._calculateGradient();
         }else{
             this.element.style.background = this.color.hex();
         };
+    }
+
+    update(color){
+        this.color = color;
+        this.element.style.background = this.color.hex();
+        this.textColor = this.parent.parent.themer.textColorFromColor(this.color);
+        this.parent.toggleGradient();
     }
 }
 

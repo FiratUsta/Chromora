@@ -1,6 +1,7 @@
 {
     "version": "2.2.0",
     "changelog": [        
-    "[2.2.0] Added ghost pickers to the color wheel to preview the palette that'll be previewed."
+    "[2.2.0] Added ghost pickers to the color wheel to preview the palette that'll be previewed.",
+    "[2.2.0] Added the ability to view the swatch display as a gradient."
     ]
 }

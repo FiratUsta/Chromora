@@ -62,6 +62,7 @@ class ColorWheel{
     }
 
     async _createGhostPickers(){
+        console.log("fired");
         const palette = await this.parent.parent.colorGenerator.generatePaletteDummy();
         palette.forEach(color => {
             if(color.type !== 0){

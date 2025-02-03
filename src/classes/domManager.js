@@ -143,8 +143,6 @@ class DomManager{
     }
 
     init(){
-        // Document INIT
-        this.themer.init();
         this.colorWheel.init();
 
         // COMMON
@@ -191,6 +189,7 @@ class DomManager{
         Elements.BUTTON_MENU.onclick = () => this._toggleMenu();
 
         this._quickSettings(Elements.QUICK_MONOCHROME.id);
+        this.themer.init();
     }
 }
 

@@ -102,11 +102,15 @@ class ColorGenerator{
         };
 
         for(let i = 0; i < amount; i++){
-            let mod = 1;
+            let angle;
             if(Elements.CHECK_ANALOGOUS.checked){
-                mod = (i % 2 === 0 ? -1 : 1);
+                let mod = (i % 2 === 0 ? -1 : 1);
+                let iterator = Math.floor(i / 2);
+                iterator = mod === -1 ? iterator : iterator + 1;
+                angle = wrapAngle(hsv.hue, shift * iterator * mod);
+            }else{
+                angle = wrapAngle(hsv.hue, shift * i);
             };
-            const angle = wrapAngle(hsv.hue, shift * i * mod);
             hues.push({"hue": angle, "saturation": hsv.saturation, "value": hsv.value});
         }
 

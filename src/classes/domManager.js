@@ -79,6 +79,7 @@ class DomManager{
         }
 
         this.parent.exporter.checkRestrictions();
+        this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
     }
 
     _switchTab(selected){
@@ -119,6 +120,7 @@ class DomManager{
                 break;
         }
         this.parent.colorGenerator.generatePalette();
+        this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
     }
 
     _toggleMenu(){
@@ -181,6 +183,10 @@ class DomManager{
         Elements.QUICK_BUTTONS.forEach(button => {
             button.onclick = () => this._quickSettings(button.id);
         });
+
+        Elements.SETTINGS_BUTTONS.forEach(button => {
+            button.onchange = () => this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
+        })
 
         Elements.BUTTON_MENU.onclick = () => this._toggleMenu();
 

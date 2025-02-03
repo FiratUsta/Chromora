@@ -114,6 +114,15 @@ class Color{
         return new Color(this.red, this.green, this.blue);
     }
 
+    asString(type){
+        switch (type) {
+            case "rgb":
+                return `${this.red},${this.green},${this.blue}`;
+            default:
+                break;
+        }
+    }
+
     async init(){
         const color = this;
         

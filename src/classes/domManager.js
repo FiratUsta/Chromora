@@ -172,6 +172,7 @@ class DomManager{
 
         Elements.HEX_INPUT.onchange = () => {this._colorInput("hex")};
         Elements.BUTTON_RANDOM.onclick = () => this._randomColor();
+        Elements.GRADIENT_CHECKBOX.onchange = () => this.swatchDisplay.toggleGradient();
 
         // STEP 2
         [Elements.TAB_ADVANCED, Elements.TAB_QUICK].forEach(tab => {

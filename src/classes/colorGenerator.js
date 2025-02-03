@@ -72,15 +72,20 @@ class ColorGenerator{
         };
 
         if(insert === null){
-            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
+            const insertColor = new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value);
+            insertColor.type = 1;
+            colors.push(insertColor);
         }else{
+            insert.type = 0;
             colors.push(insert);
         }
         
 
         for(let i = 0; i < tones.length; i++){
             const hsv = tones[i];
-            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
+            const newColor = new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value);
+            newColor.type = 2;
+            colors.push(newColor);
         };
 
         return colors;
@@ -200,6 +205,11 @@ class ColorGenerator{
         Debugger.log("Generation complete in " + (Date.now() - start) + "ms.");
 
         this.parent.exporter.checkRestrictions();
+    }
+
+    async generatePaletteDummy(){
+        const palette = await this._generateColors();
+        return palette;
     }
 
     getPalette(modified){

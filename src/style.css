@@ -324,6 +324,12 @@ main{
     position: absolute;
     pointer-events: none;
 }
+#picker.ghost{
+    opacity: 50%;   
+}
+#picker.ghost.tone{
+    scale: 0.5;
+}
 .label{
     position: relative;
     width: 80%;

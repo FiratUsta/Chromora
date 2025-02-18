@@ -321,6 +321,88 @@ class Exporter{
         Debugger.log("URL export complete." + url)
     }
 
+    _exportToCSS(palette) {
+	    let cssContent = ":root {\n";
+
+	    // Generate CSS variables from palette
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+            let variableName = `--${name.toLowerCase().replace(/\s+/g, "-")}`;
+            cssContent += `    ${variableName}: ${color.hex()};\n`;
+        });
+
+        cssContent += "}";
+
+        // Create a Blob for the content and generate a URL
+        const cssBlob = new Blob([cssContent], { type: "text/plain" });
+        const cssUrl = URL.createObjectURL(cssBlob);
+
+        this._fileDownloader(cssUrl, "css");
+
+        Debugger.log("CSS export complete.");
+        }
+    
+    _exportToCSV(palette) {
+        let csvContent = "Color Name, HEX, Red, Green, Blue\n";
+
+        palette.forEach((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+            let rgbValue = `${color.red},${color.green},${color.blue}`;
+            csvContent += `${name},${color.hex()},${rgbValue}\n`;
+        
+        });
+
+        const csvBlob = new Blob([csvContent], { type: "text/plain" });
+        const csvUrl = URL.createObjectURL(csvBlob);
+
+        this._fileDownloader(csvUrl, "csv");
+
+        Debugger.log("CSV export complete.");
+        
+    }
+
+    _exportToJSON(palette) {
+        
+        let jsonContent = [];
+
+        palette.forEach ((color, index) => {
+            let name = `Color ${index + 1}`;
+            if(color.name !== undefined){
+                name = color.name;
+            }
+            const HSV = color.hsv();
+            const colorJS = {
+                Name: name,
+                Hex: color.hex(), 
+                Red: color.red, 
+                Green: color.green, 
+                Blue: color.blue,
+                Hue: HSV.hue,
+                Saturation: HSV.saturation,
+                Value: HSV.value,
+            };
+
+            jsonContent.push(colorJS);
+        });
+
+        const jsonString = JSON.stringify(jsonContent, null, 4);
+
+        const jsonBlob = new Blob([jsonString], { type: "application/json" });
+        const jsonUrl = URL.createObjectURL(jsonBlob);
+    
+        this._fileDownloader(jsonUrl, "json");
+    
+        Debugger.log("JSON export complete.");
+
+
+    };
+
     _export(mode, palette){
         Debugger.log(`Starting export: Export mode set to ${mode}`);
         switch (mode) {
@@ -344,7 +426,17 @@ class Exporter{
                 break;
             case "URL":
                 this._exportToURL();
-                break;        
+                break;
+            case "CSS":
+		        this._exportToCSS(palette);
+		        break;
+            case "CSV":
+                this._exportToCSV(palette);
+                break;
+            case "JSON":
+                this._exportToJSON(palette);
+                break;
+
             default:
                 Debugger.log(`Aborting export: Unknown export mode ${mode}`);
                 break;

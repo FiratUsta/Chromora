@@ -72,15 +72,20 @@ class ColorGenerator{
         };
 
         if(insert === null){
-            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
+            const insertColor = new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value);
+            insertColor.type = 1;
+            colors.push(insertColor);
         }else{
+            insert.type = 0;
             colors.push(insert);
         }
         
 
         for(let i = 0; i < tones.length; i++){
             const hsv = tones[i];
-            colors.push(new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value));
+            const newColor = new Color().fromHSV(hsv.hue, hsv.saturation, hsv.value);
+            newColor.type = 2;
+            colors.push(newColor);
         };
 
         return colors;
@@ -97,11 +102,15 @@ class ColorGenerator{
         };
 
         for(let i = 0; i < amount; i++){
-            let mod = 1;
+            let angle;
             if(Elements.CHECK_ANALOGOUS.checked){
-                mod = (i % 2 === 0 ? -1 : 1);
+                let mod = (i % 2 === 0 ? -1 : 1);
+                let iterator = Math.floor(i / 2);
+                iterator = mod === -1 ? iterator : iterator + 1;
+                angle = wrapAngle(hsv.hue, shift * iterator * mod);
+            }else{
+                angle = wrapAngle(hsv.hue, shift * i);
             };
-            const angle = wrapAngle(hsv.hue, shift * i * mod);
             hues.push({"hue": angle, "saturation": hsv.saturation, "value": hsv.value});
         }
 
@@ -200,6 +209,11 @@ class ColorGenerator{
         Debugger.log("Generation complete in " + (Date.now() - start) + "ms.");
 
         this.parent.exporter.checkRestrictions();
+    }
+
+    async generatePaletteDummy(){
+        const palette = await this._generateColors();
+        return palette;
     }
 
     getPalette(modified){

@@ -8,6 +8,7 @@ class ColorWheel{
 
         this.wheel = Elements.WHEEL;
         this.picker = Elements.PICKER;
+        this.ghostPickers = [];
         this.valueInput = Elements.VALUE_SLIDER;
         this.yScroll = 0;
 
@@ -50,14 +51,37 @@ class ColorWheel{
         }
     }
 
-    _movePicker(x, y){
+    _movePicker(x, y, picker = this.picker){
         const positions = this._calculatePositions();
         const diameter = (positions.rect.right - positions.rect.left);
         const posX = ((x - 10) / diameter) * 100;
         const posY = ((y - 10) / diameter) * 100;
 
-        this.picker.style.top = posY + "%";
-        this.picker.style.left = posX + "%";
+        picker.style.top = posY + "%";
+        picker.style.left = posX + "%";
+    }
+
+    async _createGhostPickers(){
+        const palette = await this.parent.parent.colorGenerator.generatePaletteDummy();
+        palette.forEach(color => {
+            if(color.type !== 0){
+                const newPicker = document.createElement("div");
+                newPicker.classList.add("ghostPicker");
+                if(color.type === 2){
+                    newPicker.classList.add("tone");
+                }
+                this.wheel.appendChild(newPicker);
+                this.ghostPickers.push(newPicker);
+                this.positionFromColor(color, newPicker);
+            }
+        });
+    }
+
+    _clearGhostPickers(){
+        this.ghostPickers.forEach(picker => {
+            this.wheel.removeChild(picker);
+        });
+        this.ghostPickers = [];
     }
     
     _calculateHS(centerOffset, positions){
@@ -96,7 +120,7 @@ class ColorWheel{
         return color;
     };
 
-    positionFromHSV(hue, saturation, value){
+    positionFromHSV(hue, saturation, picker = this.picker){
         // Calculate radius, (radius, radius) is the (0,0) point on the circle offsetted from the top-left.
         const positions = this._calculatePositions();
         const radius = (positions.rect.right - positions.rect.left) / 2;
@@ -112,12 +136,20 @@ class ColorWheel{
         const posX = radius + (rotX * radius);
         const posY = radius + (rotY * radius);
 
-        this._movePicker(posX, posY);
+        this._movePicker(posX, posY, picker);
     }
 
-    positionFromColor(color){
+    positionFromColor(color, picker = this.picker){
         const hsv = color.hsv();
-        this.positionFromHSV(hsv.hue, hsv.saturation, hsv.value);
+        this.positionFromHSV(hsv.hue, hsv.saturation, picker);
+    }
+
+    async updatePickers(baseColor){
+        this.positionFromColor(baseColor);
+        this._clearGhostPickers();
+        if(Elements.GHOST_PICKERS.checked && Elements.HUES.value * Elements.TONES.value <= 25){
+            this._createGhostPickers();
+        }
     }
 
     init(){

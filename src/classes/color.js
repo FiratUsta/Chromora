@@ -5,6 +5,8 @@ class Color{
         this.red = r;
         this.green = g;
         this.blue = b;
+        // 0 for main, 1 for generated hues, 2 for generated tones
+        this.type = 0;
     }
 
     fromRGB(r, g, b){
@@ -110,6 +112,15 @@ class Color{
 
     clone(){
         return new Color(this.red, this.green, this.blue);
+    }
+
+    asString(type){
+        switch (type) {
+            case "rgb":
+                return `${this.red},${this.green},${this.blue}`;
+            default:
+                break;
+        }
     }
 
     async init(){

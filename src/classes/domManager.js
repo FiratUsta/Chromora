@@ -19,6 +19,7 @@ class DomManager{
         this.colorWheel.positionFromColor(color);
         this.themer.accentColor(color);
         this.parent.colorGenerator.generatePalette();
+        this.colorWheel.updatePickers(color);
     }
 
     _colorInput(mode){
@@ -26,6 +27,7 @@ class DomManager{
         let color;
         switch(mode){
             case "hsv":
+            case "value":
                 // Get the values
                 const hue = Elements.H_INPUT.value;
                 const saturation = Elements.S_INPUT.value;
@@ -34,22 +36,25 @@ class DomManager{
                 // Apply color
                 color = new Color().fromHSV(hue, saturation / 100, value / 100);
                 this.themer.accentColor(color);
-                this.colorWheel.positionFromHSV(hue, saturation / 100, value / 100);
+                if(mode === "hsv"){
+                    this.colorWheel.updatePickers(color);
+                }
 
                 // Set values
                 Elements.H_INPUT.value = hue;
                 Elements.S_INPUT.value = saturation;
                 Elements.V_INPUT.value = value;
+
                 break;
             case "rgb":
                 color = new Color(Elements.R_INPUT.value, Elements.G_INPUT.value, Elements.B_INPUT.value);
-                this.colorWheel.positionFromColor(color);
                 this.themer.accentColor(color);
+                this.colorWheel.updatePickers(color);
                 break;
             case "hex":
                 color = new Color().fromHEX(Elements.HEX_INPUT.value);
-                this.colorWheel.positionFromColor(color);
                 this.themer.accentColor(color);
+                this.colorWheel.updatePickers(color);
                 break;
             default:
                 break;
@@ -74,6 +79,7 @@ class DomManager{
         }
 
         this.parent.exporter.checkRestrictions();
+        this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
     }
 
     _switchTab(selected){
@@ -114,6 +120,7 @@ class DomManager{
                 break;
         }
         this.parent.colorGenerator.generatePalette();
+        this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
     }
 
     _toggleMenu(){
@@ -132,11 +139,10 @@ class DomManager{
     updateColors(color){
         this.themer.accentColor(color);
         this.colorWheel.positionFromColor(color);
+        this.colorWheel.updatePickers(color);
     }
 
     init(){
-        // Document INIT
-        this.themer.init();
         this.colorWheel.init();
 
         // COMMON
@@ -157,7 +163,7 @@ class DomManager{
 
         Elements.VALUE_SLIDER.oninput = () => {
             Elements.V_INPUT.value = Elements.VALUE_SLIDER.value;
-            this._colorInput("hsv");
+            this._colorInput("value");
         };
 
         [Elements.R_INPUT, Elements.G_INPUT, Elements.B_INPUT].forEach(element => {
@@ -166,6 +172,7 @@ class DomManager{
 
         Elements.HEX_INPUT.onchange = () => {this._colorInput("hex")};
         Elements.BUTTON_RANDOM.onclick = () => this._randomColor();
+        Elements.GRADIENT_CHECKBOX.onchange = () => this.swatchDisplay.toggleGradient();
 
         // STEP 2
         [Elements.TAB_ADVANCED, Elements.TAB_QUICK].forEach(tab => {
@@ -176,9 +183,14 @@ class DomManager{
             button.onclick = () => this._quickSettings(button.id);
         });
 
+        Elements.SETTINGS_BUTTONS.forEach(button => {
+            button.onchange = () => this.colorWheel.updatePickers(new Color().fromHEX(Elements.HEX_INPUT.value));
+        })
+
         Elements.BUTTON_MENU.onclick = () => this._toggleMenu();
 
         this._quickSettings(Elements.QUICK_MONOCHROME.id);
+        this.themer.init();
     }
 }
 

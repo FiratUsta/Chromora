@@ -13,6 +13,9 @@ class Swatch{
         this.textColor;
         this.labels = [];
 
+        this.previousSwatch = null;
+        this.nextSwatch = null;
+
         this.element = document.createElement("div");
         this.element.classList.add("swatch");
         this.element.addEventListener("contextmenu", (event) => {
@@ -57,6 +60,48 @@ class Swatch{
         if (index !== -1) {
             this.parent.swatches.splice(index, 1);
         };
+        if(this.previousSwatch != null){
+            this.previousSwatch.nextSwatch = this.nextSwatch;
+        };
+        if(this.nextSwatch != null){
+            this.nextSwatch.previousSwatch = this.previousSwatch;
+        };
+        this.parent.toggleGradient();
+    }
+
+    _calculateColorMixMidpoint(color1, color2){
+        const differenceR = Math.abs(color1.red - color2.red);
+        const differenceG = Math.abs(color1.green - color2.green);
+        const differenceB = Math.abs(color1.blue - color2.blue);
+
+        const newR = color1.red < color2.red ? color1.red + (differenceR / 2) : color2.red + (differenceR / 2);
+        const newG = color1.green < color2.green ? color1.green + (differenceG / 2) : color2.green + (differenceG / 2);
+        const newB = color1.blue < color2.blue ? color1.blue + (differenceB / 2) : color2.blue + (differenceB / 2);
+
+        return `${newR},${newG},${newB}`;
+    }
+
+    _calculateGradient(){
+        let returnString;
+        let prevColorMidpoint;
+        let nextColorMidpoint;
+
+
+        if(this.previousSwatch !== null){
+            prevColorMidpoint = this._calculateColorMixMidpoint(this.color, this.previousSwatch.color);
+        }
+        if(this.nextSwatch !== null){
+            nextColorMidpoint = this._calculateColorMixMidpoint(this.color, this.nextSwatch.color);
+        }
+
+        if(this.previousSwatch === null && this.nextSwatch !== null){
+            returnString = `linear-gradient(180deg, rgb(${this.color.asString("rgb")}) 0%, rgb(${nextColorMidpoint}) 100%)`;
+        }else if(this.previousSwatch !== null && this.nextSwatch !== null){
+            returnString = `linear-gradient(180deg, rgb(${prevColorMidpoint}) 0%, rgb(${this.color.asString("rgb")})  50%, rgb(${nextColorMidpoint}) 100%)`;
+        }else if(this.previousSwatch !== null && this.nextSwatch === null){
+            returnString = `linear-gradient(180deg, rgb(${prevColorMidpoint}) 0%, rgb(${this.color.asString("rgb")}) 100%)`;
+        }
+        return returnString;
     }
 
     dismiss(){
@@ -172,14 +217,16 @@ class Swatch{
         const deleteButton = editPanel.querySelector(".deleteButton");
 
         duplicateButton.onclick = () => {
-            console.log(this.parent.swatches);
             const color = this.color.clone();
             color.name = indexer.findName(color);
             const dupe = new Swatch(this.parent, color);
+            const lastSwatch = this.parent.swatches[this.parent.swatches.length - 1];
+            dupe.previousSwatch = lastSwatch
+            lastSwatch.nextSwatch = dupe;
             dupe.createLabels();
             this.parent.swatches.push(dupe);
-            console.log(this.parent.swatches);
             exporter.checkRestrictions();
+            this.parent.toggleGradient();
         }
 
         revertButton.onclick = () => {
@@ -281,10 +328,19 @@ class Swatch{
         this.updateEditInputs();
     }
 
+    toggleGradient(){
+        if(Elements.GRADIENT_CHECKBOX.checked){
+            this.element.style.background = this._calculateGradient();
+        }else{
+            this.element.style.background = this.color.hex();
+        };
+    }
+
     update(color){
         this.color = color;
-        this.element.style.backgroundColor = this.color.hex();
+        this.element.style.background = this.color.hex();
         this.textColor = this.parent.parent.themer.textColorFromColor(this.color);
+        this.parent.toggleGradient();
     }
 }
 

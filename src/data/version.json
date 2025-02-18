@@ -1,12 +1,7 @@
 {
-    "version": "2.1.1",
+    "version": "2.2.0",
     "changelog": [        
-    "[2.1.0] Added new export options: .aco, .ase and .gpl.",
-    "[2.1.0] Added a new button for switching to the fullscreen palette viewer.",
-    "[2.1.0] Your palette is now editable! Change the colors on individual swatches, add new swatches or delete existing ones.",
-    "[2.1.1] Collected the buttons on the top left into a menu for a tidier look.",
-    "[2.1.1] Fixed export restrictions not working correctly.",
-    "[2.1.1] Fixed random generator not working.",
-    "[2.1.1] All menu buttons should now correctly hide on a print export."
+    "[2.2.0] Added ghost pickers to the color wheel to preview the palette that'll be previewed.",
+    "[2.2.0] Added the ability to view the swatch display as a gradient."
     ]
 }

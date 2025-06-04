@@ -18,7 +18,7 @@ const shellFiles = [
     "assets/logoFull.png",
     "assets/menu.svg",
     "assets/preview.svg",
-    "assets/recert.svg",
+    "assets/revert.svg",
     "assets/wheel.png",
     // Classes
     "classes/aboutDisplay.js",

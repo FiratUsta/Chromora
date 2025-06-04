@@ -37,7 +37,7 @@ const QUICK_MONOCHROME  = document.getElementById("quickMonochrome");
 const QUICK_ANALOGOUS   = document.getElementById("quickAnalogous");
 const QUICK_RANDOM      = document.getElementById("quickRandom");
 const QUICK_COMPLEMENT  = document.getElementById("quickComplement");
-const QUICK_BUTTONS     = [QUICK_ANALOGOUS, QUICK_COMPLEMENT, QUICK_MONOCHROME, QUICK_MONOCHROME, QUICK_RANDOM, QUICK_TETRADIC, QUICK_TRIADIC]
+const QUICK_BUTTONS     = [QUICK_ANALOGOUS, QUICK_COMPLEMENT, QUICK_MONOCHROME, QUICK_RANDOM, QUICK_TETRADIC, QUICK_TRIADIC]
 // Settings Tabs
 const TAB_QUICK         = document.getElementById("quickTab");
 const TAB_ADVANCED      = document.getElementById("advancedTab");
